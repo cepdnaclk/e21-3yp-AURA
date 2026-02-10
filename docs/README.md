@@ -47,7 +47,7 @@ The system consists of three main components:
 2.  **The MQTT Broker:** Managing real-time communication between robots and the server.
 3.  **The Central Server:** Handling order processing, kitchen display updates, and database management.
 
-![System Architecture](docs/images/system_architecture.png)
+![System Architecture](../docs/images/system_architecture.jpeg)
 
 ---
 
