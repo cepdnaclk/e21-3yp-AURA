@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Features — AURA</title>
+<meta name="description" content="AURA key features — face tracking, voice ordering, RGB lighting, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px;transition:border-color .25s,transform .25s,box-shadow .25s;height:100%;}
+.feat-card:hover{border-color:var(--hc,rgba(255,107,53,.35));transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.35);}
+.feat-card .feat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:20px;}
+.feat-card h4{font-size:1.05rem;font-weight:700;margin-bottom:10px;}
+.feat-card p{color:var(--text-muted);font-size:.875rem;line-height:1.7;margin:0;}
+
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr;}}
+.comp-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;}
+.comp-card h5{font-weight:700;margin-bottom:16px;}
+.comp-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:.875rem;color:var(--text-muted);}
+.comp-item:last-child{border-bottom:none;}
+.comp-item i{font-size:1rem;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="dot-grid"></div>
+<div class="cursor-glow" id="cursor"></div>
+<div id="preloader"><div class="pre-logo">AUR<span>A</span></div><div class="pre-bar"></div></div>
+<button id="scroll-top"><i class="bi bi-arrow-up"></i></button>
+
+<!-- ── Navbar ──────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a class="nav-brand" href="../index.html">
+    <img src="../images/logo.png" alt="AURA" class="nav-logo" onerror="this.style.display='none'">
+    AUR<span>A</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="../index.html">Home</a>
+    <a class="nav-link active" href="features.html">Features</a>
+    <a class="nav-link" href="architecture.html">Architecture</a>
+    <a class="nav-link" href="how-it-works.html">How It Works</a>
+    <a class="nav-link" href="tech-stack.html">Tech Stack</a>
+    <a class="nav-link" href="team.html">Team</a>
+  </div>
+  <a class="nav-github" href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank"><i class="bi bi-github"></i> GitHub</a>
+  <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a class="nav-link" href="../index.html">Home</a>
+  <a class="nav-link active" href="features.html">Features</a>
+  <a class="nav-link" href="architecture.html">Architecture</a>
+  <a class="nav-link" href="how-it-works.html">How It Works</a>
+  <a class="nav-link" href="tech-stack.html">Tech Stack</a>
+  <a class="nav-link" href="team.html">Team</a>
+  <a class="nav-github" href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank" style="margin-top:8px;justify-content:center;"><i class="bi bi-github"></i> GitHub</a>
+</div>
+
+<!-- ── Page Hero ────────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container-xl px-3 px-md-4">
+    <div class="section-label" data-aos="fade-up">Capabilities</div>
+    <h1 class="page-hero-title" data-aos="fade-up" data-aos-delay="60">
+      AURA <span class="gradient-text">Features</span>
+    </h1>
+    <p class="section-sub" style="margin:16px auto 0;" data-aos="fade-up" data-aos-delay="120">
+      Every capability that makes AURA a next-generation restaurant experience.
+    </p>
+  </div>
+</div>
+<hr class="sep">
+
+<!-- ── Main feature cards ────────────────────────────────────── -->
+<section class="section">
+  <div class="container-xl px-3 px-md-4">
+    <div class="row g-4">
+
+      <!-- Feature 1 -->
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="50">
+        <div class="feat-card" style="--hc:rgba(255,107,53,.35);">
+          <div class="feat-icon" style="background:var(--primary-dim);color:var(--primary);"><i class="bi bi-camera-video-fill"></i></div>
+          <h4>Pan &amp; Tilt Face Tracking</h4>
+          <p>Dual MG996R servo-driven head mechanism combined with OpenCV Haar Cascade face detection. AURA actively follows the customer seated at its table, creating a natural "alive" interaction feeling.</p>
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tech-tag t-orange mono">OpenCV</span>
+            <span class="tech-tag t-orange mono">GPIO Zero</span>
+            <span class="tech-tag t-orange mono">MG996R</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+        <div class="feat-card" style="--hc:rgba(0,229,255,.35);">
+          <div class="feat-icon" style="background:var(--cyan-dim);color:var(--cyan);"><i class="bi bi-ui-checks-grid"></i></div>
+          <h4>Autonomous Touch Ordering</h4>
+          <p>Customers browse the full menu, customise items, and place orders directly on the 7" capacitive touchscreen. Orders transmit to the kitchen instantly via MQTT — no waiter required.</p>
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tech-tag t-cyan mono">PyQt5</span>
+            <span class="tech-tag t-cyan mono">MQTT</span>
+            <span class="tech-tag t-cyan mono">SQLite</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="150">
+        <div class="feat-card" style="--hc:rgba(191,90,242,.35);">
+          <div class="feat-icon" style="background:var(--purple-dim);color:var(--purple);"><i class="bi bi-mic-fill"></i></div>
+          <h4>Voice Interaction</h4>
+          <p>Natural language voice recognition for customers who prefer speaking over tapping. AURA listens, understands menu queries, and responds — making dining accessible for all ages and preferences.</p>
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tech-tag t-purple mono">SpeechRecog</span>
+            <span class="tech-tag t-purple mono">pyttsx3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+        <div class="feat-card" style="--hc:rgba(0,255,178,.3);">
+          <div class="feat-icon" style="background:var(--green-dim);color:var(--green);"><i class="bi bi-lightbulb-fill"></i></div>
+          <h4>Smart RGB Ambient Lighting</h4>
+          <p>User-controlled mood lighting with three presets — Dining (warm white), Reading (cool white), and Party (dynamic colour cycle). Controlled via touchscreen with instant MQTT relay to LED strips.</p>
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tech-tag t-green mono">WS2812B</span>
+            <span class="tech-tag t-green mono">MQTT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="250">
+        <div class="feat-card" style="--hc:rgba(255,209,102,.3);">
+          <div class="feat-icon" style="background:var(--gold-dim);color:var(--gold);"><i class="bi bi-translate"></i></div>
+          <h4>Multi-Language Support</h4>
+          <p>Eliminates language barriers between customers and staff. AURA's interface dynamically switches between Sinhala, Tamil, and English — ensuring every guest can order comfortably in their own language.</p>
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tech-tag t-gold mono">i18n</span>
+            <span class="tech-tag t-gold mono">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+        <div class="feat-card" style="--hc:rgba(255,69,58,.3);">
+          <div class="feat-icon" style="background:rgba(255,69,58,.1);color:#FF453A;"><i class="bi bi-battery-charging-fill"></i></div>
+          <h4>Wireless Battery Operation</h4>
+          <p>10,000 mAh Li-ion battery pack with smart power management keeps AURA running a full restaurant shift. Zero cables, zero wiring infrastructure — drop it on any table and it works immediately.</p>
+          <div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tech-tag t-red mono">10,000mAh</span>
+            <span class="tech-tag t-red mono">Wi-Fi</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Problem vs Solution ─────────────────────────────────── -->
+<hr class="sep">
+<section class="section">
+  <div class="container-xl px-3 px-md-4">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <div class="section-label">Why AURA Exists</div>
+      <h2 class="section-title">Problems <span class="gradient-text">&amp; Solutions</span></h2>
+    </div>
+    <div class="compare-grid" data-aos="fade-up" data-aos-delay="80">
+      <div class="comp-card" style="border-color:rgba(255,69,58,.2);">
+        <h5 style="color:#FF453A;"><i class="bi bi-exclamation-triangle-fill me-2"></i>Challenges</h5>
+        <div class="comp-item"><i class="bi bi-x-circle" style="color:#FF453A;"></i>Long wait for a waiter to take orders</div>
+        <div class="comp-item"><i class="bi bi-x-circle" style="color:#FF453A;"></i>Language barriers with non-local customers</div>
+        <div class="comp-item"><i class="bi bi-x-circle" style="color:#FF453A;"></i>Boring, disengaging waiting experience</div>
+        <div class="comp-item"><i class="bi bi-x-circle" style="color:#FF453A;"></i>High cost of dedicated service staff per table</div>
+        <div class="comp-item"><i class="bi bi-x-circle" style="color:#FF453A;"></i>Errors in manual order transcription</div>
+      </div>
+      <div class="comp-card" style="border-color:rgba(0,255,178,.2);">
+        <h5 style="color:var(--green);"><i class="bi bi-check-circle-fill me-2"></i>AURA's Solutions</h5>
+        <div class="comp-item"><i class="bi bi-check-circle" style="color:var(--green);"></i>Instant autonomous touch &amp; voice ordering</div>
+        <div class="comp-item"><i class="bi bi-check-circle" style="color:var(--green);"></i>Multi-language interface — SIN / TAM / ENG</div>
+        <div class="comp-item"><i class="bi bi-check-circle" style="color:var(--green);"></i>Interactive engagement &amp; ambient lighting</div>
+        <div class="comp-item"><i class="bi bi-check-circle" style="color:var(--green);"></i>One AURA replaces repetitive staff tasks</div>
+        <div class="comp-item"><i class="bi bi-check-circle" style="color:var(--green);"></i>Direct MQTT transmission — zero transcription</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────── -->
+<hr class="sep">
+<footer>
+  <div class="container-xl px-3 px-md-4">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AUR<span>A</span></div>
+        <p class="footer-desc">Automated Urban Restaurant Assistant — University of Peradeniya, Sri Lanka.</p>
+        <div class="footer-social">
+          <a href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank"><i class="bi bi-github"></i></a>
+          <a href="http://www.ce.pdn.ac.lk" target="_blank"><i class="bi bi-building"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h6>Pages</h6>
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="architecture.html">Architecture</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="tech-stack.html">Tech Stack</a></li>
+          <li><a href="team.html">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-col"><h6>Team</h6>
+        <ul class="footer-links">
+          <li><a href="mailto:e21245@eng.pdn.ac.lk">E/21/245 Madhushan</a></li>
+          <li><a href="mailto:e21113@eng.pdn.ac.lk">E/21/113 Dissanayake</a></li>
+          <li><a href="mailto:e21024@eng.pdn.ac.lk">E/21/024 Amaranga</a></li>
+          <li><a href="mailto:e21407@eng.pdn.ac.lk">E/21/407 Thennakoon</a></li>
+        </ul>
+      </div>
+      <div class="footer-col"><h6>Resources</h6>
+        <ul class="footer-links">
+          <li><a href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank">GitHub</a></li>
+          <li><a href="../project _page/the_proposal_docs/AURA_Project Proposal.pdf" target="_blank">Proposal PDF</a></li>
+          <li><a href="http://www.ce.pdn.ac.lk" target="_blank">CE Department</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Project AURA — University of Peradeniya</span>
+      <span>Dept. of Computer Engineering</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),700));
+document.getElementById('cursor') && document.addEventListener('mousemove',e=>{document.getElementById('cursor').style.cssText=`left:${e.clientX}px;top:${e.clientY}px`;});
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>40);document.getElementById('scroll-top').classList.toggle('show',scrollY>400);});
+document.getElementById('scroll-top').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+const tog=document.getElementById('navToggle'),mob=document.getElementById('navMobile');
+tog.onclick=()=>{tog.classList.toggle('open');mob.classList.toggle('open');};
+AOS.init({duration:700,easing:'ease-out-cubic',once:true,offset:50});
+</script>
+</body>
+</html>
