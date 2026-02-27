@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Architecture — AURA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+<link rel="stylesheet" href="../assets/css/shared.css">
+<style>
+/* 3D network canvas */
+#arch-canvas{display:block;width:100%;height:420px;border-radius:var(--r-xl);border:1px solid var(--border);}
+
+/* Layer card */
+.layer-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px 24px;border-left:3px solid var(--lc,var(--primary));transition:background .25s,transform .25s;}
+.layer-card:hover{background:var(--card-hover);transform:translateX(4px);}
+.layer-card h5{font-weight:700;margin-bottom:8px;}
+.layer-card p{color:var(--text-muted);font-size:.875rem;line-height:1.7;margin:0;}
+
+/* Flow steps */
+.flow-step{display:flex;align-items:flex-start;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);}
+.flow-step:last-child{border-bottom:none;}
+</style>
+</head>
+<body>
+<div class="dot-grid"></div>
+<div class="cursor-glow" id="cursor"></div>
+<div id="preloader"><div class="pre-logo">AUR<span>A</span></div><div class="pre-bar"></div></div>
+<button id="scroll-top"><i class="bi bi-arrow-up"></i></button>
+
+<!-- ── Navbar ─────────────────────────────────────────────── -->
+<nav id="navbar">
+  <a class="nav-brand" href="../index.html">
+    <img src="../images/logo.png" alt="AURA" class="nav-logo" onerror="this.style.display='none'">AUR<span>A</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="../index.html">Home</a>
+    <a class="nav-link" href="features.html">Features</a>
+    <a class="nav-link active" href="architecture.html">Architecture</a>
+    <a class="nav-link" href="how-it-works.html">How It Works</a>
+    <a class="nav-link" href="tech-stack.html">Tech Stack</a>
+    <a class="nav-link" href="team.html">Team</a>
+  </div>
+  <a class="nav-github" href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank"><i class="bi bi-github"></i> GitHub</a>
+  <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a class="nav-link" href="../index.html">Home</a>
+  <a class="nav-link" href="features.html">Features</a>
+  <a class="nav-link active" href="architecture.html">Architecture</a>
+  <a class="nav-link" href="how-it-works.html">How It Works</a>
+  <a class="nav-link" href="tech-stack.html">Tech Stack</a>
+  <a class="nav-link" href="team.html">Team</a>
+  <a class="nav-github" href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank" style="margin-top:8px;justify-content:center;"><i class="bi bi-github"></i> GitHub</a>
+</div>
+
+<!-- ── Page Hero ─────────────────────────────────────────── -->
+<div class="page-hero">
+  <div class="container-xl px-3 px-md-4">
+    <div class="section-label" data-aos="fade-up">System Design</div>
+    <h1 class="page-hero-title" data-aos="fade-up" data-aos-delay="60">
+      System <span class="gradient-text">Architecture</span>
+    </h1>
+    <p class="section-sub" style="margin:16px auto 0;" data-aos="fade-up" data-aos-delay="120">
+      A three-layer IoT architecture — robot nodes, messaging broker, and central intelligence.
+    </p>
+  </div>
+</div>
+<hr class="sep">
+
+<!-- ── 3D Network Visualization + Diagram ─────────────────── -->
+<section class="section">
+  <div class="container-xl px-3 px-md-4">
+    <div class="row g-5 align-items-start">
+
+      <!-- 3D canvas -->
+      <div class="col-lg-7" data-aos="fade-right">
+        <div style="position:relative;">
+          <canvas id="arch-canvas"></canvas>
+          <div style="position:absolute;top:16px;left:16px;display:flex;gap:10px;flex-wrap:wrap;">
+            <span class="chip"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary);display:inline-block;"></span> Robot Nodes</span>
+            <span class="chip"><span style="width:8px;height:8px;border-radius:50%;background:var(--cyan);display:inline-block;"></span> MQTT Broker</span>
+            <span class="chip"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;"></span> Server</span>
+          </div>
+        </div>
+        <!-- Diagram image below canvas -->
+        <div style="margin-top:20px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);">
+          <img src="../images/system_architecture.jpeg" alt="AURA System Architecture Diagram"
+               style="width:100%;display:block;"
+               onerror="this.src='https://placehold.co/800x400/07071E/FF6B35?text=Architecture+Diagram&font=montserrat'">
+        </div>
+      </div>
+
+      <!-- Layer descriptions -->
+      <div class="col-lg-5" data-aos="fade-left">
+        <h3 class="section-title" style="font-size:1.6rem;margin-bottom:28px;">System Layers</h3>
+
+        <div class="layer-card mb-3" style="--lc:var(--primary);">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--primary);box-shadow:0 0 10px var(--primary-glow);flex-shrink:0;"></div>
+            <h5 style="margin:0;">Layer 1 — AURA Robot Nodes</h5>
+          </div>
+          <p>Raspberry Pi 4 powered units located at each restaurant table. Each node handles the UI (PyQt5 touchscreen), computer vision (OpenCV face tracking), servo actuators, and PIR motion detection — all running autonomously.</p>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="tech-tag t-orange mono" style="font-size:.7rem;">RPi 4</span>
+            <span class="tech-tag t-orange mono" style="font-size:.7rem;">OpenCV</span>
+            <span class="tech-tag t-orange mono" style="font-size:.7rem;">PyQt5</span>
+          </div>
+        </div>
+
+        <div class="layer-card mb-3" style="--lc:var(--cyan);">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan-glow);flex-shrink:0;"></div>
+            <h5 style="margin:0;">Layer 2 — MQTT Message Broker</h5>
+          </div>
+          <p>Lightweight real-time publish/subscribe messaging using Paho-MQTT. All robot nodes publish order events to specific topics. The central server subscribes to aggregate and process them in real time over the restaurant's Wi-Fi network.</p>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="tech-tag t-cyan mono" style="font-size:.7rem;">Paho-MQTT</span>
+            <span class="tech-tag t-cyan mono" style="font-size:.7rem;">Wi-Fi 802.11</span>
+          </div>
+        </div>
+
+        <div class="layer-card" style="--lc:var(--green);">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(0,255,178,.4);flex-shrink:0;"></div>
+            <h5 style="margin:0;">Layer 3 — Central Flask Server</h5>
+          </div>
+          <p>Python Flask web server with SQLite database. Receives all order events from the broker, persists them to the database, updates the kitchen display dashboard, and exposes a REST API for management and reporting.</p>
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="tech-tag t-green mono" style="font-size:.7rem;">Flask</span>
+            <span class="tech-tag t-green mono" style="font-size:.7rem;">SQLite</span>
+            <span class="tech-tag t-green mono" style="font-size:.7rem;">REST API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Data Flow Pipeline ──────────────────────────────────── -->
+<hr class="sep">
+<section class="section">
+  <div class="container-xl px-3 px-md-4">
+    <div class="row g-5">
+      <div class="col-lg-6" data-aos="fade-right">
+        <div class="section-label">Data Pipeline</div>
+        <h2 class="section-title" style="font-size:2rem;">Order Data Flow</h2>
+        <p class="section-sub" style="margin-bottom:32px;">
+          From customer input to kitchen notification in under a second.
+        </p>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;">
+          <div class="flow-step">
+            <div class="step-num">01</div>
+            <div><h6 style="font-weight:700;margin-bottom:4px;">Input Captured</h6><p style="color:var(--text-muted);font-size:.85rem;margin:0;">Touch tap or voice command on the robot's touchscreen / microphone.</p></div>
+          </div>
+          <div class="flow-step">
+            <div class="step-num" style="background:var(--cyan-dim);border-color:rgba(0,229,255,.3);color:var(--cyan);">02</div>
+            <div><h6 style="font-weight:700;margin-bottom:4px;">Local Processing</h6><p style="color:var(--text-muted);font-size:.85rem;margin:0;">Raspberry Pi 4 validates the order, encodes it as JSON.</p></div>
+          </div>
+          <div class="flow-step">
+            <div class="step-num" style="background:var(--purple-dim);border-color:rgba(191,90,242,.3);color:var(--purple);">03</div>
+            <div><h6 style="font-weight:700;margin-bottom:4px;">MQTT Publish</h6><p style="color:var(--text-muted);font-size:.85rem;margin:0;">Order JSON published to <span class="mono" style="font-size:.82rem;color:var(--cyan);">restaurant/table/{id}/order</span> topic.</p></div>
+          </div>
+          <div class="flow-step" style="border:none;">
+            <div class="step-num" style="background:var(--green-dim);border-color:rgba(0,255,178,.3);color:var(--green);">04</div>
+            <div><h6 style="font-weight:700;margin-bottom:4px;">Server &amp; Kitchen Notified</h6><p style="color:var(--text-muted);font-size:.85rem;margin:0;">Flask server receives, stores in SQLite, and updates the kitchen display — all in real time.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="section-label">Statistics</div>
+        <h2 class="section-title" style="font-size:2rem;">System Specs</h2>
+        <div class="row g-3 mt-2">
+          <div class="col-6"><div class="glass stat-card"><div class="stat-number">~1s</div><div class="stat-label">Order Transmission Latency</div></div></div>
+          <div class="col-6"><div class="glass stat-card"><div class="stat-number">∞</div><div class="stat-label">Tables Supported (Scalable)</div></div></div>
+          <div class="col-6"><div class="glass stat-card"><div class="stat-number" style="color:var(--cyan);">3</div><div class="stat-label">System Layers</div></div></div>
+          <div class="col-6"><div class="glass stat-card"><div class="stat-number" style="color:var(--green);">WiFi</div><div class="stat-label">Communication Medium</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<hr class="sep">
+<footer>
+  <div class="container-xl px-3 px-md-4">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">AUR<span>A</span></div>
+        <p class="footer-desc">Automated Urban Restaurant Assistant — University of Peradeniya, Sri Lanka.</p>
+        <div class="footer-social">
+          <a href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank"><i class="bi bi-github"></i></a>
+          <a href="http://www.ce.pdn.ac.lk" target="_blank"><i class="bi bi-building"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h6>Pages</h6>
+        <ul class="footer-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="architecture.html">Architecture</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="tech-stack.html">Tech Stack</a></li>
+          <li><a href="team.html">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-col"><h6>Team</h6>
+        <ul class="footer-links">
+          <li><a href="mailto:e21245@eng.pdn.ac.lk">E/21/245 Madhushan</a></li>
+          <li><a href="mailto:e21113@eng.pdn.ac.lk">E/21/113 Dissanayake</a></li>
+          <li><a href="mailto:e21024@eng.pdn.ac.lk">E/21/024 Amaranga</a></li>
+          <li><a href="mailto:e21407@eng.pdn.ac.lk">E/21/407 Thennakoon</a></li>
+        </ul>
+      </div>
+      <div class="footer-col"><h6>Resources</h6>
+        <ul class="footer-links">
+          <li><a href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank">GitHub</a></li>
+          <li><a href="../project _page/the_proposal_docs/AURA_Project Proposal.pdf" target="_blank">Proposal PDF</a></li>
+          <li><a href="http://www.ce.pdn.ac.lk" target="_blank">CE Department</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Project AURA — University of Peradeniya</span>
+      <span>Dept. of Computer Engineering</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),700));
+document.addEventListener('mousemove',e=>{const c=document.getElementById('cursor');if(c){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';}});
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>40);document.getElementById('scroll-top').classList.toggle('show',scrollY>400);});
+document.getElementById('scroll-top').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+const tog=document.getElementById('navToggle'),mob=document.getElementById('navMobile');
+tog.onclick=()=>{tog.classList.toggle('open');mob.classList.toggle('open');};
+AOS.init({duration:700,easing:'ease-out-cubic',once:true,offset:50});
+
+// ── Architecture 3D Network Graph ────────────────────────────
+(function(){
+  const canvas=document.getElementById('arch-canvas');
+  if(!canvas||typeof THREE==='undefined')return;
+  const W=canvas.clientWidth||800,H=420;
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(W,H);renderer.setClearColor(0,0);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(55,W/H,.1,1000);
+  camera.position.set(0,0,300);
+
+  // Nodes: robot nodes (orange), broker (cyan), server (green)
+  const nodes=[
+    {x:-160,y:-60,z:0,c:0xFF6B35,r:10,label:'Table 1'},
+    {x:-160,y: 40,z:20,c:0xFF6B35,r:10,label:'Table 2'},
+    {x:-160,y:-140,z:-20,c:0xFF6B35,r:10,label:'Table 3'},
+    {x:-60, y:-30,z:10,c:0xFF8C5A,r:8, label:'Table 4'},
+    {x:0,   y:0,  z:0, c:0x00E5FF,r:18,label:'MQTT'},
+    {x:160, y:0,  z:0, c:0x00FFB2,r:22,label:'Server'},
+    {x:160, y:-80,z:-10,c:0xBF5AF2,r:12,label:'Kitchen'},
+  ];
+
+  const edges=[[0,4],[1,4],[2,4],[3,4],[4,5],[5,6]];
+
+  // Create spheres
+  const meshes=nodes.map(n=>{
+    const g=new THREE.SphereGeometry(n.r,16,16);
+    const m=new THREE.MeshBasicMaterial({color:n.c,transparent:true,opacity:.85});
+    const mesh=new THREE.Mesh(g,m);
+    mesh.position.set(n.x,n.y,n.z);
+    scene.add(mesh);
+    // Glow ring
+    const rg=new THREE.RingGeometry(n.r+2,n.r+4,32);
+    const rm=new THREE.MeshBasicMaterial({color:n.c,transparent:true,opacity:.25,side:THREE.DoubleSide});
+    const ring=new THREE.Mesh(rg,rm);
+    ring.position.copy(mesh.position);
+    scene.add(ring);
+    return mesh;
+  });
+
+  // Create edges
+  edges.forEach(([a,b])=>{
+    const pts=[new THREE.Vector3(nodes[a].x,nodes[a].y,nodes[a].z),new THREE.Vector3(nodes[b].x,nodes[b].y,nodes[b].z)];
+    const geo=new THREE.BufferGeometry().setFromPoints(pts);
+    const mat=new THREE.LineBasicMaterial({color:0x4444AA,transparent:true,opacity:.4});
+    scene.add(new THREE.Line(geo,mat));
+  });
+
+  // Animated pulse spheres
+  const pulses=edges.map(([a,b])=>{
+    const g=new THREE.SphereGeometry(4,8,8);
+    const m=new THREE.MeshBasicMaterial({color:0x00E5FF,transparent:true,opacity:.9});
+    const mesh=new THREE.Mesh(g,m);
+    mesh.userData={a,b,t:Math.random()};
+    scene.add(mesh);
+    return mesh;
+  });
+
+  let mx=0,my=0;
+  window.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-.5)*2;my=(e.clientY/innerHeight-.5)*2;});
+  window.addEventListener('resize',()=>{const w=canvas.clientWidth;renderer.setSize(w,H);camera.aspect=w/H;camera.updateProjectionMatrix();});
+
+  let frame=0;
+  function animate(){
+    requestAnimationFrame(animate);frame+=0.01;
+    // Pulse spheres along edges
+    pulses.forEach(p=>{
+      p.userData.t=(p.userData.t+0.008)%1;
+      const a=nodes[p.userData.a],b=nodes[p.userData.b],tt=p.userData.t;
+      p.position.set(a.x+(b.x-a.x)*tt,a.y+(b.y-a.y)*tt,a.z+(b.z-a.z)*tt);
+      p.material.opacity=0.5+0.4*Math.sin(frame*4+p.userData.t*10);
+    });
+    // Gentle rotation
+    scene.rotation.y+=0.002;
+    scene.rotation.x+=0.0005;
+    camera.position.x+=(mx*30-camera.position.x)*.02;
+    camera.position.y+=(-my*20-camera.position.y)*.02;
+    camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  }
+  animate();
+})();
+</script>
+</body>
+</html>

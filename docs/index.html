@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AURA — Intelligent Robotic Dining Platform</title>
+<link rel="icon" href="images/logo-removebg.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   AURA — Full Single-Page Site
+   Theme: Robotic + Restaurant — warm dark futuristic
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --bg:#08080F;--bg2:#0E0E1A;--bg3:#161628;--bg4:#1E1E36;
+  --card:rgba(255,255,255,.03);--card-h:rgba(255,255,255,.06);
+  --border:rgba(255,255,255,.06);--border-h:rgba(255,107,53,.2);
+  --primary:#FF6B35;--primary-dim:rgba(255,107,53,.12);--primary-glow:rgba(255,107,53,.4);
+  --cyan:#00E5FF;--cyan-dim:rgba(0,229,255,.08);
+  --purple:#BF5AF2;--purple-dim:rgba(191,90,242,.08);
+  --green:#00FFB2;--green-dim:rgba(0,255,178,.07);
+  --gold:#FFD166;--gold-dim:rgba(255,209,102,.08);
+  --text:#E8EAF6;--muted:#7880A0;--dim:#3D4568;
+  --nav-h:64px;--r:14px;--rl:22px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.7;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.12;}
+.mono{font-family:'JetBrains Mono',monospace;}
+::selection{background:var(--primary-dim);color:var(--primary);}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg2);}::-webkit-scrollbar-thumb{background:var(--primary);border-radius:2px;}
+
+.gradient-text{background:linear-gradient(135deg,var(--primary),var(--gold) 50%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ── Preloader ─────────────────────────────────────────── */
+#preloader{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .8s ease,visibility .8s;overflow:hidden;}
+#preloader.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+
+/* — star particles — */
+.pre-stars{position:absolute;inset:0;pointer-events:none;}
+.pre-star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle var(--d,2s) ease-in-out infinite var(--delay,0s);opacity:0;}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.5)}50%{opacity:.6;transform:scale(1.2)}}
+
+/* — logo wrapper + rings — */
+.pre-logo-wrap{position:relative;width:160px;height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:36px;}
+.pre-logo-img{width:88px;height:88px;object-fit:contain;filter:drop-shadow(0 0 22px rgba(255,107,53,.65)) drop-shadow(0 0 55px rgba(255,107,53,.25));animation:pre-pulse 2s ease-in-out infinite;z-index:2;}
+@keyframes pre-pulse{0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 22px rgba(255,107,53,.65)) drop-shadow(0 0 55px rgba(255,107,53,.25))}50%{transform:scale(1.06) rotate(2deg);filter:drop-shadow(0 0 38px rgba(255,107,53,.9)) drop-shadow(0 0 80px rgba(255,107,53,.35))}}
+
+/* rings */
+.pre-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid transparent;}
+.pre-ring-1{border-color:rgba(255,107,53,.45);animation:spin 3s linear infinite;}
+.pre-ring-2{inset:-14px;border-color:rgba(0,229,255,.25);animation:spin-r 4.5s linear infinite;border-style:dashed;}
+.pre-ring-3{inset:-28px;border-color:rgba(191,90,242,.18);animation:spin 7s linear infinite;}
+@keyframes spin-r{to{transform:rotate(-360deg)}}
+
+/* orbital dots */
+.pre-dot{position:absolute;width:7px;height:7px;border-radius:50%;top:50%;left:50%;margin:-3.5px;}
+.pre-dot-1{background:var(--primary);box-shadow:0 0 8px var(--primary);animation:orbit1 3s linear infinite;}
+.pre-dot-2{background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:orbit2 4.5s linear infinite;}
+.pre-dot-3{background:var(--purple);box-shadow:0 0 8px var(--purple);animation:orbit3 7s linear infinite;}
+@keyframes orbit1{from{transform:rotate(0deg) translateX(80px)}to{transform:rotate(360deg) translateX(80px)}}
+@keyframes orbit2{from{transform:rotate(120deg) translateX(94px)}to{transform:rotate(480deg) translateX(94px)}}
+@keyframes orbit3{from{transform:rotate(240deg) translateX(108px)}to{transform:rotate(600deg) translateX(108px)}}
+
+/* text + bar */
+.pre-text{font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:5px;color:var(--muted);margin-bottom:18px;animation:fade-blink 1.8s ease-in-out infinite;}
+@keyframes fade-blink{0%,100%{opacity:.4}50%{opacity:1}}
+.pre-bar{width:200px;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;}
+.pre-bar::after{content:'';display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--cyan),var(--purple));border-radius:2px;animation:prl 1.6s cubic-bezier(.4,0,.2,1) forwards;box-shadow:0 0 10px var(--primary);}
+@keyframes prl{0%{width:0}60%{width:80%}100%{width:100%}}
+
+/* ── Animated background ───────────────────────────────── */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ── Cursor glow ───────────────────────────────────────── */
+.cursor-glow{width:320px;height:320px;background:radial-gradient(circle,rgba(255,107,53,.04) 0%,transparent 70%);border-radius:50%;position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .1s,top .1s;}
+
+/* ══════════════════════════════════════════════════════════
+   NAVBAR
+   ══════════════════════════════════════════════════════════ */
+#navbar{position:fixed;top:0;left:0;right:0;height:var(--nav-h);display:flex;align-items:center;padding:0 clamp(16px,3vw,36px);z-index:1000;transition:background .35s,border-color .35s,backdrop-filter .35s;border-bottom:1px solid transparent;}
+#navbar.scrolled{background:rgba(8,8,15,.88);backdrop-filter:blur(24px) saturate(180%);border-bottom-color:var(--border);}
+.nav-brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:900;letter-spacing:0;flex-shrink:0;color:#fff;}
+.nav-brand img{height:46px;width:auto;filter:drop-shadow(0 0 10px rgba(255,107,53,.6));}
+.nb-text{letter-spacing:3px;}
+.nav-brand em{font-style:normal;color:var(--primary);letter-spacing:0;margin-right:-3px;}
+.nav-links{display:flex;align-items:center;gap:2px;margin:0 auto;}
+.nav-link{padding:7px 14px;font-size:.83rem;font-weight:500;color:var(--muted);border-radius:8px;transition:color .2s,background .2s;}
+.nav-link:hover{color:var(--text);background:rgba(255,255,255,.04);}
+.nav-link.active{color:var(--primary);background:var(--primary-dim);}
+.nav-cta{display:flex;align-items:center;gap:6px;padding:8px 16px;font-size:.8rem;font-weight:600;background:linear-gradient(135deg,var(--primary),#FF8C5A);color:#fff;border-radius:10px;box-shadow:0 2px 14px var(--primary-glow);transition:transform .2s,box-shadow .2s;flex-shrink:0;}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 24px var(--primary-glow);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;margin-left:auto;}
+.nav-toggle span{width:20px;height:2px;background:var(--text);border-radius:1px;transition:transform .3s,opacity .3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-mob{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(8,8,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px;z-index:999;flex-direction:column;gap:2px;}
+.nav-mob.open{display:flex;}
+.nav-mob .nav-link{padding:12px 16px;font-size:1rem;}
+@media(max-width:900px){.nav-links,.nav-cta{display:none;}.nav-toggle{display:flex;}}
+
+/* ══════════════════════════════════════════════════════════
+   HELPERS
+   ══════════════════════════════════════════════════════════ */
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,36px);}
+.sec{padding:clamp(80px,10vw,130px) 0;position:relative;z-index:1;}
+.sec-label{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--primary);padding:5px 14px;background:var(--primary-dim);border:1px solid rgba(255,107,53,.2);border-radius:40px;margin-bottom:16px;}
+.sec-title{font-size:clamp(1.8rem,3.6vw,2.8rem);font-weight:800;margin-bottom:16px;}
+.sec-sub{font-size:1rem;color:var(--muted);max-width:540px;line-height:1.85;}
+.text-center{text-align:center;}
+.text-center .sec-sub{margin:0 auto;}
+.sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);border:none;margin:0;position:relative;z-index:1;}
+
+/* grid */
+.row{display:flex;flex-wrap:wrap;gap:24px;}
+.row.g16{gap:16px;}.row.g32{gap:32px;}.row.g40{gap:40px;}
+.col-full{width:100%;}.col-half{width:calc(50% - 12px);}.col-third{width:calc(33.333% - 16px);}.col-quarter{width:calc(25% - 18px);}.col-40{width:calc(41.666% - 12px);}.col-60{width:calc(58.333% - 12px);}
+@media(max-width:900px){.col-half,.col-third,.col-quarter,.col-40,.col-60{width:100%;}}
+@media(min-width:901px) and (max-width:1100px){.col-quarter{width:calc(50% - 12px);}}
+
+/* glass card */
+.glass{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);backdrop-filter:blur(8px);transition:background .25s,border-color .25s,transform .25s,box-shadow .25s;}
+.glass:hover{background:var(--card-h);border-color:var(--border-h);transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.35);}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.86rem;border-radius:var(--r);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s,color .2s;}
+.btn-p{padding:14px 30px;background:linear-gradient(135deg,var(--primary),#FF8C5A);color:#fff;box-shadow:0 4px 24px var(--primary-glow);}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--primary-glow);color:#fff;}
+.btn-o{padding:13px 28px;background:transparent;color:var(--text);border:1px solid var(--border);}
+.btn-o:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-dim);}
+
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.rv.vis{opacity:1;transform:translateY(0);}
+.rl{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
+.rl.vis{opacity:1;transform:translateX(0);}
+.rr{opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease;}
+.rr.vis{opacity:1;transform:translateX(0);}
+
+/* scroll-top */
+#stb{position:fixed;bottom:24px;right:24px;width:40px;height:40px;background:var(--primary-dim);border:1px solid rgba(255,107,53,.25);border-radius:10px;color:var(--primary);font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;z-index:500;transition:all .25s;}
+#stb.show{opacity:1;visibility:visible;}
+#stb:hover{background:var(--primary);color:#fff;box-shadow:0 0 18px var(--primary-glow);}
+
+/* ══════════════════════════════════════════════════════════
+   §1 HERO
+   ══════════════════════════════════════════════════════════ */
+#home{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;z-index:1;}
+.hero-wrap{width:100%;padding-top:calc(var(--nav-h) + 24px);padding-bottom:40px;}
+.hero-grid{display:flex;gap:48px;align-items:center;}
+.hero-left{flex:1;min-width:300px;}
+.hero-right{flex:0 0 380px;display:flex;align-items:center;justify-content:center;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--primary-dim);border:1px solid rgba(255,107,53,.22);border-radius:40px;font-size:.76rem;font-weight:600;color:var(--primary);margin-bottom:22px;}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--primary);animation:blink 1.4s ease infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.hero-title{font-size:clamp(2.2rem,4.8vw,3.8rem);font-weight:900;line-height:1.08;margin-bottom:10px;}
+.hero-tagline{font-size:clamp(1rem,2vw,1.35rem);font-weight:600;color:var(--cyan);margin-bottom:20px;line-height:1.4;}
+.hero-sub{font-size:1rem;color:var(--muted);line-height:1.85;max-width:500px;margin-bottom:32px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px;}
+.hero-stats{display:flex;gap:32px;flex-wrap:wrap;}
+.stat-item .sv{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:800;color:var(--primary);}
+.stat-item .sl{font-size:.74rem;color:var(--dim);}
+/* hero robot image */
+.hero-robot{position:relative;width:320px;height:320px;}
+.hero-robot img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 50px rgba(255,107,53,.3)) drop-shadow(0 0 100px rgba(255,107,53,.12));animation:hfloat 5s ease-in-out infinite;}
+@keyframes hfloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.02)}}
+.hero-orbit{position:absolute;border-radius:50%;border:1px solid rgba(255,107,53,.1);animation:spin 25s linear infinite;}
+.hero-orbit.r1{inset:-16px;}.hero-orbit.r2{inset:-40px;border-style:dashed;border-color:rgba(0,229,255,.06);animation-direction:reverse;animation-duration:35s;}
+.hero-orbit.r3{inset:-64px;border-color:rgba(191,90,242,.04);animation-duration:45s;}
+/* orbit dots */
+.orbit-dot{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--primary);box-shadow:0 0 8px var(--primary-glow);}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){.hero-right{display:none;}.hero-grid{justify-content:center;text-align:center;}.hero-sub{margin:0 auto 32px;}.hero-btns{justify-content:center;}.hero-stats{justify-content:center;}}
+
+/* ══════════════════════════════════════════════════════════
+   §2 ABOUT
+   ══════════════════════════════════════════════════════════ */
+.about-grid{display:flex;gap:48px;align-items:center;flex-wrap:wrap;}
+.about-img{flex:0 0 44%;position:relative;border-radius:var(--rl);overflow:hidden;border:1px solid var(--border);}
+.about-img img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover;}
+.about-img .overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(0,229,255,.06));pointer-events:none;}
+.about-text{flex:1;min-width:280px;}
+.about-text p{color:var(--muted);margin-bottom:18px;line-height:1.85;font-size:.94rem;}
+.about-feats{display:flex;flex-direction:column;gap:12px;margin-top:22px;}
+.af{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:12px;transition:border-color .2s;}
+.af:hover{border-color:var(--border-h);}
+.af-ic{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.af h5{font-size:.86rem;font-weight:600;margin-bottom:2px;}
+.af p{font-size:.76rem;color:var(--muted);margin:0;}
+@media(max-width:900px){.about-img{flex:0 0 100%;max-width:420px;margin:0 auto;}}
+
+/* ══════════════════════════════════════════════════════════
+   §3 FEATURES
+   ══════════════════════════════════════════════════════════ */
+.fc{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:28px 22px;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden;}
+.fc:hover{border-color:var(--border-h);transform:translateY(-5px);box-shadow:0 14px 40px rgba(0,0,0,.3);}
+.fc .fi{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:16px;}
+.fc h4{font-size:.92rem;font-weight:700;margin-bottom:6px;}
+.fc p{color:var(--muted);font-size:.8rem;line-height:1.7;}
+
+/* ══════════════════════════════════════════════════════════
+   §4 SHOWCASE (image gallery)
+   ══════════════════════════════════════════════════════════ */
+.showcase-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;}
+.showcase-grid .sc-item{border-radius:var(--rl);overflow:hidden;border:1px solid var(--border);position:relative;transition:transform .3s,box-shadow .3s;}
+.showcase-grid .sc-item:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.35);}
+.showcase-grid .sc-item img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/10;}
+.showcase-grid .sc-item.big{grid-column:span 2;}
+.sc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,15,.8) 0%,transparent 60%);display:flex;align-items:flex-end;padding:20px;}
+.sc-overlay span{font-weight:600;font-size:.88rem;}
+@media(max-width:768px){.showcase-grid{grid-template-columns:1fr;}.showcase-grid .sc-item.big{grid-column:span 1;}}
+
+/* ══════════════════════════════════════════════════════════
+   §5 ARCHITECTURE
+   ══════════════════════════════════════════════════════════ */
+.arch-img{border-radius:var(--rl);border:1px solid var(--border);overflow:hidden;max-width:750px;margin:0 auto 48px;}
+.arch-layers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:768px){.arch-layers{grid-template-columns:1fr;}}
+.lc{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:22px;border-top:3px solid var(--lc,var(--primary));transition:background .25s,transform .25s;}
+.lc:hover{background:var(--card-h);transform:translateY(-4px);}
+.lc h5{font-size:.92rem;font-weight:700;margin-bottom:5px;}
+.lc p{color:var(--muted);font-size:.8rem;line-height:1.7;margin:0;}
+.ld{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* ══════════════════════════════════════════════════════════
+   §6 HOW IT WORKS
+   ══════════════════════════════════════════════════════════ */
+.sc{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:28px 22px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s;}
+.sc:hover{border-color:var(--border-h);transform:translateY(-4px);}
+.sc .sn{position:absolute;top:14px;right:16px;font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:900;color:rgba(255,107,53,.18);line-height:1;}
+.sc .si{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:15px;}
+.sc h4{font-size:.9rem;font-weight:700;margin-bottom:5px;}
+.sc p{color:var(--muted);font-size:.8rem;line-height:1.7;}
+
+/* ══════════════════════════════════════════════════════════
+   §7 TECH STACK
+   ══════════════════════════════════════════════════════════ */
+.tt{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:40px;font-size:.76rem;font-weight:600;transition:transform .2s;}
+.tt:hover{transform:translateY(-2px);}
+.to{background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.2);color:var(--primary);}
+.tc{background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.18);color:var(--cyan);}
+.tp{background:rgba(191,90,242,.06);border:1px solid rgba(191,90,242,.2);color:var(--purple);}
+.tg{background:rgba(0,255,178,.05);border:1px solid rgba(0,255,178,.18);color:var(--green);}
+.tgl{background:rgba(255,209,102,.06);border:1px solid rgba(255,209,102,.2);color:var(--gold);}
+.tr{background:rgba(255,69,58,.06);border:1px solid rgba(255,69,58,.2);color:#FF453A;}
+.cl{font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim);margin:0 0 10px;}
+.pw{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px;}
+.sptb{width:100%;border-collapse:collapse;}
+.sptb th,.sptb td{padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;font-size:.83rem;}
+.sptb th{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--dim);}
+.sptb td{color:var(--muted);}.sptb td:first-child{color:var(--text);font-weight:500;}
+
+/* tech logo grid */
+.tl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:14px;margin-top:10px;}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 10px;text-align:center;transition:border-color .25s,transform .25s,box-shadow .25s;}
+.tl-card:hover{border-color:var(--border-h);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.tl-card i{font-size:2.2rem;margin-bottom:6px;display:block;}
+.tl-card span{font-size:.68rem;font-weight:600;color:var(--muted);letter-spacing:.5px;}
+
+/* budget table */
+.budget-wrap{max-width:820px;margin:0 auto;}
+.budget-tbl{width:100%;border-collapse:collapse;}
+.budget-tbl th{padding:12px 16px;font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--dim);border-bottom:2px solid var(--border);text-align:left;}
+.budget-tbl th:last-child,.budget-tbl td:last-child{text-align:right;}
+.budget-tbl td{padding:11px 16px;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--muted);}
+.budget-tbl td:first-child{color:var(--text);font-weight:500;}
+.budget-tbl tr:hover td{background:rgba(255,255,255,.015);}
+.budget-tbl .budget-total td{border-top:2px solid var(--primary);border-bottom:none;font-weight:700;color:var(--primary);font-size:1rem;}
+.budget-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;}
+.budget-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px;}
+@media(max-width:600px){.budget-summary{grid-template-columns:1fr;}}
+.bs-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;text-align:center;}
+.bs-card .bv{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:4px;}
+.bs-card .bl{font-size:.72rem;color:var(--dim);letter-spacing:1px;text-transform:uppercase;}
+
+/* ══════════════════════════════════════════════════════════
+   §8 TEAM
+   ══════════════════════════════════════════════════════════ */
+.tcrd{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:30px 22px;text-align:center;transition:border-color .25s,transform .25s,box-shadow .25s;}
+.tcrd:hover{border-color:var(--border-h);transform:translateY(-5px);box-shadow:0 14px 44px rgba(255,107,53,.07);}
+.tav{width:80px;height:80px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;position:relative;}
+.tav img{width:80px;height:80px;border-radius:50%;object-fit:cover;object-position:top center;display:block;position:relative;z-index:1;}
+.tav::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:conic-gradient(var(--primary),var(--cyan),var(--purple),var(--primary));z-index:-1;animation:spin 6s linear infinite;opacity:.55;}
+.tid{font-size:.66rem;font-weight:700;letter-spacing:2px;color:var(--primary);margin-bottom:6px;}
+.tnm{font-size:.92rem;font-weight:700;margin-bottom:3px;}
+.trl{font-size:.78rem;color:var(--muted);}
+.tlk{display:flex;justify-content:center;gap:7px;margin-top:14px;}
+.tlk a{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.82rem;transition:all .2s;}
+.tlk a:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-dim);}
+.supc{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:20px 22px;transition:border-color .25s;}
+.supc:hover{border-color:rgba(0,229,255,.2);}
+.supi{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;background:var(--cyan-dim);border:1px solid rgba(0,229,255,.12);color:var(--cyan);}
+.dept{background:var(--card);border:1px solid var(--border);border-radius:var(--rl);padding:24px 28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.di{width:52px;height:52px;background:var(--primary-dim);border:1px solid rgba(255,107,53,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--primary);flex-shrink:0;}
+
+/* ══════════════════════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════════════════════ */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:52px 0 20px;margin-top:100px;position:relative;z-index:1;}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;}
+@media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr;gap:24px;}}
+@media(max-width:540px){.fgrid{grid-template-columns:1fr;}}
+.fbrand{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:900;letter-spacing:4px;margin-bottom:10px;}
+.fbrand em{font-style:normal;color:var(--primary);}
+.fdsc{color:var(--muted);font-size:.82rem;line-height:1.7;margin-bottom:16px;}
+.fsoc{display:flex;gap:8px;}
+.fsoc a{width:34px;height:34px;border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.9rem;transition:all .2s;}
+.fsoc a:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-dim);}
+.fcol h6{font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:14px;}
+.flnk li+li{margin-top:7px;}
+.flnk a{color:var(--muted);font-size:.82rem;transition:color .2s;}
+.flnk a:hover{color:var(--primary);}
+.fbot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:20px;border-top:1px solid var(--border);color:var(--dim);font-size:.76rem;}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="cursor-glow" id="cursor"></div>
+
+<!-- Preloader -->
+<div id="preloader">
+  <!-- Twinkling stars -->
+  <div class="pre-stars" id="preStars"></div>
+  <!-- Logo + rings -->
+  <div class="pre-logo-wrap">
+    <div class="pre-ring pre-ring-1"></div>
+    <div class="pre-ring pre-ring-2"></div>
+    <div class="pre-ring pre-ring-3"></div>
+    <span class="pre-dot pre-dot-1"></span>
+    <span class="pre-dot pre-dot-2"></span>
+    <span class="pre-dot pre-dot-3"></span>
+    <img class="pre-logo-img" src="images/logo-removebg.png" alt="AURA">
+  </div>
+  <!-- Label + progress -->
+  <div class="pre-text">INITIALIZING AURA</div>
+  <div class="pre-bar"></div>
+</div>
+<script>
+(function(){
+  var el=document.getElementById('preStars');
+  for(var i=0;i<80;i++){
+    var s=document.createElement('span');
+    s.className='pre-star';
+    s.style.cssText='left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;--d:'+(1.5+Math.random()*3)+'s;--delay:'+(Math.random()*3)+'s;width:'+(1+Math.random()*2.5)+'px;height:'+(1+Math.random()*2.5)+'px;';
+    el.appendChild(s);
+  }
+})();
+</script>
+
+<button id="stb"><i class="bi bi-arrow-up"></i></button>
+
+<!-- ═══════════════════════════════════════════════════════
+     NAVBAR
+     ═══════════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <a class="nav-brand" href="#home">
+    <img src="images/logo-removebg.png" alt="AURA">
+    <span class="nb-text">AUR<em>A</em></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link active" href="#home">Home</a>
+    <a class="nav-link" href="#about">About</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#showcase">Showcase</a>
+    <a class="nav-link" href="#architecture">Architecture</a>
+    <a class="nav-link" href="#how-it-works">How It Works</a>
+    <a class="nav-link" href="#tech-stack">Tech Stack</a>
+    <a class="nav-link" href="#budget">Budget</a>
+    <a class="nav-link" href="#team">Team</a>
+  </div>
+  <a class="nav-cta" href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank"><i class="bi bi-github"></i> GitHub</a>
+  <button class="nav-toggle" id="navT"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mob" id="navM">
+  <a class="nav-link active" href="#home">Home</a>
+  <a class="nav-link" href="#about">About</a>
+  <a class="nav-link" href="#features">Features</a>
+  <a class="nav-link" href="#showcase">Showcase</a>
+  <a class="nav-link" href="#architecture">Architecture</a>
+  <a class="nav-link" href="#how-it-works">How It Works</a>
+  <a class="nav-link" href="#tech-stack">Tech Stack</a>
+  <a class="nav-link" href="#budget">Budget</a>
+  <a class="nav-link" href="#team">Team</a>
+  <a class="nav-cta" href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank" style="margin-top:10px;justify-content:center;"><i class="bi bi-github"></i> GitHub</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     §1  HERO
+     ═══════════════════════════════════════════════════════ -->
+<section id="home">
+  <div class="hero-wrap">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-badge"><span class="dot"></span> 3rd-Year Engineering Project · 2025 / 2026</div>
+          <h1 class="hero-title">Intelligent Robotic<br><span class="gradient-text">Dining Platform</span></h1>
+          <p class="hero-tagline">Harmonizing Robotics, IoT &amp; Real-Time Intelligence</p>
+          <p class="hero-sub">
+            AURA automates ordering, kitchen communication, billing, and customer interaction — seamlessly reducing waiting times, elevating the experience, and maximizing operational efficiency.
+          </p>
+          <div class="hero-btns">
+            <a href="#features" class="btn btn-p"><i class="bi bi-lightning-charge-fill"></i> Explore Features</a>
+            <a href="#about" class="btn btn-o"><i class="bi bi-play-circle"></i> Learn More</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item"><div class="sv">6+</div><div class="sl">Smart Features</div></div>
+            <div class="stat-item"><div class="sv">3</div><div class="sl">System Layers</div></div>
+            <div class="stat-item"><div class="sv">&lt;1s</div><div class="sl">Order Latency</div></div>
+            <div class="stat-item"><div class="sv">3</div><div class="sl">Languages</div></div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-robot">
+            <div class="hero-orbit r1">
+              <div class="orbit-dot" style="top:0;left:50%;transform:translate(-50%,-50%);"></div>
+            </div>
+            <div class="hero-orbit r2">
+              <div class="orbit-dot" style="bottom:10%;right:0;transform:translate(50%,50%);background:var(--cyan);box-shadow:0 0 8px rgba(0,229,255,.5);"></div>
+            </div>
+            <div class="hero-orbit r3">
+              <div class="orbit-dot" style="top:30%;left:0;transform:translate(-50%);background:var(--purple);box-shadow:0 0 8px rgba(191,90,242,.4);width:5px;height:5px;"></div>
+            </div>
+            <img src="images/logo-removebg.png" alt="AURA Robot">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §2  ABOUT
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="about" class="sec">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-img rl">
+        <!-- ABOUT IMAGE: change filename to any image you add to docs/images/ -->
+        <img src="images/SampleImage1.png" alt="AURA Concept">
+        <div class="overlay"></div>
+      </div>
+      <div class="about-text rr">
+        <div class="sec-label">About AURA</div>
+        <h2 class="sec-title">Automated Urban<br><span class="gradient-text">Restaurant Assistant</span></h2>
+        <p>
+          AURA is an intelligent robotic dining assistant and integrated restaurant management platform designed to modernize the dine-in food service industry. It combines social robotics with IoT connectivity and a real-time software ecosystem.
+        </p>
+        <p>
+          Through AURA, guests can browse visual menus, customize and place orders instantly, track food preparation, and settle bills — all from their table. Orders transmit directly to the kitchen in real time, eliminating communication delays and human errors.
+        </p>
+        <div class="about-feats">
+          <div class="af">
+            <div class="af-ic" style="background:var(--primary-dim);color:var(--primary);"><i class="bi bi-robot"></i></div>
+            <div><h5>Human-Robot Interaction</h5><p>Robot physically turns toward the customer, fostering natural engagement</p></div>
+          </div>
+          <div class="af">
+            <div class="af-ic" style="background:var(--cyan-dim);color:var(--cyan);"><i class="bi bi-mic-fill"></i></div>
+            <div><h5>Conversational AI & Voice</h5><p>"Hey AURA, what are today's specials?" — hands-free ordering</p></div>
+          </div>
+          <div class="af">
+            <div class="af-ic" style="background:var(--purple-dim);color:var(--purple);"><i class="bi bi-camera-fill"></i></div>
+            <div><h5>Social Media Photo Mode</h5><p>AURA smiles for photos and provides branded digital frames</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §3  FEATURES
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="features" class="sec">
+  <div class="wrap">
+    <div class="text-center rv" style="margin-bottom:48px;">
+      <div class="sec-label">Capabilities</div>
+      <h2 class="sec-title">Key Innovative <span class="gradient-text">Features</span></h2>
+      <p class="sec-sub">AURA goes beyond digital ordering — introducing advanced interactive hardware &amp; software capabilities.</p>
+    </div>
+    <div class="row">
+      <div class="col-third rv">
+        <div class="fc">
+          <div class="fi" style="background:var(--primary-dim);color:var(--primary);"><i class="bi bi-person-bounding-box"></i></div>
+          <h4>Responsive Interaction</h4>
+          <p>Advanced touch sensors make the robot physically turn toward the customer upon interaction, creating a natural and engaging dynamic.</p>
+        </div>
+      </div>
+      <div class="col-third rv">
+        <div class="fc">
+          <div class="fi" style="background:var(--cyan-dim);color:var(--cyan);"><i class="bi bi-stars"></i></div>
+          <h4>Smart AI Upselling</h4>
+          <p>Analyzes cart, time of day, and context to suggest high-margin add-ons — AURA acts as your restaurant's most effective salesperson.</p>
+        </div>
+      </div>
+      <div class="col-third rv">
+        <div class="fc">
+          <div class="fi" style="background:var(--purple-dim);color:var(--purple);"><i class="bi bi-chat-dots-fill"></i></div>
+          <h4>Conversational AI</h4>
+          <p>"Hey AURA, can we get another round of drinks?" — natural language voice commands remove friction and encourage spontaneous ordering.</p>
+        </div>
+      </div>
+      <div class="col-third rv">
+        <div class="fc">
+          <div class="fi" style="background:var(--gold-dim);color:var(--gold);"><i class="bi bi-emoji-smile-fill"></i></div>
+          <h4>Facial Expression Recognition</h4>
+          <p>Integrated camera analyzes expressions in real-time — offering assistance for confusion or suggesting items if the customer appears undecided.</p>
+        </div>
+      </div>
+      <div class="col-third rv">
+        <div class="fc">
+          <div class="fi" style="background:var(--green-dim);color:var(--green);"><i class="bi bi-translate"></i></div>
+          <h4>Multilingual Interface</h4>
+          <p>Fully localized visual menus in English, Sinhala, and Tamil — all guests navigate comfortably without language barriers.</p>
+        </div>
+      </div>
+      <div class="col-third rv">
+        <div class="fc">
+          <div class="fi" style="background:rgba(255,69,58,.08);color:#FF453A;"><i class="bi bi-music-note-beamed"></i></div>
+          <h4>Entertainment & Engagement</h4>
+          <p>Background music, interactive mini-games while food is prepared, and automated Birthday Celebration Mode with screen animations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §4  SHOWCASE
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="showcase" class="sec">
+  <div class="wrap">
+    <div class="text-center rv" style="margin-bottom:48px;">
+      <div class="sec-label">Gallery</div>
+      <h2 class="sec-title">Project <span class="gradient-text">Showcase</span></h2>
+      <p class="sec-sub">A look at the AURA platform — from concept to prototype.(will be added soon)</p>
+    </div>
+    <!-- GALLERY TEMPORARILY HIDDEN — delete the display:none style below to restore -->
+    <div class="showcase-grid rv" style="display:none;">
+      <div class="sc-item big">
+        <img src="images/SampleImage2.jpg" alt="AURA Overview">
+        <div class="sc-overlay"><span>AURA — Dining Reimagined</span></div>
+      </div>
+      <div class="sc-item">
+        <img src="images/SampleImage3.jpg" alt="Robot Interaction">
+        <div class="sc-overlay"><span>Robot Interaction</span></div>
+      </div>
+      <div class="sc-item">
+        <img src="images/SampleImage4.jpg" alt="Touch Interface">
+        <div class="sc-overlay"><span>Touch Interface</span></div>
+      </div>
+      <div class="sc-item big">
+        <img src="images/SampleImage1.jpg" alt="Kitchen Integration">
+        <div class="sc-overlay"><span>Kitchen Integration</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §5  ARCHITECTURE
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="architecture" class="sec">
+  <div class="wrap">
+    <div class="text-center rv" style="margin-bottom:48px;">
+      <div class="sec-label">System Design</div>
+      <h2 class="sec-title">System <span class="gradient-text">Architecture</span></h2>
+      <p class="sec-sub">A three-layer IoT architecture — robot nodes, messaging broker, and central intelligence.</p>
+    </div>
+    <div class="rv">
+      <div class="arch-img">
+        <img src="images/system_architecture.jpeg" alt="System Architecture Diagram">
+      </div>
+    </div>
+    <div class="arch-layers rv">
+      <div class="lc" style="--lc:var(--primary);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="ld" style="background:var(--primary);box-shadow:0 0 8px var(--primary-glow);"></div>
+          <h5 style="margin:0;">Layer 1 — Robot Nodes</h5>
+        </div>
+        <p>RPi 4 powered units at each table. Handles UI rendering, computer vision, servo control, and PIR detection autonomously.</p>
+      </div>
+      <div class="lc" style="--lc:var(--cyan);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="ld" style="background:var(--cyan);box-shadow:0 0 8px rgba(0,229,255,.4);"></div>
+          <h5 style="margin:0;">Layer 2 — MQTT Broker</h5>
+        </div>
+        <p>Paho-MQTT pub/sub messaging over Wi-Fi. Real-time order events flow between all robot nodes and the central server.</p>
+      </div>
+      <div class="lc" style="--lc:var(--green);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div class="ld" style="background:var(--green);box-shadow:0 0 8px rgba(0,255,178,.3);"></div>
+          <h5 style="margin:0;">Layer 3 — Central Server</h5>
+        </div>
+        <p>AWS-hosted backend with PostgreSQL. Aggregates orders, powers kitchen display, owner dashboard, and exposes REST APIs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §6  HOW IT WORKS
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="how-it-works" class="sec">
+  <div class="wrap">
+    <div class="text-center rv" style="margin-bottom:48px;">
+      <div class="sec-label">Step-by-Step</div>
+      <h2 class="sec-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="sec-sub">From sit-down to kitchen notification — a seamless automated flow.</p>
+    </div>
+    <div class="row">
+      <div class="col-quarter rv">
+        <div class="sc">
+          <div class="sn">01</div>
+          <div class="si" style="background:var(--primary-dim);color:var(--primary);"><i class="bi bi-person-bounding-box"></i></div>
+          <h4>Customer Detected</h4>
+          <p>PIR motion sensor wakes AURA. Camera activates, OpenCV begins face detection, servos align toward the customer.</p>
+        </div>
+      </div>
+      <div class="col-quarter rv">
+        <div class="sc">
+          <div class="sn">02</div>
+          <div class="si" style="background:var(--cyan-dim);color:var(--cyan);"><i class="bi bi-menu-button-wide-fill"></i></div>
+          <h4>Browse &amp; Customize</h4>
+          <p>Touchscreen displays visual menus with categories and prices. Customers customize orders via touch or voice.</p>
+        </div>
+      </div>
+      <div class="col-quarter rv">
+        <div class="sc">
+          <div class="sn">03</div>
+          <div class="si" style="background:var(--purple-dim);color:var(--purple);"><i class="bi bi-send-fill"></i></div>
+          <h4>Order Transmitted</h4>
+          <p>JSON-encoded order with table ID published to the MQTT broker instantly over Wi-Fi — zero manual steps.</p>
+        </div>
+      </div>
+      <div class="col-quarter rv">
+        <div class="sc">
+          <div class="sn">04</div>
+          <div class="si" style="background:var(--green-dim);color:var(--green);"><i class="bi bi-display-fill"></i></div>
+          <h4>Kitchen Notified</h4>
+          <p>Flask server receives, stores in SQLite, and pushes to the kitchen display. AURA confirms with lights &amp; voice.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §7  TECH STACK
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="tech-stack" class="sec">
+  <div class="wrap">
+    <div class="text-center rv" style="margin-bottom:48px;">
+      <div class="sec-label">Technologies</div>
+      <h2 class="sec-title">Our <span class="gradient-text">Tech Stack</span></h2>
+      <p class="sec-sub">Every tool, framework, and component powering the AURA ecosystem.</p>
+    </div>
+
+    <!-- Tech logo grid -->
+    <div class="rv" style="margin-bottom:44px;">
+      <p class="cl" style="text-align:center;">Core Technologies</p>
+      <div class="tl-grid" style="max-width:820px;margin:0 auto;">
+        <div class="tl-card"><i class="devicon-python-plain colored"></i><span>Python</span></div>
+        <div class="tl-card"><i class="devicon-java-plain colored"></i><span>Java</span></div>
+        <div class="tl-card"><i class="devicon-postgresql-plain colored"></i><span>PostgreSQL</span></div>
+        <div class="tl-card"><i class="devicon-opencv-plain colored"></i><span>OpenCV</span></div>
+        <div class="tl-card"><i class="devicon-raspberrypi-line colored"></i><span>Raspberry Pi</span></div>
+        <div class="tl-card"><i class="devicon-amazonwebservices-plain-wordmark colored"></i><span>AWS</span></div>
+        <div class="tl-card"><i class="devicon-flask-original" style="color:var(--text);"></i><span>Flask</span></div>
+        <div class="tl-card"><i class="devicon-qt-original colored"></i><span>PyQt5</span></div>
+        <div class="tl-card"><i class="devicon-spring-original colored"></i><span>Spring Boot</span></div>
+        <div class="tl-card"><i class="devicon-react-original colored"></i><span>React</span></div>
+        <div class="tl-card"><i class="devicon-docker-plain colored"></i><span>Docker</span></div>
+        <div class="tl-card"><i class="devicon-linux-plain" style="color:var(--gold);"></i><span>Linux</span></div>
+      </div>
+    </div>
+
+    <!-- Tech pills grouped — full-width 3-column -->
+    <div class="rv" style="margin-bottom:32px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;">
+        <div>
+          <p class="cl">Robot / Embedded</p>
+          <div class="pw">
+            <span class="tt to"><i class="bi bi-cpu-fill"></i> Raspberry Pi 4</span>
+            <span class="tt to"><i class="bi bi-camera-fill"></i> OpenCV</span>
+            <span class="tt to"><i class="bi bi-controller"></i> GPIO Zero</span>
+            <span class="tt to"><i class="bi bi-code-slash"></i> Python 3</span>
+            <span class="tt to"><i class="bi bi-window"></i> PyQt5</span>
+          </div>
+          <p class="cl">Communication</p>
+          <div class="pw">
+            <span class="tt tc"><i class="bi bi-wifi"></i> Paho-MQTT</span>
+            <span class="tt tc"><i class="bi bi-router-fill"></i> Wi-Fi</span>
+            <span class="tt tc"><i class="bi bi-arrow-left-right"></i> REST API</span>
+            <span class="tt tc"><i class="bi bi-journal-code"></i> JSON</span>
+          </div>
+        </div>
+        <div>
+          <p class="cl">Backend &amp; Cloud</p>
+          <div class="pw">
+            <span class="tt tg"><i class="bi bi-server"></i> Spring Boot</span>
+            <span class="tt tg"><i class="bi bi-database-fill"></i> PostgreSQL</span>
+            <span class="tt tg"><i class="bi bi-cloud-fill"></i> AWS</span>
+            <span class="tt tg"><i class="bi bi-box-fill"></i> Docker</span>
+          </div>
+          <p class="cl">AI / Vision / Voice</p>
+          <div class="pw">
+            <span class="tt tp"><i class="bi bi-eye-fill"></i> Haar Cascade</span>
+            <span class="tt tp"><i class="bi bi-mic-fill"></i> SpeechRecognition</span>
+            <span class="tt tp"><i class="bi bi-speaker-fill"></i> pyttsx3</span>
+            <span class="tt tp"><i class="bi bi-translate"></i> NLP</span>
+          </div>
+        </div>
+        <div>
+          <p class="cl">Frontend</p>
+          <div class="pw">
+            <span class="tt tgl"><i class="bi bi-window-stack"></i> React</span>
+            <span class="tt tgl"><i class="bi bi-filetype-css"></i> Tailwind CSS</span>
+            <span class="tt tgl"><i class="bi bi-phone-fill"></i> Responsive UI</span>
+          </div>
+          <p class="cl">Software Environment</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="background:var(--bg3);border-radius:10px;padding:11px;">
+              <div style="font-size:.66rem;color:var(--dim);margin-bottom:2px;">OS</div>
+              <div class="mono" style="font-size:.8rem;">Raspberry Pi OS</div>
+            </div>
+            <div style="background:var(--bg3);border-radius:10px;padding:11px;">
+              <div style="font-size:.66rem;color:var(--dim);margin-bottom:2px;">Python</div>
+              <div class="mono" style="font-size:.8rem;">3.9+</div>
+            </div>
+            <div style="background:var(--bg3);border-radius:10px;padding:11px;">
+              <div style="font-size:.66rem;color:var(--dim);margin-bottom:2px;">Broker</div>
+              <div class="mono" style="font-size:.8rem;">Mosquitto</div>
+            </div>
+            <div style="background:var(--bg3);border-radius:10px;padding:11px;">
+              <div style="font-size:.66rem;color:var(--dim);margin-bottom:2px;">Backend</div>
+              <div class="mono" style="font-size:.8rem;">Spring Boot</div>
+            </div>
+            <div style="background:var(--bg3);border-radius:10px;padding:11px;">
+              <div style="font-size:.66rem;color:var(--dim);margin-bottom:2px;">Database</div>
+              <div class="mono" style="font-size:.8rem;">PostgreSQL</div>
+            </div>
+            <div style="background:var(--bg3);border-radius:10px;padding:11px;">
+              <div style="font-size:.66rem;color:var(--dim);margin-bottom:2px;">Cloud</div>
+              <div class="mono" style="font-size:.8rem;">AWS EC2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hardware table full-width, 2 components per row -->
+    <p class="cl rv" style="text-align:center;margin-bottom:12px;">Hardware Components</p>
+    <div class="rv" style="background:var(--card);border:1px solid var(--border);border-radius:var(--rl);overflow:hidden;">
+      <table class="sptb">
+        <thead><tr><th>Component</th><th>Specification</th><th>Component</th><th>Specification</th></tr></thead>
+        <tbody>
+          <tr><td>CPU</td><td>Raspberry Pi 4 (4 GB)</td><td>Sensor</td><td>HC-SR501 PIR</td></tr>
+          <tr><td>Display</td><td>7" IPS Capacitive Touch</td><td>Touch</td><td>MPR121 Capacitive Controller</td></tr>
+          <tr><td>Camera</td><td>RPi Cam V2 — 8 MP</td><td>Power</td><td>10 000 mAh Li-ion + UPS</td></tr>
+          <tr><td>Actuators</td><td>MG90S Servo Motors &times; 2</td><td>Audio</td><td>2W MIT M38 Speaker</td></tr>
+          <tr><td>LEDs</td><td>WS2812B RGB Strip</td><td>Display 2</td><td>0.9" TFT &times; 2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §8  BUDGET
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="budget" class="sec">
+  <div class="wrap">
+    <div class="text-center rv" style="margin-bottom:48px;">
+      <div class="sec-label">Financials</div>
+      <h2 class="sec-title">Project <span class="gradient-text">Budget</span></h2>
+      <p class="sec-sub">Detailed component-level cost breakdown for one AURA robotic unit.</p>
+    </div>
+
+    <div class="budget-wrap rv">
+      <div class="budget-card">
+        <table class="budget-tbl">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Unit Price (LKR)</th>
+              <th>Total (LKR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Raspberry Pi 4B (4 GB)</td><td>1</td><td>28,000</td><td>28,000</td></tr>
+            <tr><td>2</td><td>7-inch IPS Touch Display</td><td>1</td><td>15,000</td><td>15,000</td></tr>
+            <tr><td>3</td><td>Raspberry Pi Camera Module (V2)</td><td>1</td><td>6,000</td><td>6,000</td></tr>
+            <tr><td>4</td><td>Pan/Tilt Servo Mechanism</td><td>1</td><td>1,500</td><td>1,500</td></tr>
+            <tr><td>5</td><td>Servo Motors (MG90S)</td><td>2</td><td>1,500</td><td>3,000</td></tr>
+            <tr><td>6</td><td>2W Speaker (MIT M38)</td><td>1</td><td>1,200</td><td>1,200</td></tr>
+            <tr><td>7</td><td>Lithium-ion Battery (10,000 mAh)</td><td>1</td><td>5,000</td><td>5,000</td></tr>
+            <tr><td>8</td><td>18650 UPS Shield X703</td><td>1</td><td>6,500</td><td>6,500</td></tr>
+            <tr><td>9</td><td>0.9" TFT Display</td><td>2</td><td>890</td><td>1,780</td></tr>
+            <tr><td>10</td><td>MPR121 Capacitive Touch Controller</td><td>1</td><td>540</td><td>540</td></tr>
+            <tr class="budget-total"><td></td><td colspan="3">Grand Total</td><td>68,520</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="budget-summary rv">
+        <div class="bs-card">
+          <div class="bv" style="color:var(--primary);">LKR 68,520</div>
+          <div class="bl">Total Per Unit</div>
+        </div>
+        <div class="bs-card">
+          <div class="bv" style="color:var(--cyan);">10</div>
+          <div class="bl">Components</div>
+        </div>
+        <div class="bs-card">
+          <div class="bv" style="color:var(--green);">40.9%</div>
+          <div class="bl">Computing (RPi 4)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     §9  TEAM
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<section id="team" class="sec">
+  <div class="wrap">
+    <div class="text-center rv" style="margin-bottom:48px;">
+      <div class="sec-label">The People</div>
+      <h2 class="sec-title">Meet the <span class="gradient-text">Team</span></h2>
+      <p class="sec-sub">Final-year Computer Engineering undergraduates, University of Peradeniya.</p>
+    </div>
+
+    <div class="row rv" style="justify-content:center;margin-bottom:52px;">
+      <div class="col-quarter">
+        <div class="tcrd">
+          <!-- TEAM PHOTO: replace filename below. Add the image to docs/images/ then change the src -->
+          <div class="tav"><img src="images/Madhushan.jpeg" alt="Madhushan"></div>
+          <div class="tid">E/21/245</div>
+          <div class="tnm">Madhushan S.K.A.K.</div>
+          <div class="trl">Team Member</div>
+          <div class="tlk">
+            <a href="mailto:e21245@eng.pdn.ac.lk"><i class="bi bi-envelope-fill"></i></a>
+            <a href="https://github.com/cepdnaclk" target="_blank"><i class="bi bi-github"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-quarter">
+        <div class="tcrd">
+          <!-- TEAM PHOTO: replace filename below. Add the image to docs/images/ then change the src -->
+          <div class="tav"><img src="images/Dissanayake.jpeg" alt="Dissanayake"></div>
+          <div class="tid">E/21/113</div>
+          <div class="tnm">Dissanayake H.G.K.V.D.C.</div>
+          <div class="trl">Team Member</div>
+          <div class="tlk">
+            <a href="mailto:e21113@eng.pdn.ac.lk"><i class="bi bi-envelope-fill"></i></a>
+            <a href="https://github.com/cepdnaclk" target="_blank"><i class="bi bi-github"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-quarter">
+        <div class="tcrd">
+          <!-- TEAM PHOTO: replace filename below. Add the image to docs/images/ then change the src -->
+          <div class="tav"><img src="images/Amaranga.jpeg" alt="Amaranga"></div>
+          <div class="tid">E/21/024</div>
+          <div class="tnm">Amaranga S.G.I.</div>
+          <div class="trl">Team Member</div>
+          <div class="tlk">
+            <a href="mailto:e21024@eng.pdn.ac.lk"><i class="bi bi-envelope-fill"></i></a>
+            <a href="https://github.com/cepdnaclk" target="_blank"><i class="bi bi-github"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-quarter">
+        <div class="tcrd">
+          <!-- TEAM PHOTO: replace filename below. Add the image to docs/images/ then change the src -->
+          <div class="tav"><img src="images/Thennakoon.jpeg" alt="Thennakoon"></div>
+          <div class="tid">E/21/407</div>
+          <div class="tnm">Thennakoon T.M.I.I.C.</div>
+          <div class="trl">Team Member</div>
+          <div class="tlk">
+            <a href="mailto:e21407@eng.pdn.ac.lk"><i class="bi bi-envelope-fill"></i></a>
+            <a href="https://github.com/cepdnaclk" target="_blank"><i class="bi bi-github"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supervisor -->
+    <div class="text-center rv" style="margin-bottom:20px;">
+      <div class="sec-label">Academic Guidance</div>
+      <h3 style="font-size:1.5rem;">Supervised By</h3>
+    </div>
+    <div class="row rv" style="justify-content:center;margin-bottom:44px;">
+      <div class="col-half" style="max-width:480px;">
+        <div class="supc">
+          <div class="supi"><i class="bi bi-person-badge-fill"></i></div>
+          <div>
+            <h5 style="font-weight:700;margin-bottom:3px;">Ms. Yasodha Vimukthi</h5>
+            <p style="color:var(--muted);font-size:.84rem;margin:0;">Lecturer, University of Peradeniya</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Department -->
+    <div class="rv">
+      <div class="dept">
+        <div class="di"><i class="bi bi-building-fill"></i></div>
+        <div>
+          <h5 style="font-weight:800;margin-bottom:3px;">Department of Computer Engineering</h5>
+          <p style="color:var(--muted);font-size:.86rem;margin:0;">Faculty of Engineering · University of Peradeniya · 2025 / 2026</p>
+          <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;">
+            <a href="http://www.ce.pdn.ac.lk" target="_blank" class="btn btn-o" style="padding:6px 14px;font-size:.78rem;"><i class="bi bi-globe"></i> ce.pdn.ac.lk</a>
+            <a href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank" class="btn btn-p" style="padding:6px 14px;font-size:.78rem;box-shadow:none;"><i class="bi bi-github"></i> Repository</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<hr class="sep">
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="fbrand">AUR<em>A</em></div>
+        <p class="fdsc">Intelligent Robotic Dining &amp; Restaurant Management Platform — University of Peradeniya, Sri Lanka.</p>
+        <div class="fsoc">
+          <a href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank"><i class="bi bi-github"></i></a>
+          <a href="http://www.ce.pdn.ac.lk" target="_blank"><i class="bi bi-building"></i></a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h6>Sections</h6>
+        <ul class="flnk">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#showcase">Showcase</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#tech-stack">Tech Stack</a></li>
+          <li><a href="#budget">Budget</a></li>
+          <li><a href="#team">Team</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h6>Team</h6>
+        <ul class="flnk">
+          <li><a href="mailto:e21245@eng.pdn.ac.lk">E/21/245 Madhushan</a></li>
+          <li><a href="mailto:e21113@eng.pdn.ac.lk">E/21/113 Dissanayake</a></li>
+          <li><a href="mailto:e21024@eng.pdn.ac.lk">E/21/024 Amaranga</a></li>
+          <li><a href="mailto:e21407@eng.pdn.ac.lk">E/21/407 Thennakoon</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h6>Resources</h6>
+        <ul class="flnk">
+          <li><a href="https://github.com/cepdnaclk/e21-3yp-Project-AURA" target="_blank">GitHub Repository</a></li>
+          <li><a href="http://www.ce.pdn.ac.lk" target="_blank">CE Department</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>&copy; 2025/2026 Project AURA — University of Peradeniya</span>
+      <span>Dept. of Computer Engineering</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════════════ -->
+<script>
+/* Preloader */
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),800));
+
+/* Cursor glow */
+document.addEventListener('mousemove',e=>{const c=document.getElementById('cursor');if(c){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';}});
+
+/* Navbar scroll + scrollspy */
+const nav=document.getElementById('navbar');
+const nls=document.querySelectorAll('.nav-links .nav-link, .nav-mob .nav-link');
+const secs=document.querySelectorAll('section[id]');
+function upNav(){
+  nav.classList.toggle('scrolled',scrollY>40);
+  document.getElementById('stb').classList.toggle('show',scrollY>400);
+  let cur='';
+  secs.forEach(s=>{if(scrollY>=s.offsetTop-100)cur=s.id;});
+  nls.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+cur)l.classList.add('active');});
+}
+window.addEventListener('scroll',upNav);
+
+/* Scroll top */
+document.getElementById('stb').onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+/* Mobile nav */
+const nt=document.getElementById('navT'),nm=document.getElementById('navM');
+nt.onclick=()=>{nt.classList.toggle('open');nm.classList.toggle('open');};
+nm.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',()=>{nt.classList.remove('open');nm.classList.remove('open');}));
+
+/* Scroll reveal */
+const rvs=document.querySelectorAll('.rv,.rl,.rr');
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+rvs.forEach(el=>obs.observe(el));
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATED BACKGROUND — Flowing mesh + orbs + hex grid
+   ═══════════════════════════════════════════════════════════ */
+(function(){
+  const c=document.getElementById('bg-canvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let W,H;
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+
+  let mx=W/2,my=H/2;
+  window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+
+  // --- Gradient orbs (bigger, brighter, more of them) ---
+  const orbs=[
+    {x:.12,y:.18,rx:450,ry:350,col:'255,107,53',a:.06,spd:.0004,off:0},
+    {x:.85,y:.12,rx:380,ry:380,col:'0,229,255',a:.045,spd:.0003,off:2},
+    {x:.5,y:.65,rx:500,ry:280,col:'191,90,242',a:.035,spd:.00045,off:4},
+    {x:.3,y:.85,rx:300,ry:300,col:'0,255,178',a:.025,spd:.00035,off:6},
+    {x:.75,y:.6,rx:360,ry:240,col:'255,209,102',a:.03,spd:.00025,off:1},
+  ];
+
+  // --- Floating particles ---
+  const N=120;
+  const P=[];
+  const cols=['255,107,53','0,229,255','191,90,242','0,255,178','255,209,102'];
+  for(let i=0;i<N;i++){
+    P.push({
+      x:Math.random()*W,y:Math.random()*H*5,
+      r:Math.random()*2+.5,
+      vx:(Math.random()-.5)*.3,
+      vy:(Math.random()-.5)*.2,
+      col:cols[~~(Math.random()*cols.length)],
+      a:Math.random()*.5+.2,
+      pulse:Math.random()*Math.PI*2
+    });
+  }
+
+  // --- Hex grid ---
+  const hexR=60;
+  const hexH=hexR*Math.sqrt(3);
+
+  function drawHexGrid(scrollY,t){
+    const offY=-scrollY*.08;
+    ctx.lineWidth=.3;
+    for(let x=-hexR;x<W+hexR*2;x+=hexR*1.5){
+      for(let y=-hexH+offY%hexH;y<H+hexH;y+=hexH){
+        const shift=(Math.round(x/(hexR*1.5))%2)*hexH*.5;
+        const cy=y+shift;
+        // Distance from mouse for glow
+        const dx=x-mx,dy=cy-my;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        const glow=Math.max(0,1-dist/350);
+        if(glow<.02)continue; // skip far hexagons
+        const alpha=glow*.12;
+        const hue=glow>.5?'255,107,53':'0,229,255';
+        ctx.strokeStyle='rgba('+hue+','+alpha+')';
+        ctx.beginPath();
+        for(let i=0;i<6;i++){
+          const angle=Math.PI/3*i-Math.PI/6;
+          const hx=x+hexR*.4*Math.cos(angle);
+          const hy=cy+hexR*.4*Math.sin(angle);
+          i===0?ctx.moveTo(hx,hy):ctx.lineTo(hx,hy);
+        }
+        ctx.closePath();
+        ctx.stroke();
+        // Glow dot at center of near hexagons
+        if(glow>.4){
+          ctx.beginPath();
+          ctx.arc(x,cy,1.5*glow,0,Math.PI*2);
+          ctx.fillStyle='rgba(255,107,53,'+(glow*.3)+')';
+          ctx.fill();
+        }
+      }
+    }
+  }
+
+  // --- Flowing wave lines ---
+  function drawWaves(t,scrollY){
+    const waveCount=4;
+    const waveColors=[
+      {col:'255,107,53',a:.06},
+      {col:'0,229,255',a:.04},
+      {col:'191,90,242',a:.03},
+      {col:'255,209,102',a:.025}
+    ];
+    for(let w=0;w<waveCount;w++){
+      ctx.beginPath();
+      ctx.lineWidth=1;
+      const wc=waveColors[w];
+      ctx.strokeStyle='rgba('+wc.col+','+wc.a+')';
+      const baseY=H*(0.2+w*0.2)-scrollY*0.05;
+      for(let x=0;x<=W;x+=4){
+        const y=baseY+Math.sin(x*0.003+t*0.0006+w*1.5)*50+Math.cos(x*0.007+t*0.0004)*25;
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+    }
+  }
+
+  // ─── Themed floating icons (restaurant + robotics) ───
+  const ICONS=[];
+  (function initIcons(){
+    const types=['plate','fork','robot','wifi','cup','gear'];
+    for(let i=0;i<22;i++){
+      ICONS.push({
+        type:types[i%types.length],
+        x:Math.random()*W,
+        y:Math.random()*H*4,
+        size:14+Math.random()*18,
+        vx:(Math.random()-.5)*.18,
+        vy:-.08-Math.random()*.12,
+        alpha:.04+Math.random()*.06,
+        rot:Math.random()*Math.PI*2,
+        rotV:(Math.random()-.5)*.003,
+        hue:Math.random()>.5?'255,107,53':'0,229,255'
+      });
+    }
+  })();
+  function drawThemedIcons(t,scrollY){
+    ICONS.forEach(ic=>{
+      ic.x+=ic.vx; ic.y+=ic.vy; ic.rot+=ic.rotV;
+      if(ic.y<-80)ic.y=H*4+80;
+      if(ic.x<-80)ic.x=W+80; if(ic.x>W+80)ic.x=-80;
+      const sy=ic.y-scrollY*.1;
+      if(sy<-80||sy>H+80)return;
+      const pulse=1+Math.sin(t*.012+ic.y*.002)*.12;
+      const s=ic.size*pulse;
+      ctx.save();
+      ctx.translate(ic.x,sy);
+      ctx.rotate(ic.rot);
+      ctx.globalAlpha=ic.alpha;
+      ctx.strokeStyle='rgba('+ic.hue+',1)';
+      ctx.fillStyle='rgba('+ic.hue+',.15)';
+      ctx.lineWidth=1.2;
+      if(ic.type==='plate'){
+        ctx.beginPath();ctx.arc(0,0,s,0,Math.PI*2);ctx.stroke();
+        ctx.beginPath();ctx.arc(0,0,s*.65,0,Math.PI*2);ctx.stroke();
+        ctx.beginPath();ctx.arc(0,0,s*.25,0,Math.PI*2);ctx.fill();
+      } else if(ic.type==='fork'){
+        const h=s*1.4,w=s*.4;
+        ctx.beginPath();ctx.moveTo(0,-h/2);ctx.lineTo(0,h/2);ctx.stroke();
+        [-w/2,0,w/2].forEach(ox=>{
+          ctx.beginPath();ctx.moveTo(ox,-h/2);ctx.lineTo(ox,-h/4);ctx.stroke();
+        });
+        ctx.beginPath();ctx.moveTo(-w/2,-h/4);ctx.lineTo(w/2,-h/4);ctx.stroke();
+      } else if(ic.type==='robot'){
+        const bw=s*1.2,bh=s;
+        ctx.strokeRect(-bw/2,-bh/2,bw,bh);
+        [-bw/5,bw/5].forEach(ex=>{
+          ctx.beginPath();ctx.arc(ex,-bh*.05,bh*.14,0,Math.PI*2);ctx.fill();
+        });
+        ctx.beginPath();ctx.moveTo(-bw*.2,bh*.25);ctx.lineTo(bw*.2,bh*.25);ctx.stroke();
+        ctx.beginPath();ctx.moveTo(0,-bh/2);ctx.lineTo(0,-bh/2-s*.35);ctx.stroke();
+        ctx.beginPath();ctx.arc(0,-bh/2-s*.35,s*.1,0,Math.PI*2);ctx.fill();
+      } else if(ic.type==='wifi'){
+        [.9,.62,.34].forEach((r,i)=>{
+          ctx.beginPath();
+          ctx.arc(0,s*.3,s*r,Math.PI+.4,Math.PI*2-.4);
+          ctx.globalAlpha=ic.alpha*(1-i*.2);
+          ctx.stroke();
+        });
+        ctx.globalAlpha=ic.alpha;
+        ctx.beginPath();ctx.arc(0,s*.3,s*.09,0,Math.PI*2);ctx.fill();
+      } else if(ic.type==='cup'){
+        ctx.beginPath();
+        ctx.moveTo(-s*.45,-s*.4);ctx.lineTo(-s*.55,s*.5);
+        ctx.lineTo(s*.55,s*.5);ctx.lineTo(s*.45,-s*.4);ctx.closePath();ctx.stroke();
+        ctx.beginPath();ctx.moveTo(-s*.45,-s*.4);ctx.lineTo(s*.45,-s*.4);ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(s*.55,0);ctx.quadraticCurveTo(s*1.1,0,s*1.1,s*.4);
+        ctx.quadraticCurveTo(s*1.1,s*.8,s*.55,s*.8);ctx.stroke();
+      } else if(ic.type==='gear'){
+        const teeth=8,ir=s*.55,or=s*.85;
+        ctx.beginPath();
+        for(let k=0;k<teeth*2;k++){
+          const ang=k*Math.PI/teeth;
+          const r=k%2===0?or:ir;
+          k===0?ctx.moveTo(r*Math.cos(ang),r*Math.sin(ang)):ctx.lineTo(r*Math.cos(ang),r*Math.sin(ang));
+        }
+        ctx.closePath();ctx.stroke();
+        ctx.beginPath();ctx.arc(0,0,s*.25,0,Math.PI*2);ctx.fill();
+      }
+      ctx.restore();
+    });
+    ctx.globalAlpha=1;
+  }
+
+  let t=0;
+  function draw(){
+    t++;
+    ctx.clearRect(0,0,W,H);
+    const scrollY=window.scrollY||0;
+
+    // 1. Draw gradient orbs
+    orbs.forEach(b=>{
+      const bx=b.x*W+Math.sin(t*b.spd+b.off)*120;
+      const by=b.y*H+Math.cos(t*b.spd*.7+b.off)*80-scrollY*.04;
+      const gr=ctx.createRadialGradient(bx,by,0,bx,by,b.rx);
+      gr.addColorStop(0,'rgba('+b.col+','+b.a+')');
+      gr.addColorStop(.6,'rgba('+b.col+','+(b.a*.3)+')');
+      gr.addColorStop(1,'rgba('+b.col+',0)');
+      ctx.fillStyle=gr;
+      ctx.beginPath();
+      ctx.ellipse(bx,by,b.rx,b.ry,0,0,Math.PI*2);
+      ctx.fill();
+    });
+
+    // 2. Hex grid (mouse-reactive)
+    drawHexGrid(scrollY,t);
+
+    // 3. Flowing waves
+    drawWaves(t,scrollY);
+
+    // 3.5 Themed floating icons (restaurant + robotics)
+    drawThemedIcons(t,scrollY);
+
+    // 4. Connections between nearby particles
+    for(let i=0;i<N;i++){
+      const p=P[i];
+      const sy=p.y-scrollY*.12;
+      if(sy<-60||sy>H+60)continue;
+      for(let j=i+1;j<N;j++){
+        const q=P[j];
+        const qsy=q.y-scrollY*.12;
+        if(qsy<-60||qsy>H+60)continue;
+        const dx=p.x-q.x,dy=sy-qsy;
+        const d=dx*dx+dy*dy;
+        if(d<28000){
+          const dist=Math.sqrt(d);
+          ctx.beginPath();
+          ctx.moveTo(p.x,sy);ctx.lineTo(q.x,qsy);
+          ctx.strokeStyle='rgba(255,107,53,'+(0.06*(1-dist/167))+')';
+          ctx.lineWidth=.4;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // 5. Draw & move particles with pulsing
+    P.forEach(p=>{
+      const sy=p.y-scrollY*.12;
+      p.pulse+=.02;
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<-20)p.x=W+20;if(p.x>W+20)p.x=-20;
+      if(p.y<-200)p.y=H*5+200;if(p.y>H*5+200)p.y=-200;
+      // mouse interaction
+      const ddx=p.x-mx,ddy=sy-my;
+      const md=Math.sqrt(ddx*ddx+ddy*ddy);
+      if(md<160&&md>0){p.x+=ddx/md*1.5;p.y+=ddy/md*1.5;}
+      if(sy<-60||sy>H+60)return;
+      const pulse=1+Math.sin(p.pulse)*.3;
+      ctx.beginPath();
+      ctx.arc(p.x,sy,p.r*pulse,0,Math.PI*2);
+      ctx.fillStyle='rgba('+p.col+','+(p.a*(0.7+Math.sin(p.pulse)*.3))+')';
+      ctx.fill();
+      // Glow for larger particles
+      if(p.r>1.5){
+        ctx.beginPath();
+        ctx.arc(p.x,sy,p.r*3,0,Math.PI*2);
+        ctx.fillStyle='rgba('+p.col+','+(.04)+')';
+        ctx.fill();
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
