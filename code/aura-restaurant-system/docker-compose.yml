@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # Database Service
+  postgres:
+    image: postgres:15-alpine
+    container_name: aura_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: aura_user
+      POSTGRES_PASSWORD: aura_password
+      POSTGRES_DB: aura_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  # Backend Service (Spring Boot)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aura_backend
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    environment:
+      # This overrides the local application.yml to connect to the postgres container
+      - DB_URL=jdbc:postgresql://postgres:5432/aura_db
+      - DB_USERNAME=aura_user
+      - DB_PASSWORD=aura_password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - postgres
+
+  # Frontend Service (React/Vite)
+  frontend:
+    image: node:20-alpine
+    container_name: aura_frontend
+    working_dir: /app
+    volumes:
+      # Mount the frontend directory so real-time code edits are reflected inside the container
+      - ./frontend:/app
+      # Map node_modules securely
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true # Helps Vite pick up file changes in Docker
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+
+volumes:
+  postgres-data:

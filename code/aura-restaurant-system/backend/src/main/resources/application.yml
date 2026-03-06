@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: aura-restaurant-system
+
+  # Local Development Database Configuration
+  # Ensure the Postgres Docker container is running (docker-compose up -d postgres)
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/aura_db}
+    username: ${DB_USERNAME:aura_user}
+    password: ${DB_PASSWORD:aura_password}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # Automatically creates/updates database tables based on Entity classes
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true # Formats SQL in the console logs
+    show-sql: true # Prints SQL statements to the console
+
+server:
+  port: 8080
