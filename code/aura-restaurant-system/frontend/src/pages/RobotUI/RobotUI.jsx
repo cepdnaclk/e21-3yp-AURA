@@ -2,48 +2,29 @@ import { useState, useEffect } from 'react';
 import {
   ChefHat, Flame, Leaf, IceCreamCone, Coffee, UtensilsCrossed,
   Plus, Minus, LogOut, Sun, Moon, Lock, X,
-  ShoppingCart, CreditCard, Trash2, CheckCircle2
+  ShoppingCart, CreditCard, Trash2, CheckCircle2,
+  Clock, Bike, PartyPopper,
 } from 'lucide-react';
-import { useAppContext }    from '../../context/AppContext';
-import { useRestaurant }    from '../../context/RestaurantContext';
-import { getMenuImageSrc }  from '../../utils/menuImages';
-import { orderMqtt }        from '../../api/mqttclient';
-import OrderHistoryModal from "../../components/OrderHistoryModal/OrderHistoryModal";
-
-
-// ─── Categories ───────────────────────────────────────────────────────────────
-import { useState, useCallback, useEffect, useMemo } from 'react';
-import { ChefHat, Flame, Leaf, IceCreamCone, Coffee, UtensilsCrossed, Plus, Minus, ShoppingBag, Send, CreditCard, Trash2, LogOut, Sun, Moon, Lock, X, Clock, Bike, Sparkles, PartyPopper, CheckCircle2, Loader2, User } from 'lucide-react';
-import { useAppContext } from '../../context/AppContext';
+import { useAppContext }             from '../../context/AppContext';
 import { useRestaurant, ORDER_STATUS } from '../../context/RestaurantContext';
-import { getMenuImageSrc } from '../../utils/menuImages';
-import { orderMqtt } from '../../api/mqttclient';
-import { useNavigate } from "react-router-dom";
-
-// Import WebSocket helpers
-import { connectToRobot, sendOrderToRobot } from '../../api/robotWebSocket';
+import { getMenuImageSrc }           from '../../utils/menuImages';
+import { orderMqtt }                 from '../../api/mqttclient';
+import { useNavigate }               from 'react-router-dom';
+import OrderHistoryModal             from '../../components/OrderHistoryModal/OrderHistoryModal';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const CATS = [
-  { id: 'all',        label: 'All',        icon: ChefHat        },
-  { id: 'Appetizers', label: 'Appetizers', icon: IceCreamCone   },
-  { id: 'Rice',       label: 'Rice',       icon: ChefHat        },
-  { id: 'Koththu',    label: 'Koththu',    icon: Flame          },
-  { id: 'Noodle',     label: 'Noodle',     icon: UtensilsCrossed},
-  { id: 'desserts',   label: 'Desserts',   icon: Leaf           },
-  { id: 'Other',      label: 'Other',      icon: Coffee         },
+  { id: 'all',        label: 'All',        icon: ChefHat         },
+  { id: 'Appetizers', label: 'Appetizers', icon: IceCreamCone    },
+  { id: 'Rice',       label: 'Rice',       icon: ChefHat         },
+  { id: 'Koththu',    label: 'Koththu',    icon: Flame           },
+  { id: 'Noodle',     label: 'Noodle',     icon: UtensilsCrossed },
+  { id: 'desserts',   label: 'Desserts',   icon: Leaf            },
+  { id: 'Other',      label: 'Other',      icon: Coffee          },
 ];
 
-const CATEGORY_ORDER = ['Appetizers','Rice','Koththu','Noodle','desserts','Other'];
+const CATEGORY_ORDER = ['Appetizers', 'Rice', 'Koththu', 'Noodle', 'desserts', 'Other'];
 
-// ─────────────────────────────────────────────────────────────────────────────
-export default function RobotUI() {
-  const {
-    session, logout, verifyCredentials,
-    menuItems, theme, toggleTheme, refreshMenu,
-  } = useAppContext();
-
-  const { placeOrder } = useRestaurant();
 const STATUS_CFG = {
   PENDING:   { label: 'Sent — Awaiting Kitchen',  icon: Clock,       color: 'text-sky-400',    bg: 'bg-sky-500/10',    ring: 'ring-sky-500/25'    },
   PREPARING: { label: 'Kitchen is Preparing…',    icon: ChefHat,     color: 'text-amber-400',  bg: 'bg-amber-500/10',  ring: 'ring-amber-500/25'  },
@@ -52,36 +33,16 @@ const STATUS_CFG = {
   PAID:      { label: 'Payment Completed! 💳',    icon: CreditCard,  color: 'text-green-400',  bg: 'bg-green-500/10',  ring: 'ring-green-500/25'  },
 };
 
-  const D = theme === 'dark';
-
-  const [showHistory, setShowHistory] = useState(false);
-
-
-  // ── UI state ──
-  const [cat, setCat]                 = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(8);
-  const [showLogout, setShowLogout]   = useState(false);
-  const [lUser, setLUser]             = useState('');
-  const [lPass, setLPass]             = useState('');
-  const [lErr, setLErr]               = useState('');
-  const [lLoading, setLLoading]       = useState(false);
-
-  // ── Cart state ──
-  const [cart, setCart]               = useState([]);        // [{ id, name, price, quantity, imageFilename, time }]
-  const [showCart, setShowCart]       = useState(false);
-  const [orderPlaced, setOrderPlaced] = useState(false);     // success screen
-  const [orderLoading, setOrderLoading] = useState(false);
-// ─────────────────────────────────────────────────────────────────────────────
-// MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
 export default function RobotUI() {
-  const { session, logout, verifyCredentials, menuItems, theme, toggleTheme, refreshMenu, getCustomerSessionStart, startNewCustomer,getHiddenOrderIds } = useAppContext();
-  const { placeOrder, getUnpaidOrders, getUnpaidTotal, getLatestOrder, markTablePaid } = useRestaurant();
-  
+  const {
+    session, logout, verifyCredentials,
+    menuItems, theme, toggleTheme, refreshMenu,
+    getHiddenOrderIds,
+  } = useAppContext();
+
+  const { placeOrder, getUnpaidOrders } = useRestaurant();
   const navigate = useNavigate();
-  const [ordering, setOrdering] = useState(false);
-  const [, forceUpdate] = useState(0);
 
   // ── MQTT ──
   useEffect(() => {
@@ -90,33 +51,43 @@ export default function RobotUI() {
     return () => unsub();
   }, [refreshMenu]);
 
+  const D     = theme === 'dark';
+  const table = session?.tableNumber || 'T?';
 
-const dark       = theme === 'dark';
-  const table      = session?.tableNumber || 'T?';
-
-  // Unpaid orders සහ hidden IDs ෆිල්ටර් කිරීමේ රොබෝ ලොජික් එක
+  // ── Unpaid / confirmed orders ──
   const allUnpaidOrders = getUnpaidOrders(table);
-  const hiddenIds = getHiddenOrderIds(table);
-  const confirmed = allUnpaidOrders.filter(order => !hiddenIds.has(order.id));
-  console.log("-------------------", confirmed);
+  const hiddenIds       = getHiddenOrderIds(table);
+  const confirmed       = allUnpaidOrders.filter(order => !hiddenIds.has(order.id));
+  const latest          = confirmed.length > 0 ? confirmed[confirmed.length - 1] : null;
+  const status          = latest?.status || null;
+  const delivered       = status === ORDER_STATUS.DELIVERED;
 
-  const confTotal  = confirmed.reduce((s, o) => s + o.total, 0);
-  const latest     = confirmed.length > 0 ? confirmed[confirmed.length - 1] : null;
-  const status     = latest?.status || null;
-  const sCfg       = status ? STATUS_CFG[status] : null;
-  const delivered  = status === ORDER_STATUS.DELIVERED;
+  // ── UI state ──
+  const [cat, setCat]                   = useState('all');
+  const [currentPage, setCurrentPage]   = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [showLogout, setShowLogout]     = useState(false);
+  const [showHistory, setShowHistory]   = useState(false);
+  const [lUser, setLUser]               = useState('');
+  const [lPass, setLPass]               = useState('');
+  const [lErr, setLErr]                 = useState('');
+  const [lLoading, setLLoading]         = useState(false);
 
-  // Incoming branch එකෙන් ආපු අලුත් සහ ඩියුප්ලිකේට් නොවන අත්‍යවශ්‍ය States විතරයි මෙතන තියෙන්නේ:
-  const [draft, setDraft]                   = useState([]);
-  const [showPay, setShowPay]               = useState(false);
-  const [upsellIndex, setUpsellIndex]       = useState(0);
+  // ── Cart state ──
+  const [cart, setCart]                 = useState([]);
+  const [showCart, setShowCart]         = useState(false);
+  const [orderPlaced, setOrderPlaced]   = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
+
+  const numericTableId = session?.tableNumber
+    ? parseInt(session.tableNumber.replace(/\D/g, ''), 10) || 1
+    : 1;
 
   // ── Responsive items per page ──
-
   useEffect(() => {
     const calc = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
+      const w    = window.innerWidth;
+      const h    = window.innerHeight;
       const cols = w >= 1280 ? 4 : w >= 640 ? 3 : 2;
       const rows = h < 650 ? 1 : 2;
       setItemsPerPage(cols * rows);
@@ -136,7 +107,10 @@ const dark       = theme === 'dark';
     : menuItems.filter(i => i.category === cat);
 
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-  const items      = filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const items      = filteredItems.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
 
   useEffect(() => {
     if (currentPage > totalPages && totalPages > 0) setCurrentPage(totalPages);
@@ -144,48 +118,32 @@ const dark       = theme === 'dark';
 
   const handleCatChange = (c) => { setCat(c); setCurrentPage(1); };
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // CART HELPERS
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  /** Add item to cart — ඉදිරියේ already ඇත්නම් quantity++ */
+  // ─── Cart helpers ─────────────────────────────────────────────────────────
   const addToCart = (item) => {
     setCart(prev => {
       const exists = prev.find(c => c.id === item.id);
-      if (exists) {
-        return prev.map(c => c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c);
-      }
+      if (exists) return prev.map(c => c.id === item.id ? { ...c, quantity: c.quantity + 1 } : c);
       return [...prev, { ...item, quantity: 1 }];
     });
   };
 
-  /** Quantity increase */
-  const increaseQty = (id) => {
+  const increaseQty = (id) =>
     setCart(prev => prev.map(c => c.id === id ? { ...c, quantity: c.quantity + 1 } : c));
-  };
 
-  /** Quantity decrease — 1 ට ආවොත් remove */
-  const decreaseQty = (id) => {
+  const decreaseQty = (id) =>
     setCart(prev => {
       const item = prev.find(c => c.id === id);
       if (!item) return prev;
       if (item.quantity === 1) return prev.filter(c => c.id !== id);
       return prev.map(c => c.id === id ? { ...c, quantity: c.quantity - 1 } : c);
     });
-  };
 
-  /** Remove item completely */
   const removeFromCart = (id) => setCart(prev => prev.filter(c => c.id !== id));
 
-  /** Total price */
   const cartTotal = cart.reduce((sum, c) => sum + c.price * c.quantity, 0);
-
-  /** Cart item count */
   const cartCount = cart.reduce((sum, c) => sum + c.quantity, 0);
 
-  const numericTableId = session?.tableNumber ? parseInt(session.tableNumber.replace(/\D/g, ''), 10) || 1 : 1;
-
-  /** Confirm order → Kitchen ට යනවා */
+  // ── Confirm order → Kitchen ──
   const confirmOrder = async () => {
     if (!cart.length) return;
     setOrderLoading(true);
@@ -205,7 +163,7 @@ const dark       = theme === 'dark';
     }
   };
 
-  // ── Logout ──
+  // ── Staff logout ──
   const confirmLogout = async () => {
     if (!lUser || !lPass) { setLErr('Enter username and password.'); return; }
     setLLoading(true);
@@ -215,40 +173,39 @@ const dark       = theme === 'dark';
     if (ok) logout(); else setLErr('Incorrect credentials.');
   };
 
-  // ── Theme colours ──
+  // ── Theme colour map ──
   const tc = {
-    root:  D ? 'bg-[#0d0d0d]' : 'bg-gray-100',
-    bar:   D ? 'bg-[#111] border-white/5' : 'bg-white border-gray-200',
-    card:  D ? 'bg-[#1a1a1a] border-white/5 hover:border-orange-500/40' : 'bg-white border-gray-200 hover:border-orange-400 hover:shadow-sm',
-    hero:  D ? 'from-[#222] to-[#1a1a1a]' : 'from-orange-50 to-white',
-    tt:    D ? 'text-white' : 'text-gray-900',
-    st:    D ? 'text-gray-400' : 'text-gray-500',
-    mc:    D ? 'text-gray-600' : 'text-gray-400',
-    catA:  'bg-orange-500 text-white shadow-md shadow-orange-500/30',
-    catI:  D ? 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10' : 'bg-white text-gray-500 hover:text-gray-900 border border-gray-200',
-    btn2:  D ? 'bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white' : 'bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-700',
-    modal: D ? 'bg-[#1a1a1a] border-white/10' : 'bg-white border-gray-200',
-    inp:   D ? 'bg-[#0d0d0d] border-white/10 text-white placeholder-gray-600' : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400',
-    pgBtn: D ? 'bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200',
-    pgBox: D ? 'bg-white/[0.03] border-white/8' : 'bg-white border-gray-200',
-    cartRow: D ? 'bg-white/5 border-white/5' : 'bg-gray-50 border-gray-200',
-    divider: D ? 'border-white/10' : 'border-gray-200',
+    root:    D ? 'bg-[#0d0d0d]'                              : 'bg-gray-100',
+    bar:     D ? 'bg-[#111] border-white/5'                  : 'bg-white border-gray-200',
+    card:    D ? 'bg-[#1a1a1a] border-white/5 hover:border-orange-500/40' : 'bg-white border-gray-200 hover:border-orange-400 hover:shadow-sm',
+    hero:    D ? 'from-[#222] to-[#1a1a1a]'                 : 'from-orange-50 to-white',
+    tt:      D ? 'text-white'                                : 'text-gray-900',
+    st:      D ? 'text-gray-400'                             : 'text-gray-500',
+    mc:      D ? 'text-gray-600'                             : 'text-gray-400',
+    catA:    'bg-orange-500 text-white shadow-md shadow-orange-500/30',
+    catI:    D ? 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10' : 'bg-white text-gray-500 hover:text-gray-900 border border-gray-200',
+    btn2:    D ? 'bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white' : 'bg-gray-100 hover:bg-gray-200 border border-gray-200 text-gray-700',
+    modal:   D ? 'bg-[#1a1a1a] border-white/10'             : 'bg-white border-gray-200',
+    inp:     D ? 'bg-[#0d0d0d] border-white/10 text-white placeholder-gray-600' : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400',
+    pgBtn:   D ? 'bg-white/5 hover:bg-white/15 text-gray-300 border border-white/10' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200',
+    pgBox:   D ? 'bg-white/[0.03] border-white/8'           : 'bg-white border-gray-200',
+    cartRow: D ? 'bg-white/5 border-white/5'                : 'bg-gray-50 border-gray-200',
+    divider: D ? 'border-white/10'                          : 'border-gray-200',
   };
 
+  // ─────────────────────────────────────────────────────────────────────────
   return (
-    <div className={`flex h-screen overflow-hidden font-sans transition-colors duration-300 ${tc.root}`}>
-      {/* ── LEFT: MENU PANEL ── */}
-      {/* Added 'relative' to this panel so we can put our floating banner here */}
-      <div className="flex flex-col flex-1 min-w-0 overflow-hidden relative">
-        <div className={`flex-shrink-0 flex items-center gap-3 px-5 py-3 border-b ${tc.bar}`}>
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/30">
-              <ChefHat size={20} className="text-white"/>
-            </div>
-            <div>
-              <p className={`font-display text-base font-bold leading-tight ${tc.tt}`}>AURA Menu</p>
-              <p className="text-xs text-orange-500 font-medium">{session?.displayName} — Touch to order</p>
-            </div>
+    <div className={`flex flex-col h-screen overflow-hidden font-sans transition-colors duration-300 ${tc.root}`}>
+
+      {/* ══════════════════════════════════════════════════
+          TOP BAR
+      ══════════════════════════════════════════════════ */}
+      <div className={`flex-shrink-0 flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2 sm:py-3 border-b ${tc.bar}`}>
+
+        {/* Logo */}
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/30">
+            <ChefHat size={18} className="text-white"/>
           </div>
           <div>
             <p className={`font-display text-sm sm:text-base font-bold leading-tight ${tc.tt}`}>AURA Menu</p>
@@ -266,10 +223,10 @@ const dark       = theme === 'dark';
           ))}
         </div>
 
-        {/* Right buttons */}
+        {/* Right action buttons */}
         <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
 
-          {/* 🛒 Cart button — badge සහිතව */}
+          {/* 🛒 Cart */}
           <button
             onClick={() => setShowCart(true)}
             className={`relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center transition-all active:scale-90 ${D ? 'bg-white/5 hover:bg-white/15 text-orange-400' : 'bg-gray-100 hover:bg-gray-200 text-orange-500'}`}>
@@ -281,36 +238,24 @@ const dark       = theme === 'dark';
             )}
           </button>
 
-          {/* 💳 Pay Button */}
+          {/* 💳 Pay */}
           <button
-            onClick={() => alert('Pay button clicked!')} // පසුව Payment screen එකට යන්න logic එක ලියන්න
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center transition-all active:scale-90 ${
-              D ? 'bg-white/5 hover:bg-white/15 text-green-400' : 'bg-gray-100 hover:bg-gray-200 text-green-600'
-            }`}
-          >
+            onClick={() => alert('Pay button clicked!')}
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center transition-all active:scale-90 ${D ? 'bg-white/5 hover:bg-white/15 text-green-400' : 'bg-gray-100 hover:bg-gray-200 text-green-600'}`}>
             <CreditCard size={15} className="sm:w-[17px] sm:h-[17px]"/>
           </button>
 
-          
+          {/* 📋 Order status */}
           <button
             onClick={() => setShowHistory(true)}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-[10px] text-[11px] sm:text-xs font-semibold transition-all duration-200 hover:-translate-y-[1px] active:translate-y-0 hover:shadow-lg ${
-              D 
-                ? 'bg-white/12 text-white border border-white/25 hover:bg-white/22 hover:border-white/45 shadow-black/20' 
+              D
+                ? 'bg-white/12 text-white border border-white/25 hover:bg-white/22 hover:border-white/45 shadow-black/20'
                 : 'bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200 hover:border-gray-400 shadow-gray-200'
-            }`}
-          >
+            }`}>
             <span className="text-sm sm:text-base">📋</span>
             <span>Your Order Status</span>
           </button>
-
-
-          {showHistory && (
-            <OrderHistoryModal
-              tableId={numericTableId}
-              onClose={() => setShowHistory(false)}
-            />
-          )}
 
           {/* Theme toggle */}
           <button onClick={toggleTheme}
@@ -318,7 +263,7 @@ const dark       = theme === 'dark';
             {D ? <Sun size={15}/> : <Moon size={15}/>}
           </button>
 
-          {/* Logout */}
+          {/* Staff logout */}
           <button onClick={() => { setLUser(''); setLPass(''); setLErr(''); setShowLogout(true); }}
             className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-medium transition-all active:scale-95 ${tc.btn2}`}>
             <LogOut size={12}/><span className="hidden sm:inline">Staff Logout</span>
@@ -327,15 +272,14 @@ const dark       = theme === 'dark';
         </div>
       </div>
 
-      {/* ═══════════════════════════════════════════════════
-          MENU GRID
-      ═══════════════════════════════════════════════════ */}
-      <div className="flex-1 overflow-hidden flex flex-col px-3 sm:px-5 pt-3 sm:pt-5 pb-2 sm:pb-3 gap-2 sm:gap-3">
+      {/* ══════════════════════════════════════════════════
+          MENU GRID + PAGINATION
+      ══════════════════════════════════════════════════ */}
+      <div className="flex-1 overflow-hidden flex flex-col px-3 sm:px-5 pt-3 sm:pt-5 pb-2 sm:pb-3 gap-2 sm:gap-3 relative">
 
+        {/* Grid */}
         <div className="flex-1 overflow-hidden">
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-4 h-full content-start">
-        <div className="flex-1 overflow-y-auto px-5 py-5 pb-24">
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {items.map(item => {
               const cartQty = cart.find(c => c.id === item.id)?.quantity || 0;
               return (
@@ -346,7 +290,6 @@ const dark       = theme === 'dark';
                     <img src={getMenuImageSrc(item.imageFilename)} alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
                     <div className={`absolute inset-0 ${D ? 'bg-black/25' : 'bg-black/10'}`}/>
-                    {/* Cart quantity badge */}
                     {cartQty > 0 && (
                       <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center shadow-lg">
                         {cartQty}
@@ -358,7 +301,9 @@ const dark       = theme === 'dark';
                   <div className="p-2 sm:p-4 flex flex-col flex-1 justify-between">
                     <div>
                       <h3 className={`font-semibold text-xs sm:text-sm leading-tight mb-1 truncate ${tc.tt}`}>{item.name}</h3>
-                      <p className={`text-[10px] sm:text-xs leading-3 sm:leading-4 mb-1 sm:mb-2 line-clamp-1 sm:line-clamp-2 ${tc.st}`}>{item.description || 'Chef crafted signature dish.'}</p>
+                      <p className={`text-[10px] sm:text-xs leading-3 sm:leading-4 mb-1 sm:mb-2 line-clamp-1 sm:line-clamp-2 ${tc.st}`}>
+                        {item.description || 'Chef crafted signature dish.'}
+                      </p>
                     </div>
                     <div>
                       <div className="flex items-center justify-between mb-2 sm:mb-3 mt-1">
@@ -366,7 +311,6 @@ const dark       = theme === 'dark';
                         <span className={`text-[9px] sm:text-xs ${tc.mc}`}>⏱ {item.time}</span>
                       </div>
 
-                      {/* Add button — cart ඇත්නම් +/- controls */}
                       {cartQty === 0 ? (
                         <button onClick={() => addToCart(item)}
                           className="w-full h-8 sm:h-10 rounded-lg sm:rounded-xl font-semibold text-[11px] sm:text-sm transition-all active:scale-95 flex items-center justify-center gap-1 sm:gap-2 bg-orange-500 hover:bg-orange-400 text-white shadow-md shadow-orange-500/20">
@@ -393,29 +337,67 @@ const dark       = theme === 'dark';
             })}
           </div>
         </div>
-        
-        
-{/* 🎉 FLOATING ENTERTAINMENT BANNER 🎉 */}
-        {confirmed.length > 0 && !delivered && (
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-50 w-max">
+
+        {/* Pagination bar */}
+        {totalPages > 1 && (
+          <div className={`flex-shrink-0 flex items-center justify-between px-2 sm:px-3 py-1.5 sm:py-2.5 rounded-xl sm:rounded-2xl border ${tc.pgBox}`}>
             <button
-              onClick={() => navigate("/entertain")}
-              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 px-8 rounded-full shadow-[0_10px_40px_rgba(124,58,237,0.5)] font-bold text-base flex items-center justify-center gap-3 hover:scale-105 active:scale-95 transition-all animate-bounce ring-4 ring-purple-500/30 cursor-pointer"
-            >
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-sm font-semibold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed ${tc.pgBtn}`}>
+              ← Prev
+            </button>
+            <div className="flex items-center gap-1 sm:gap-1.5">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <button key={page} onClick={() => setCurrentPage(page)}
+                  className={`w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl text-[11px] sm:text-sm font-bold transition-all active:scale-95 ${
+                    currentPage === page
+                      ? 'bg-orange-500 text-white shadow-md shadow-orange-500/30'
+                      : D ? 'bg-white/5 text-gray-400 hover:bg-white/15 hover:text-white border border-white/10'
+                           : 'bg-white text-gray-500 hover:bg-orange-50 hover:text-orange-500 border border-gray-200'
+                  }`}>
+                  {page}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-sm font-semibold transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed ${tc.pgBtn}`}>
+              Next →
+            </button>
+          </div>
+        )}
+
+        {/* 🎉 Floating entertainment banner */}
+        {confirmed.length > 0 && !delivered && (
+          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-50 w-max">
+            <button
+              onClick={() => navigate('/entertain')}
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 px-8 rounded-full shadow-[0_10px_40px_rgba(124,58,237,0.5)] font-bold text-base flex items-center justify-center gap-3 hover:scale-105 active:scale-95 transition-all animate-bounce ring-4 ring-purple-500/30 cursor-pointer">
               🎧 Listen to music while playing games! ✨
             </button>
           </div>
         )}
+
       </div>
 
-      {/* ═══════════════════════════════════════════════════
+      {/* ── Order History Modal ──────────────────────────────────────────────── */}
+      {showHistory && (
+        <OrderHistoryModal
+          tableId={numericTableId}
+          onClose={() => setShowHistory(false)}
+        />
+      )}
+
+      {/* ══════════════════════════════════════════════════
           CART POPUP MODAL
-      ═══════════════════════════════════════════════════ */}
+      ══════════════════════════════════════════════════ */}
       {showCart && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-6">
           <div className={`w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl border shadow-2xl flex flex-col max-h-[90vh] ${tc.modal}`}>
 
-            {/* Cart header */}
+            {/* Header */}
             <div className={`flex-shrink-0 flex items-center justify-between px-6 py-4 border-b ${tc.divider}`}>
               <div className="flex items-center gap-3">
                 <ShoppingCart size={20} className="text-orange-500"/>
@@ -432,7 +414,7 @@ const dark       = theme === 'dark';
               </button>
             </div>
 
-            {/* Cart items list */}
+            {/* Items list */}
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
               {cart.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 gap-3">
@@ -447,20 +429,17 @@ const dark       = theme === 'dark';
                 cart.map(item => (
                   <div key={item.id} className={`flex items-center gap-3 p-3 rounded-2xl border ${tc.cartRow}`}>
 
-                    {/* Item image */}
                     <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
                       <img src={getMenuImageSrc(item.imageFilename)} alt={item.name}
                         className="w-full h-full object-cover"/>
                     </div>
 
-                    {/* Item info */}
                     <div className="flex-1 min-w-0">
                       <p className={`font-semibold text-sm truncate ${tc.tt}`}>{item.name}</p>
                       <p className="text-orange-500 text-sm font-bold">${(item.price * item.quantity).toFixed(2)}</p>
                       <p className={`text-xs ${tc.st}`}>${item.price.toFixed(2)} each</p>
                     </div>
 
-                    {/* Quantity controls */}
                     <div className="flex items-center gap-2 flex-shrink-0">
                       <button onClick={() => decreaseQty(item.id)}
                         className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all active:scale-90 ${D ? 'bg-white/10 hover:bg-red-500/20 text-gray-300 hover:text-red-400' : 'bg-gray-100 hover:bg-red-100 text-gray-500 hover:text-red-500'}`}>
@@ -473,7 +452,6 @@ const dark       = theme === 'dark';
                       </button>
                     </div>
 
-                    {/* Remove button */}
                     <button onClick={() => removeFromCart(item.id)}
                       className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all active:scale-90 flex-shrink-0 ${D ? 'bg-white/5 hover:bg-red-500/20 text-gray-500 hover:text-red-400' : 'bg-gray-100 hover:bg-red-100 text-gray-400 hover:text-red-500'}`}>
                       <Trash2 size={14}/>
@@ -484,23 +462,17 @@ const dark       = theme === 'dark';
               )}
             </div>
 
-            {/* Cart footer — total + confirm */}
+            {/* Footer */}
             {cart.length > 0 && (
               <div className={`flex-shrink-0 px-6 py-4 border-t ${tc.divider} space-y-3`}>
-
-                {/* Total */}
                 <div className="flex items-center justify-between">
                   <span className={`text-sm font-medium ${tc.st}`}>Total</span>
                   <span className="text-2xl font-bold text-orange-500">${cartTotal.toFixed(2)}</span>
                 </div>
-
-                {/* Table info */}
                 <div className={`flex items-center justify-between text-xs ${tc.st}`}>
                   <span>Table</span>
                   <span className={`font-semibold ${tc.tt}`}>{session?.tableNumber || 'T?'}</span>
                 </div>
-
-                {/* Confirm button */}
                 <button onClick={confirmOrder} disabled={orderLoading}
                   className="w-full h-12 rounded-2xl bg-orange-500 hover:bg-orange-400 disabled:opacity-60 text-white font-bold text-base transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30">
                   {orderLoading
@@ -508,13 +480,10 @@ const dark       = theme === 'dark';
                     : <><CreditCard size={18}/> Confirm Order — ${cartTotal.toFixed(2)}</>
                   }
                 </button>
-
-                {/* Clear all */}
                 <button onClick={() => setCart([])}
                   className={`w-full h-9 rounded-xl text-xs font-medium transition-all active:scale-95 ${tc.btn2}`}>
                   Clear All Items
                 </button>
-
               </div>
             )}
 
@@ -522,9 +491,9 @@ const dark       = theme === 'dark';
         </div>
       )}
 
-      {/* ═══════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════
           ORDER SUCCESS TOAST
-      ═══════════════════════════════════════════════════ */}
+      ══════════════════════════════════════════════════ */}
       {orderPlaced && (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-4 rounded-2xl bg-emerald-500 text-white shadow-2xl shadow-emerald-500/40 animate-bounce">
           <CheckCircle2 size={22}/>
@@ -535,9 +504,9 @@ const dark       = theme === 'dark';
         </div>
       )}
 
-      {/* ═══════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════
           STAFF LOGOUT MODAL
-      ═══════════════════════════════════════════════════ */}
+      ══════════════════════════════════════════════════ */}
       {showLogout && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 sm:p-6">
           <div className={`rounded-2xl sm:rounded-3xl p-6 sm:p-8 w-full max-w-sm border shadow-2xl ${tc.modal}`}>
@@ -546,7 +515,8 @@ const dark       = theme === 'dark';
                 <Lock size={20} className="text-red-400"/>
                 <h3 className={`font-display text-base sm:text-lg font-bold ${tc.tt}`}>Staff Verification</h3>
               </div>
-              <button onClick={() => setShowLogout(false)} className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center ${tc.btn2}`}>
+              <button onClick={() => setShowLogout(false)}
+                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center ${tc.btn2}`}>
                 <X size={14}/>
               </button>
             </div>
