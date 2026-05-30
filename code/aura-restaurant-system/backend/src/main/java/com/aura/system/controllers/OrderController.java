@@ -47,6 +47,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrdersByTable(tableId));
     }
 
+    
     // PATCH /api/orders/{id}/status
     @PatchMapping("/{id}/status")
     public ResponseEntity<OrderResponse> updateStatus(

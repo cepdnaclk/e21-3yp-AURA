@@ -170,7 +170,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<!-- Explicitly set main class — needed because two AuraApplication
-					     classes exist after merging with teammate's code -->
+					classes exist after merging with teammate's code -->
 					<mainClass>com.aura.AuraApplication</mainClass>
 					<excludes>
 						<exclude>

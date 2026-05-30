@@ -326,28 +326,9 @@ export function RestaurantProvider({ children }) {
     };
 
     try {
-      //const response = await orderAPI.placeOrder(payload);
-      //const order = normalizeBackendOrder(response);
-      const order = {
-    id: Date.now(),           // ← always unique, no ticketCounter needed
-    tableNumber: `T${tableId}`,
-    ticketNum: Date.now(),
-    items: items.map((item) => ({
-      id: item.id,
-      name: item.name,
-      quantity: item.quantity,
-      price: item.price,
-      imageFilename: item.imageFilename || '',
-      customization: item.customization || '',
-    })),
-    status: ORDER_STATUS.PENDING,
-    total: items.reduce((s, i) => s + i.price * i.quantity, 0),
-    isPaid: false,
-    isAddon,
-    createdAt: new Date(),
-    deliveredAt: null,
-    paidAt: null,
-  };
+      const response = await orderAPI.placeOrder(payload);
+      const order = normalizeBackendOrder(response);
+
       
       // ✅ FIXED: Check if order already exists before adding (deduplication)
       const orderExists = state.orderHistory.some(o => o.id === order.id);
