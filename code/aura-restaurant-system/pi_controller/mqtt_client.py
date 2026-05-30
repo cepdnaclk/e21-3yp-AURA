@@ -13,6 +13,8 @@ class RobotMqttClient:
 
         self.menu_response = None
         self.menu_event = threading.Event()
+        self.table_response = None
+        self.table_event = threading.Event()
 
     # පියවර 01: Connect වූ පසු Status Topic එකට Subscribe වීම
     def on_connect(self, client, userdata, flags, rc):
@@ -22,6 +24,7 @@ class RobotMqttClient:
             # පවතින Subscriptions
             self.client.subscribe(f"aura/robot/{self.robot_id}/#")
             self.client.subscribe("aura/table/+/menu/response")
+            self.client.subscribe("aura/table/+/info/response")
             
             # නව Subscription: Backend එකෙන් එවන status updates ලබා ගැනීමට
             # මෙය aura/robot/1/status වැනි topics වලට සවන් දෙයි
@@ -41,6 +44,11 @@ class RobotMqttClient:
             if msg.topic.endswith("/menu/response"):
                 self.menu_response = payload
                 self.menu_event.set()
+
+            # 1.b Table Info Response සඳහා
+            elif msg.topic.endswith("/info/response"):
+                self.table_response = payload
+                self.table_event.set()
 
             # 2. Order Ready Status සඳහා (අලුතින් එක් කළ කොටස)
             # Topic එක "aura/robot/1/status" වැනි එකක් දැයි පරීක්ෂා කරයි
@@ -68,6 +76,15 @@ class RobotMqttClient:
         self.client.publish(topic, json.dumps({"request": "menu"}), qos=1)
         if self.menu_event.wait(timeout):
             return self.menu_response
+        return None
+
+    def request_table_info(self, table_id="1", timeout=5):
+        self.table_event.clear()
+        self.table_response = None
+        topic = f"aura/table/{table_id}/info"
+        self.client.publish(topic, json.dumps({"request": "table_info"}), qos=1)
+        if self.table_event.wait(timeout):
+            return self.table_response
         return None
 
     def publish_order(self, table_id, items):

@@ -77,14 +77,18 @@ class VoiceModule:
             print(f"Unexpected speech-to-text error: {e}")
             return None
 
-    def get_gemini_response(self, user_text: str, menu_context: str | None = None) -> str:
+    def get_gemini_response(self, user_text: str, menu_context: str | None = None, order_state: list | None = None) -> str:
         """
-        Send user text to Gemini and return AURA's reply, using current menu context when available.
+        Send user text to Gemini and return AURA's reply, using current menu and order context when available.
         """
         try:
             menu_section = ""
             if menu_context:
                 menu_section = f"Current menu and availability:\n{menu_context}\n\n"
+
+            order_section = ""
+            if order_state:
+                order_section = f"User's current unconfirmed order items: {order_state}\n\n"
 
             prompt = f"""
 You are AURA, a smart and friendly restaurant robot assistant.
@@ -98,7 +102,7 @@ Rules:
 - If unclear, ask a short follow-up question.
 - Do not mention that you are an AI model unless directly asked.
 
-{menu_section}User said: {user_text}
+{menu_section}{order_section}User said: {user_text}
 """
 
             response = self.model.generate_content(prompt)

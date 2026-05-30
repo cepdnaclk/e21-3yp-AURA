@@ -1,0 +1,1 @@
+ALTER TABLE restaurant_table ADD COLUMN booking_price DOUBLE PRECISION DEFAULT 0.0;

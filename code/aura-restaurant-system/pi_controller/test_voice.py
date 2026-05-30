@@ -18,7 +18,7 @@ def parse_args() -> argparse.Namespace:
         help="Wait for wake word before listening.",
     )
     parser.add_argument(
-        "--no-wake-word",
+        "--no-wake-word",RobotUI
         action="store_true",
         help="Skip wake word and listen immediately.",
     )

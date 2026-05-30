@@ -24,4 +24,7 @@ public class RestaurantTable {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "booking_price")
+    private Double bookingPrice;
 }
