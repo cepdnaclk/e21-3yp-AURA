@@ -12,6 +12,7 @@ import { orderMqtt }                 from '../../api/mqttclient';
 import { useNavigate }               from 'react-router-dom';
 import OrderHistoryModal             from '../../components/OrderHistoryModal/OrderHistoryModal';
 import waiterAPI                     from '../../api/waiterAPI';
+import PaymentModal from '../../components/PaymentModal/PaymentModal';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const CATS = [
@@ -83,6 +84,7 @@ export default function RobotUI() {
   // ── Cart state ──
   const [cart, setCart]                 = useState([]);
   const [showCart, setShowCart]         = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
   const [orderPlaced, setOrderPlaced]   = useState(false);
   const [orderLoading, setOrderLoading] = useState(false);
 
@@ -427,7 +429,7 @@ const confirmStaffAction = async () => {
 
           {/* 💳 Pay */}
           <button
-            onClick={() => alert('Pay button clicked!')}
+            onClick={() => setShowPayment(true)}
             className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center transition-all active:scale-90 ${D ? 'bg-white/5 hover:bg-white/15 text-green-400' : 'bg-gray-100 hover:bg-gray-200 text-green-600'}`}>
             <CreditCard size={15} className="sm:w-[17px] sm:h-[17px]"/>
           </button>
@@ -538,6 +540,21 @@ const confirmStaffAction = async () => {
           tableId={numericTableId}
           sessionId={session?.walkInSessionId}
           onClose={() => setShowHistory(false)}
+        />
+      )}
+
+
+      {showPayment && (
+        <PaymentModal
+          tableId={numericTableId}
+          tableNumber={table}
+          onClose={() => setShowPayment(false)}
+          theme={theme}
+          onCashWaiterCalled={() => {
+            setShowPayment(false);
+            setWaiterCalled(true);
+            setTimeout(() => setWaiterCalled(false), 3000);
+          }}
         />
       )}
 

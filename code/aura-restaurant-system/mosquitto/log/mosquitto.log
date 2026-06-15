@@ -225,3 +225,1108 @@
 1780751225: Saving in-memory database to /mosquitto/data//mosquitto.db.
 1780752437: mosquitto version 2.1.2 terminating
 1780752437: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781361164: mosquitto version 2.1.2 starting
+1781361164: Config loaded from /mosquitto/config/mosquitto.conf.
+1781361164: Bridge support available.
+1781361164: Persistence support available.
+1781361164: TLS support available.
+1781361164: TLS-PSK support available.
+1781361164: Websockets support available.
+1781361164: Opening ipv4 listen socket on port 1883.
+1781361164: Opening ipv6 listen socket on port 1883.
+1781361164: Opening ipv4 listen socket on port 9001.
+1781361164: Opening ipv6 listen socket on port 9001.
+1781361164: mosquitto version 2.1.2 running
+1781361204: New connection from 172.19.0.2:58312 on port 1883.
+1781361205: New client connected from 172.19.0.2:58312 as aura-server-inbound (p4, c1, k60).
+1781361207: New connection from 172.19.0.2:60118 on port 1883.
+1781361208: New client connected from 172.19.0.2:60118 as aura-server-outbound (p4, c1, k60).
+1781361221: Client aura-server-inbound [172.19.0.2:58312] disconnected.
+1781361226: Client aura-server-outbound [172.19.0.2:60118] disconnected.
+1781361256: New connection from 172.19.0.2:52210 on port 1883.
+1781361256: New client connected from 172.19.0.2:52210 as aura-server-inbound (p4, c1, k60).
+1781361259: New connection from 172.19.0.2:53642 on port 1883.
+1781361259: New client connected from 172.19.0.2:53642 as aura-server-outbound (p4, c1, k60).
+1781361268: New connection from 172.19.0.1:35410 on port 9001.
+1781361268: New client connected from 172.19.0.1:35410 as aura_web_340d11 (p4, c1, k60).
+1781361268: New connection from 172.19.0.1:35416 on port 9001.
+1781361268: New client connected from 172.19.0.1:35416 as aura_web_3b4f12 (p4, c1, k60).
+1781361268: New connection from 172.19.0.1:35424 on port 9001.
+1781361268: New client connected from 172.19.0.1:35424 as aura_web_16e6d7 (p4, c1, k60).
+1781361268: New connection from 172.19.0.1:35430 on port 9001.
+1781361268: New client connected from 172.19.0.1:35430 as aura_web_90f551 (p4, c1, k60).
+1781361666: Client aura_web_90f551 [172.19.0.1:35430] disconnected: exceeded timeout.
+1781361666: Client aura_web_16e6d7 [172.19.0.1:35424] disconnected: exceeded timeout.
+1781361666: Client aura_web_340d11 [172.19.0.1:35410] disconnected: exceeded timeout.
+1781361666: Client aura_web_3b4f12 [172.19.0.1:35416] disconnected: exceeded timeout.
+1781361791: New connection from 172.19.0.1:35832 on port 9001.
+1781361791: New client connected from 172.19.0.1:35832 as aura_web_27407c (p4, c1, k60).
+1781361791: New connection from 172.19.0.1:35848 on port 9001.
+1781361791: New client connected from 172.19.0.1:35848 as aura_web_06b3a6 (p4, c1, k60).
+1781361793: New connection from 172.19.0.1:35858 on port 9001.
+1781361793: New client connected from 172.19.0.1:35858 as aura_web_90f551 (p4, c1, k60).
+1781361793: New connection from 172.19.0.1:35872 on port 9001.
+1781361793: New client connected from 172.19.0.1:35872 as aura_web_16e6d7 (p4, c1, k60).
+1781361793: New connection from 172.19.0.1:35888 on port 9001.
+1781361793: New client connected from 172.19.0.1:35888 as aura_web_340d11 (p4, c1, k60).
+1781361793: New connection from 172.19.0.1:35896 on port 9001.
+1781361793: New client connected from 172.19.0.1:35896 as aura_web_3b4f12 (p4, c1, k60).
+1781361797: Client aura_web_27407c [172.19.0.1:35832] disconnected: connection closed by client.
+1781361797: Client aura_web_3b4f12 [172.19.0.1:35896] disconnected: connection closed by client.
+1781361797: Client aura_web_06b3a6 [172.19.0.1:35848] disconnected: connection closed by client.
+1781361797: Client aura_web_340d11 [172.19.0.1:35888] disconnected: connection closed by client.
+1781361797: Client aura_web_90f551 [172.19.0.1:35858] disconnected: connection closed by client.
+1781361797: Client aura_web_16e6d7 [172.19.0.1:35872] disconnected: connection closed by client.
+1781361798: New connection from 172.19.0.1:35900 on port 9001.
+1781361798: New connection from 172.19.0.1:35904 on port 9001.
+1781361798: New client connected from 172.19.0.1:35900 as aura_web_0b817a (p4, c1, k60).
+1781361798: New client connected from 172.19.0.1:35904 as aura_web_7be5ce (p4, c1, k60).
+1781361798: New connection from 172.19.0.1:35918 on port 9001.
+1781361798: New client connected from 172.19.0.1:35918 as aura_web_a580f1 (p4, c1, k60).
+1781361798: New connection from 172.19.0.1:35924 on port 9001.
+1781361798: New client connected from 172.19.0.1:35924 as aura_web_3be976 (p4, c1, k60).
+1781362254: Client aura_web_0b817a [172.19.0.1:35900] disconnected: exceeded timeout.
+1781362254: Client aura_web_7be5ce [172.19.0.1:35904] disconnected: exceeded timeout.
+1781362254: Client aura_web_a580f1 [172.19.0.1:35918] disconnected: exceeded timeout.
+1781362254: Client aura_web_3be976 [172.19.0.1:35924] disconnected: exceeded timeout.
+1781363072: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781364989: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781366908: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781368737: mosquitto version 2.1.2 terminating
+1781368737: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781373585: mosquitto version 2.1.2 starting
+1781373585: Config loaded from /mosquitto/config/mosquitto.conf.
+1781373585: Bridge support available.
+1781373585: Persistence support available.
+1781373585: TLS support available.
+1781373585: TLS-PSK support available.
+1781373585: Websockets support available.
+1781373585: Opening ipv4 listen socket on port 1883.
+1781373585: Opening ipv6 listen socket on port 1883.
+1781373585: Opening ipv4 listen socket on port 9001.
+1781373585: Opening ipv6 listen socket on port 9001.
+1781373585: mosquitto version 2.1.2 running
+1781373626: New connection from 172.19.0.1:34762 on port 9001.
+1781373626: New connection from 172.19.0.1:34764 on port 9001.
+1781373627: New client connected from 172.19.0.1:34762 as aura_web_3be976 (p4, c1, k60).
+1781373627: New client connected from 172.19.0.1:34764 as aura_web_0b817a (p4, c1, k60).
+1781373627: New connection from 172.19.0.1:46760 on port 9001.
+1781373627: New connection from 172.19.0.1:46764 on port 9001.
+1781373627: New client connected from 172.19.0.1:46760 as aura_web_a580f1 (p4, c1, k60).
+1781373627: New client connected from 172.19.0.1:46764 as aura_web_7be5ce (p4, c1, k60).
+1781373634: Client aura_web_3be976 [172.19.0.1:34762] disconnected: connection closed by client.
+1781373634: Client aura_web_7be5ce [172.19.0.1:46764] disconnected: connection closed by client.
+1781373634: Client aura_web_a580f1 [172.19.0.1:46760] disconnected: connection closed by client.
+1781373634: Client aura_web_0b817a [172.19.0.1:34764] disconnected: connection closed by client.
+1781373649: New connection from 172.19.0.1:55094 on port 9001.
+1781373649: New connection from 172.19.0.1:55104 on port 9001.
+1781373649: New client connected from 172.19.0.1:55094 as aura_web_b486fc (p4, c1, k60).
+1781373649: New client connected from 172.19.0.1:55104 as aura_web_4b5b6c (p4, c1, k60).
+1781373649: New connection from 172.19.0.1:55112 on port 9001.
+1781373649: New connection from 172.19.0.1:55116 on port 9001.
+1781373649: New client connected from 172.19.0.1:55112 as aura_web_a19eeb (p4, c1, k60).
+1781373649: New client connected from 172.19.0.1:55116 as aura_web_5e29d5 (p4, c1, k60).
+1781373655: New connection from 172.19.0.5:51006 on port 1883.
+1781373655: New client connected from 172.19.0.5:51006 as aura-server-inbound (p4, c1, k60).
+1781373658: New connection from 172.19.0.5:44422 on port 1883.
+1781373659: New client connected from 172.19.0.5:44422 as aura-server-outbound (p4, c1, k60).
+1781373665: Client aura_web_a19eeb [172.19.0.1:55112] disconnected: connection closed by client.
+1781373665: Client aura_web_5e29d5 [172.19.0.1:55116] disconnected: connection closed by client.
+1781373665: Client aura_web_4b5b6c [172.19.0.1:55104] disconnected: connection closed by client.
+1781373665: Client aura_web_b486fc [172.19.0.1:55094] disconnected: connection closed by client.
+1781373666: New connection from 172.19.0.1:59260 on port 9001.
+1781373666: New client connected from 172.19.0.1:59260 as aura_web_175516 (p4, c1, k60).
+1781373666: New connection from 172.19.0.1:59268 on port 9001.
+1781373666: New client connected from 172.19.0.1:59268 as aura_web_66d9af (p4, c1, k60).
+1781373666: New connection from 172.19.0.1:59284 on port 9001.
+1781373666: New client connected from 172.19.0.1:59284 as aura_web_26e712 (p4, c1, k60).
+1781373667: New connection from 172.19.0.1:59286 on port 9001.
+1781373667: New client connected from 172.19.0.1:59286 as aura_web_3907f6 (p4, c1, k60).
+1781373689: New connection from 172.19.0.1:46076 on port 9001.
+1781373689: New connection from 172.19.0.1:46080 on port 9001.
+1781373690: New client connected from 172.19.0.1:46076 as aura_web_010d59 (p4, c1, k60).
+1781373690: New client connected from 172.19.0.1:46080 as aura_web_3b6e00 (p4, c1, k60).
+1781373690: New connection from 172.19.0.1:33592 on port 9001.
+1781373690: New client connected from 172.19.0.1:33592 as aura_web_e71f63 (p4, c1, k60).
+1781373691: New connection from 172.19.0.1:33598 on port 9001.
+1781373691: New client connected from 172.19.0.1:33598 as aura_web_92a992 (p4, c1, k60).
+1781373758: Client aura_web_66d9af [172.19.0.1:59268] disconnected: connection closed by client.
+1781373758: Client aura_web_26e712 [172.19.0.1:59284] disconnected: connection closed by client.
+1781373758: Client aura_web_175516 [172.19.0.1:59260] disconnected: connection closed by client.
+1781373758: Client aura_web_3907f6 [172.19.0.1:59286] disconnected: connection closed by client.
+1781373760: New connection from 172.19.0.1:46954 on port 9001.
+1781373761: New client connected from 172.19.0.1:46954 as aura_web_6d9163 (p4, c1, k60).
+1781373761: New connection from 172.19.0.1:46958 on port 9001.
+1781373761: New client connected from 172.19.0.1:46958 as aura_web_28d484 (p4, c1, k60).
+1781373761: New connection from 172.19.0.1:46966 on port 9001.
+1781373761: New client connected from 172.19.0.1:46966 as aura_web_52594c (p4, c1, k60).
+1781373761: New connection from 172.19.0.1:46978 on port 9001.
+1781373761: New client connected from 172.19.0.1:46978 as aura_web_8151ef (p4, c1, k60).
+1781373903: Client aura_web_010d59 [172.19.0.1:46076] disconnected: connection closed by client.
+1781373903: Client aura_web_3b6e00 [172.19.0.1:46080] disconnected: connection closed by client.
+1781373903: Client aura_web_e71f63 [172.19.0.1:33592] disconnected: connection closed by client.
+1781373903: Client aura_web_92a992 [172.19.0.1:33598] disconnected: connection closed by client.
+1781373912: New connection from 172.19.0.1:39102 on port 9001.
+1781373912: New connection from 172.19.0.1:39118 on port 9001.
+1781373912: New client connected from 172.19.0.1:39102 as aura_web_99f89a (p4, c1, k60).
+1781373912: New client connected from 172.19.0.1:39118 as aura_web_2ccaf6 (p4, c1, k60).
+1781373913: New connection from 172.19.0.1:39132 on port 9001.
+1781373913: New connection from 172.19.0.1:39140 on port 9001.
+1781373913: New client connected from 172.19.0.1:39140 as aura_web_4f6911 (p4, c1, k60).
+1781373913: New client connected from 172.19.0.1:39132 as aura_web_018ec2 (p4, c1, k60).
+1781373946: Client aura_web_99f89a [172.19.0.1:39102] disconnected: connection closed by client.
+1781373946: Client aura_web_2ccaf6 [172.19.0.1:39118] disconnected: connection closed by client.
+1781373946: Client aura_web_4f6911 [172.19.0.1:39140] disconnected: connection closed by client.
+1781373946: Client aura_web_018ec2 [172.19.0.1:39132] disconnected: connection closed by client.
+1781373950: New connection from 172.19.0.1:56090 on port 9001.
+1781373951: New connection from 172.19.0.1:56096 on port 9001.
+1781373953: New client connected from 172.19.0.1:56090 as aura_web_6af7e7 (p4, c1, k60).
+1781373953: New client connected from 172.19.0.1:56096 as aura_web_2d5c2f (p4, c1, k60).
+1781373953: New connection from 172.19.0.1:56098 on port 9001.
+1781373953: New connection from 172.19.0.1:56108 on port 9001.
+1781373954: New client connected from 172.19.0.1:56098 as aura_web_7bcdcd (p4, c1, k60).
+1781373954: New client connected from 172.19.0.1:56108 as aura_web_efc058 (p4, c1, k60).
+1781374106: Client aura_web_8151ef [172.19.0.1:46978] disconnected: exceeded timeout.
+1781374106: Client aura_web_6d9163 [172.19.0.1:46954] disconnected: exceeded timeout.
+1781374106: Client aura_web_52594c [172.19.0.1:46966] disconnected: exceeded timeout.
+1781374106: Client aura_web_28d484 [172.19.0.1:46958] disconnected: exceeded timeout.
+1781374649: New connection from 172.19.0.1:49562 on port 9001.
+1781374649: New client connected from 172.19.0.1:49562 as aura_web_369eb7 (p4, c1, k60).
+1781374649: New connection from 172.19.0.1:49576 on port 9001.
+1781374649: New connection from 172.19.0.1:49586 on port 9001.
+1781374649: New client connected from 172.19.0.1:49576 as aura_web_b1f101 (p4, c1, k60).
+1781374649: New client connected from 172.19.0.1:49586 as aura_web_6a1ca3 (p4, c1, k60).
+1781374649: New connection from 172.19.0.1:49588 on port 9001.
+1781374649: New client connected from 172.19.0.1:49588 as aura_web_140ad6 (p4, c1, k60).
+1781375050: Client aura_web_140ad6 [172.19.0.1:49588] disconnected: exceeded timeout.
+1781375050: Client aura_web_6a1ca3 [172.19.0.1:49586] disconnected: exceeded timeout.
+1781375050: Client aura_web_b1f101 [172.19.0.1:49576] disconnected: exceeded timeout.
+1781375050: Client aura_web_369eb7 [172.19.0.1:49562] disconnected: exceeded timeout.
+1781375499: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781375643: mosquitto version 2.1.2 starting
+1781375643: Config loaded from /mosquitto/config/mosquitto.conf.
+1781375643: Bridge support available.
+1781375643: Persistence support available.
+1781375643: TLS support available.
+1781375643: TLS-PSK support available.
+1781375643: Websockets support available.
+1781375643: Opening ipv4 listen socket on port 1883.
+1781375643: Opening ipv6 listen socket on port 1883.
+1781375643: Opening ipv4 listen socket on port 9001.
+1781375643: Opening ipv6 listen socket on port 9001.
+1781375643: mosquitto version 2.1.2 running
+1781375721: New connection from 172.19.0.5:47438 on port 1883.
+1781375721: New client connected from 172.19.0.5:47438 as aura-server-inbound (p4, c1, k60).
+1781375722: New connection from 172.19.0.1:59410 on port 9001.
+1781375723: New connection from 172.19.0.1:59418 on port 9001.
+1781375723: New client connected from 172.19.0.1:59410 as aura_web_dfc253 (p4, c1, k60).
+1781375723: New connection from 172.19.0.1:59426 on port 9001.
+1781375723: New client connected from 172.19.0.1:59418 as aura_web_a4f305 (p4, c1, k60).
+1781375723: New client connected from 172.19.0.1:59426 as aura_web_9e4c1d (p4, c1, k60).
+1781375723: New connection from 172.19.0.1:59438 on port 9001.
+1781375723: New client connected from 172.19.0.1:59438 as aura_web_d5311f (p4, c1, k60).
+1781375732: New connection from 172.19.0.5:44016 on port 1883.
+1781375732: New client connected from 172.19.0.5:44016 as aura-server-outbound (p4, c1, k60).
+1781375770: mosquitto version 2.1.2 terminating
+1781375770: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781375818: mosquitto version 2.1.2 starting
+1781375818: Config loaded from /mosquitto/config/mosquitto.conf.
+1781375818: Bridge support available.
+1781375818: Persistence support available.
+1781375818: TLS support available.
+1781375818: TLS-PSK support available.
+1781375818: Websockets support available.
+1781375818: Opening ipv4 listen socket on port 1883.
+1781375818: Opening ipv6 listen socket on port 1883.
+1781375818: Opening ipv4 listen socket on port 9001.
+1781375818: Opening ipv6 listen socket on port 9001.
+1781375818: mosquitto version 2.1.2 running
+1781375889: New connection from 172.19.0.5:47420 on port 1883.
+1781375889: New client connected from 172.19.0.5:47420 as aura-server-inbound (p4, c1, k60).
+1781375894: New connection from 172.19.0.5:59962 on port 1883.
+1781375895: New client connected from 172.19.0.5:59962 as aura-server-outbound (p4, c1, k60).
+1781375922: New connection from 172.19.0.1:35608 on port 9001.
+1781375922: New client connected from 172.19.0.1:35608 as aura_web_916e27 (p4, c1, k60).
+1781375922: New connection from 172.19.0.1:35612 on port 9001.
+1781375922: New connection from 172.19.0.1:35622 on port 9001.
+1781375922: New connection from 172.19.0.1:35630 on port 9001.
+1781375922: New client connected from 172.19.0.1:35612 as aura_web_1cee38 (p4, c1, k60).
+1781375922: New client connected from 172.19.0.1:35622 as aura_web_516da2 (p4, c1, k60).
+1781375923: New client connected from 172.19.0.1:35630 as aura_web_f47457 (p4, c1, k60).
+1781376114: mosquitto version 2.1.2 starting
+1781376114: Config loaded from /mosquitto/config/mosquitto.conf.
+1781376114: Bridge support available.
+1781376114: Persistence support available.
+1781376114: TLS support available.
+1781376114: TLS-PSK support available.
+1781376114: Websockets support available.
+1781376114: Opening ipv4 listen socket on port 1883.
+1781376114: Opening ipv6 listen socket on port 1883.
+1781376114: Opening ipv4 listen socket on port 9001.
+1781376114: Opening ipv6 listen socket on port 9001.
+1781376114: mosquitto version 2.1.2 running
+1781376165: New connection from 172.19.0.2:56484 on port 1883.
+1781376166: New client connected from 172.19.0.2:56484 as aura-server-inbound (p4, c1, k60).
+1781376170: New connection from 172.19.0.2:56498 on port 1883.
+1781376170: New client connected from 172.19.0.2:56498 as aura-server-outbound (p4, c1, k60).
+1781376266: Client aura-server-inbound [172.19.0.2:56484] disconnected.
+1781376273: Client aura-server-outbound [172.19.0.2:56498] disconnected: connection closed by client.
+1781376397: New connection from 172.19.0.2:51702 on port 1883.
+1781376398: New client connected from 172.19.0.2:51702 as aura-server-inbound (p4, c1, k60).
+1781376401: New connection from 172.19.0.1:57288 on port 9001.
+1781376401: New client connected from 172.19.0.1:57288 as aura_web_9a3baa (p4, c1, k60).
+1781376401: New connection from 172.19.0.1:57294 on port 9001.
+1781376401: New connection from 172.19.0.1:57300 on port 9001.
+1781376401: New client connected from 172.19.0.1:57300 as aura_web_365c87 (p4, c1, k60).
+1781376401: New client connected from 172.19.0.1:57294 as aura_web_24d717 (p4, c1, k60).
+1781376401: New connection from 172.19.0.1:57302 on port 9001.
+1781376401: New client connected from 172.19.0.1:57302 as aura_web_a68699 (p4, c1, k60).
+1781376403: New connection from 172.19.0.2:37944 on port 1883.
+1781376403: New client connected from 172.19.0.2:37944 as aura-server-outbound (p4, c1, k60).
+1781376408: New connection from 172.19.0.1:36476 on port 9001.
+1781376409: New connection from 172.19.0.1:36490 on port 9001.
+1781376412: New client connected from 172.19.0.1:36476 as aura_web_3799e1 (p4, c1, k60).
+1781376412: New client connected from 172.19.0.1:36490 as aura_web_7cdbc8 (p4, c1, k60).
+1781376412: New connection from 172.19.0.1:36506 on port 9001.
+1781376412: New client connected from 172.19.0.1:36506 as aura_web_288ebb (p4, c1, k60).
+1781376412: New connection from 172.19.0.1:36514 on port 9001.
+1781376412: New client connected from 172.19.0.1:36514 as aura_web_60ba1a (p4, c1, k60).
+1781376741: Client aura_web_9a3baa [172.19.0.1:57288] disconnected: exceeded timeout.
+1781376741: Client aura_web_a68699 [172.19.0.1:57302] disconnected: exceeded timeout.
+1781376741: Client aura_web_365c87 [172.19.0.1:57300] disconnected: exceeded timeout.
+1781376741: Client aura_web_24d717 [172.19.0.1:57294] disconnected: exceeded timeout.
+1781377166: New connection from 172.19.0.1:46702 on port 9001.
+1781377166: New connection from 172.19.0.1:46718 on port 9001.
+1781377167: New client connected from 172.19.0.1:46702 as aura_web_83169f (p4, c1, k60).
+1781377167: New client connected from 172.19.0.1:46718 as aura_web_ee0da7 (p4, c1, k60).
+1781377167: New connection from 172.19.0.1:46730 on port 9001.
+1781377167: New connection from 172.19.0.1:46738 on port 9001.
+1781377167: New client connected from 172.19.0.1:46730 as aura_web_75d22e (p4, c1, k60).
+1781377167: New client connected from 172.19.0.1:46738 as aura_web_9b93ab (p4, c1, k60).
+1781377167: New connection from 172.19.0.1:46746 on port 9001.
+1781377167: New client connected from 172.19.0.1:46746 as aura_web_08f5c6 (p4, c1, k60).
+1781377398: Client aura_web_83169f [172.19.0.1:46702] disconnected: exceeded timeout.
+1781377398: Client aura_web_75d22e [172.19.0.1:46730] disconnected: exceeded timeout.
+1781377398: Client aura_web_9b93ab [172.19.0.1:46738] disconnected: exceeded timeout.
+1781377398: Client aura_web_08f5c6 [172.19.0.1:46746] disconnected: exceeded timeout.
+1781377398: Client aura_web_ee0da7 [172.19.0.1:46718] disconnected: exceeded timeout.
+1781378026: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781378330: Client aura_web_60ba1a [172.19.0.1:36514] disconnected: exceeded timeout.
+1781378343: New connection from 172.19.0.1:56332 on port 9001.
+1781378373: New client connected from 172.19.0.1:56332 as aura_web_60ba1a (p4, c1, k60).
+1781378426: New connection from 172.19.0.1:49566 on port 9001.
+1781378433: Client aura_web_60ba1a [172.19.0.1:56332] disconnected: session taken over.
+1781378433: New client connected from 172.19.0.1:49566 as aura_web_60ba1a (p4, c1, k60).
+1781379230: Client aura_web_60ba1a [172.19.0.1:49566] disconnected: exceeded timeout.
+1781379266: Client aura_web_288ebb [172.19.0.1:36506] disconnected: exceeded timeout.
+1781379266: Client aura_web_7cdbc8 [172.19.0.1:36490] disconnected: exceeded timeout.
+1781379267: Client aura_web_3799e1 [172.19.0.1:36476] disconnected: exceeded timeout.
+1781379303: New connection from 172.19.0.1:46826 on port 9001.
+1781379306: New client connected from 172.19.0.1:46826 as aura_web_60ba1a (p4, c1, k60).
+1781379638: Client aura_web_60ba1a [172.19.0.1:46826] disconnected: exceeded timeout.
+1781379677: New connection from 172.19.0.1:35288 on port 9001.
+1781379677: New client connected from 172.19.0.1:35288 as aura_web_288ebb (p4, c1, k60).
+1781379678: New connection from 172.19.0.1:35294 on port 9001.
+1781379678: New connection from 172.19.0.1:35304 on port 9001.
+1781379678: New connection from 172.19.0.1:35310 on port 9001.
+1781379678: New client connected from 172.19.0.1:35294 as aura_web_3799e1 (p4, c1, k60).
+1781379678: New client connected from 172.19.0.1:35304 as aura_web_7cdbc8 (p4, c1, k60).
+1781379678: Client 172.19.0.1 [172.19.0.1:35310] disconnected: connection closed by client.
+1781379678: New connection from 172.19.0.1:35326 on port 9001.
+1781379678: New client connected from 172.19.0.1:35326 as aura_web_60ba1a (p4, c1, k60).
+1781379802: mosquitto version 2.1.2 terminating
+1781379802: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781491211: mosquitto version 2.1.2 starting
+1781491211: Config loaded from /mosquitto/config/mosquitto.conf.
+1781491211: Bridge support available.
+1781491211: Persistence support available.
+1781491211: TLS support available.
+1781491211: TLS-PSK support available.
+1781491211: Websockets support available.
+1781491211: Opening ipv4 listen socket on port 1883.
+1781491211: Opening ipv6 listen socket on port 1883.
+1781491211: Opening ipv4 listen socket on port 9001.
+1781491211: Opening ipv6 listen socket on port 9001.
+1781491211: mosquitto version 2.1.2 running
+1781491255: New connection from 172.19.0.2:51614 on port 1883.
+1781491256: New client connected from 172.19.0.2:51614 as aura-server-inbound (p4, c1, k60).
+1781491259: New connection from 172.19.0.2:39324 on port 1883.
+1781491259: New client connected from 172.19.0.2:39324 as aura-server-outbound (p4, c1, k60).
+1781491325: Client aura-server-inbound [172.19.0.2:51614] disconnected.
+1781491331: Client aura-server-outbound [172.19.0.2:39324] disconnected.
+1781491437: New connection from 172.19.0.1:57440 on port 9001.
+1781491438: New connection from 172.19.0.1:57446 on port 9001.
+1781491438: New client connected from 172.19.0.1:57440 as aura_web_dd87c5 (p4, c1, k60).
+1781491438: New connection from 172.19.0.1:57458 on port 9001.
+1781491438: New client connected from 172.19.0.1:57446 as aura_web_d39431 (p4, c1, k60).
+1781491438: New connection from 172.19.0.1:57460 on port 9001.
+1781491438: New client connected from 172.19.0.1:57458 as aura_web_20a4bb (p4, c1, k60).
+1781491438: New client connected from 172.19.0.1:57460 as aura_web_f1c443 (p4, c1, k60).
+1781491563: Client aura_web_dd87c5 [172.19.0.1:57440] disconnected: connection closed by client.
+1781491563: Client aura_web_d39431 [172.19.0.1:57446] disconnected: connection closed by client.
+1781491563: Client aura_web_f1c443 [172.19.0.1:57460] disconnected: connection closed by client.
+1781491563: Client aura_web_20a4bb [172.19.0.1:57458] disconnected: connection closed by client.
+1781491565: New connection from 172.19.0.1:57640 on port 9001.
+1781491565: New connection from 172.19.0.1:57642 on port 9001.
+1781491565: New client connected from 172.19.0.1:57640 as aura_web_7b1773 (p4, c1, k60).
+1781491565: New client connected from 172.19.0.1:57642 as aura_web_55b339 (p4, c1, k60).
+1781491565: New connection from 172.19.0.1:57650 on port 9001.
+1781491565: New connection from 172.19.0.1:57666 on port 9001.
+1781491565: New client connected from 172.19.0.1:57650 as aura_web_a57667 (p4, c1, k60).
+1781491565: New client connected from 172.19.0.1:57666 as aura_web_d5a3fa (p4, c1, k60).
+1781491589: New connection from 172.19.0.1:41076 on port 9001.
+1781491589: New connection from 172.19.0.1:41082 on port 9001.
+1781491589: New client connected from 172.19.0.1:41076 as aura_web_0af9ef (p4, c1, k60).
+1781491589: New connection from 172.19.0.1:41090 on port 9001.
+1781491589: New client connected from 172.19.0.1:41082 as aura_web_d86a61 (p4, c1, k60).
+1781491589: New client connected from 172.19.0.1:41090 as aura_web_adb0b3 (p4, c1, k60).
+1781491589: New connection from 172.19.0.1:41102 on port 9001.
+1781491589: New client connected from 172.19.0.1:41102 as aura_web_220e15 (p4, c1, k60).
+1781491674: Client aura_web_d86a61 [172.19.0.1:41082] disconnected: connection closed by client.
+1781491674: Client aura_web_adb0b3 [172.19.0.1:41090] disconnected: connection closed by client.
+1781491674: Client aura_web_0af9ef [172.19.0.1:41076] disconnected: connection closed by client.
+1781491674: Client aura_web_220e15 [172.19.0.1:41102] disconnected: connection closed by client.
+1781491674: New connection from 172.19.0.1:39942 on port 9001.
+1781491674: New client connected from 172.19.0.1:39942 as aura_web_0ea8a8 (p4, c1, k60).
+1781491674: New connection from 172.19.0.1:39954 on port 9001.
+1781491674: New client connected from 172.19.0.1:39954 as aura_web_a8d05a (p4, c1, k60).
+1781491674: New connection from 172.19.0.1:39970 on port 9001.
+1781491674: New client connected from 172.19.0.1:39970 as aura_web_1b6099 (p4, c1, k60).
+1781491675: New connection from 172.19.0.1:39982 on port 9001.
+1781491675: New client connected from 172.19.0.1:39982 as aura_web_732278 (p4, c1, k60).
+1781491677: Client aura_web_1b6099 [172.19.0.1:39970] disconnected: connection closed by client.
+1781491677: Client aura_web_0ea8a8 [172.19.0.1:39942] disconnected: connection closed by client.
+1781491677: Client aura_web_a8d05a [172.19.0.1:39954] disconnected: connection closed by client.
+1781491677: Client aura_web_732278 [172.19.0.1:39982] disconnected: connection closed by client.
+1781491680: Client aura_web_d5a3fa [172.19.0.1:57666] disconnected: connection closed by client.
+1781491680: Client aura_web_55b339 [172.19.0.1:57642] disconnected: connection closed by client.
+1781491680: Client aura_web_a57667 [172.19.0.1:57650] disconnected: connection closed by client.
+1781491680: Client aura_web_7b1773 [172.19.0.1:57640] disconnected: connection closed by client.
+1781496645: mosquitto version 2.1.2 starting
+1781496645: Config loaded from /mosquitto/config/mosquitto.conf.
+1781496645: Bridge support available.
+1781496645: Persistence support available.
+1781496645: TLS support available.
+1781496645: TLS-PSK support available.
+1781496645: Websockets support available.
+1781496645: Opening ipv4 listen socket on port 1883.
+1781496645: Opening ipv6 listen socket on port 1883.
+1781496645: Opening ipv4 listen socket on port 9001.
+1781496645: Opening ipv6 listen socket on port 9001.
+1781496645: mosquitto version 2.1.2 running
+1781496915: New connection from 172.19.0.1:39720 on port 9001.
+1781496915: New connection from 172.19.0.1:39724 on port 9001.
+1781496915: New connection from 172.19.0.1:39738 on port 9001.
+1781496915: New client connected from 172.19.0.1:39720 as aura_web_4b2fa5 (p4, c1, k60).
+1781496915: New client connected from 172.19.0.1:39724 as aura_web_a072b8 (p4, c1, k60).
+1781496915: New client connected from 172.19.0.1:39738 as aura_web_80564f (p4, c1, k60).
+1781496915: New connection from 172.19.0.1:39746 on port 9001.
+1781496915: New client connected from 172.19.0.1:39746 as aura_web_617516 (p4, c1, k60).
+1781496916: New connection from 172.19.0.1:39756 on port 9001.
+1781496916: New connection from 172.19.0.1:46922 on port 9001.
+1781496917: New client connected from 172.19.0.1:39756 as aura_web_207934 (p4, c1, k60).
+1781496917: New client connected from 172.19.0.1:46922 as aura_web_85a5d2 (p4, c1, k60).
+1781496917: New connection from 172.19.0.1:46932 on port 9001.
+1781496917: New client connected from 172.19.0.1:46932 as aura_web_6d9aa7 (p4, c1, k60).
+1781496917: New connection from 172.19.0.1:46938 on port 9001.
+1781496917: New client connected from 172.19.0.1:46938 as aura_web_afe4d4 (p4, c1, k60).
+1781496957: Client aura_web_4b2fa5 [172.19.0.1:39720] disconnected: connection closed by client.
+1781496958: Client aura_web_617516 [172.19.0.1:39746] disconnected: connection closed by client.
+1781496958: Client aura_web_a072b8 [172.19.0.1:39724] disconnected: connection closed by client.
+1781496958: Client aura_web_80564f [172.19.0.1:39738] disconnected: connection closed by client.
+1781496958: New connection from 172.19.0.1:55706 on port 9001.
+1781496958: New connection from 172.19.0.1:55708 on port 9001.
+1781496959: New client connected from 172.19.0.1:55706 as aura_web_c2a4c1 (p4, c1, k60).
+1781496959: New client connected from 172.19.0.1:55708 as aura_web_4e2898 (p4, c1, k60).
+1781496959: New connection from 172.19.0.1:55722 on port 9001.
+1781496959: New client connected from 172.19.0.1:55722 as aura_web_bd370b (p4, c1, k60).
+1781496959: New connection from 172.19.0.1:55726 on port 9001.
+1781496959: New client connected from 172.19.0.1:55726 as aura_web_f1e223 (p4, c1, k60).
+1781496961: Client aura_web_f1e223 [172.19.0.1:55726] disconnected: connection closed by client.
+1781496961: Client aura_web_bd370b [172.19.0.1:55722] disconnected: connection closed by client.
+1781496962: Client aura_web_4e2898 [172.19.0.1:55708] disconnected: connection closed by client.
+1781496962: Client aura_web_c2a4c1 [172.19.0.1:55706] disconnected: connection closed by client.
+1781496962: New connection from 172.19.0.1:55732 on port 9001.
+1781496962: New connection from 172.19.0.1:55746 on port 9001.
+1781496962: New client connected from 172.19.0.1:55732 as aura_web_0b1bd1 (p4, c1, k60).
+1781496962: New client connected from 172.19.0.1:55746 as aura_web_d29c46 (p4, c1, k60).
+1781496962: New connection from 172.19.0.1:55752 on port 9001.
+1781496962: New client connected from 172.19.0.1:55752 as aura_web_f49099 (p4, c1, k60).
+1781496962: New connection from 172.19.0.1:55766 on port 9001.
+1781496962: New client connected from 172.19.0.1:55766 as aura_web_fca6f7 (p4, c1, k60).
+1781497296: Client aura_web_fca6f7 [172.19.0.1:55766] disconnected: exceeded timeout.
+1781497296: Client aura_web_f49099 [172.19.0.1:55752] disconnected: exceeded timeout.
+1781497296: Client aura_web_d29c46 [172.19.0.1:55746] disconnected: exceeded timeout.
+1781497297: Client aura_web_0b1bd1 [172.19.0.1:55732] disconnected: exceeded timeout.
+1781497756: New connection from 172.19.0.3:50194 on port 1883.
+1781497756: New client connected from 172.19.0.3:50194 as aura-server-inbound (p4, c1, k60).
+1781497759: New connection from 172.19.0.3:50196 on port 1883.
+1781497759: New client connected from 172.19.0.3:50196 as aura-server-outbound (p4, c1, k60).
+1781497812: mosquitto version 2.1.2 starting
+1781497812: Config loaded from /mosquitto/config/mosquitto.conf.
+1781497812: Bridge support available.
+1781497812: Persistence support available.
+1781497812: TLS support available.
+1781497812: TLS-PSK support available.
+1781497812: Websockets support available.
+1781497812: Opening ipv4 listen socket on port 1883.
+1781497812: Opening ipv6 listen socket on port 1883.
+1781497812: Opening ipv4 listen socket on port 9001.
+1781497812: Opening ipv6 listen socket on port 9001.
+1781497812: mosquitto version 2.1.2 running
+1781497816: New connection from 172.19.0.1:58436 on port 9001.
+1781497816: New client connected from 172.19.0.1:58436 as aura_web_afe4d4 (p4, c1, k60).
+1781497817: New connection from 172.19.0.1:37254 on port 9001.
+1781497817: New client connected from 172.19.0.1:37254 as aura_web_6d9aa7 (p4, c1, k60).
+1781497818: New connection from 172.19.0.1:37256 on port 9001.
+1781497818: New client connected from 172.19.0.1:37256 as aura_web_85a5d2 (p4, c1, k60).
+1781497818: New connection from 172.19.0.1:37266 on port 9001.
+1781497818: New client connected from 172.19.0.1:37266 as aura_web_207934 (p4, c1, k60).
+1781497837: New connection from 172.19.0.1:44194 on port 9001.
+1781497837: New connection from 172.19.0.1:44202 on port 9001.
+1781497837: New client connected from 172.19.0.1:44194 as aura_web_1cb03f (p4, c1, k60).
+1781497837: New client connected from 172.19.0.1:44202 as aura_web_6a271c (p4, c1, k60).
+1781497837: New connection from 172.19.0.1:44212 on port 9001.
+1781497837: New client connected from 172.19.0.1:44212 as aura_web_5f00a1 (p4, c1, k60).
+1781497837: New connection from 172.19.0.1:44228 on port 9001.
+1781497837: New client connected from 172.19.0.1:44228 as aura_web_fa4e2f (p4, c1, k60).
+1781497852: Client aura_web_207934 [172.19.0.1:37266] disconnected: connection closed by client.
+1781497852: Client aura_web_afe4d4 [172.19.0.1:58436] disconnected: connection closed by client.
+1781497852: Client aura_web_6d9aa7 [172.19.0.1:37254] disconnected: connection closed by client.
+1781497852: Client aura_web_85a5d2 [172.19.0.1:37256] disconnected: connection closed by client.
+1781497865: New connection from 172.19.0.5:56320 on port 1883.
+1781497868: New client connected from 172.19.0.5:56320 as aura-server-inbound (p4, c1, k60).
+1781497871: New connection from 172.19.0.5:56012 on port 1883.
+1781497872: New client connected from 172.19.0.5:56012 as aura-server-outbound (p4, c1, k60).
+1781498201: New connection from 172.19.0.1:41058 on port 9001.
+1781498201: New connection from 172.19.0.1:41074 on port 9001.
+1781498201: New client connected from 172.19.0.1:41058 as aura_web_0bcafd (p4, c1, k60).
+1781498201: New connection from 172.19.0.1:41086 on port 9001.
+1781498201: New client connected from 172.19.0.1:41074 as aura_web_64dbae (p4, c1, k60).
+1781498201: New connection from 172.19.0.1:41100 on port 9001.
+1781498201: New client connected from 172.19.0.1:41086 as aura_web_660017 (p4, c1, k60).
+1781498201: New client connected from 172.19.0.1:41100 as aura_web_14494b (p4, c1, k60).
+1781498911: Client aura_web_fa4e2f [172.19.0.1:44228] disconnected: exceeded timeout.
+1781498911: Client aura_web_5f00a1 [172.19.0.1:44212] disconnected: exceeded timeout.
+1781498911: Client aura_web_6a271c [172.19.0.1:44202] disconnected: exceeded timeout.
+1781498911: Client aura_web_1cb03f [172.19.0.1:44194] disconnected: exceeded timeout.
+1781499003: mosquitto version 2.1.2 terminating
+1781499003: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781499046: mosquitto version 2.1.2 starting
+1781499046: Config loaded from /mosquitto/config/mosquitto.conf.
+1781499046: Bridge support available.
+1781499046: Persistence support available.
+1781499046: TLS support available.
+1781499046: TLS-PSK support available.
+1781499046: Websockets support available.
+1781499046: Opening ipv4 listen socket on port 1883.
+1781499046: Opening ipv6 listen socket on port 1883.
+1781499046: Opening ipv4 listen socket on port 9001.
+1781499046: Opening ipv6 listen socket on port 9001.
+1781499046: mosquitto version 2.1.2 running
+1781499047: New connection from 172.19.0.1:52756 on port 9001.
+1781499047: New client connected from 172.19.0.1:52756 as aura_web_64dbae (p4, c1, k60).
+1781499050: New connection from 172.19.0.1:52772 on port 9001.
+1781499050: New client connected from 172.19.0.1:52772 as aura_web_660017 (p4, c1, k60).
+1781499050: New connection from 172.19.0.1:52776 on port 9001.
+1781499050: New client connected from 172.19.0.1:52776 as aura_web_14494b (p4, c1, k60).
+1781499051: New connection from 172.19.0.1:52784 on port 9001.
+1781499051: New client connected from 172.19.0.1:52784 as aura_web_0bcafd (p4, c1, k60).
+1781499066: New connection from 172.19.0.5:35272 on port 1883.
+1781499066: New client connected from 172.19.0.5:35272 as aura-server-inbound (p4, c1, k60).
+1781499068: New connection from 172.19.0.5:35278 on port 1883.
+1781499069: New client connected from 172.19.0.5:35278 as aura-server-outbound (p4, c1, k60).
+1781499073: Client aura_web_64dbae [172.19.0.1:52756] disconnected: connection closed by client.
+1781499073: Client aura_web_660017 [172.19.0.1:52772] disconnected: connection closed by client.
+1781499073: Client aura_web_14494b [172.19.0.1:52776] disconnected: connection closed by client.
+1781499073: Client aura_web_0bcafd [172.19.0.1:52784] disconnected: connection closed by client.
+1781499078: New connection from 172.19.0.1:50282 on port 9001.
+1781499078: New connection from 172.19.0.1:50294 on port 9001.
+1781499078: New client connected from 172.19.0.1:50282 as aura_web_ad564a (p4, c1, k60).
+1781499078: New client connected from 172.19.0.1:50294 as aura_web_c42bcd (p4, c1, k60).
+1781499078: New connection from 172.19.0.1:50304 on port 9001.
+1781499078: New connection from 172.19.0.1:50318 on port 9001.
+1781499078: New client connected from 172.19.0.1:50304 as aura_web_638ecf (p4, c1, k60).
+1781499078: New client connected from 172.19.0.1:50318 as aura_web_6b32a3 (p4, c1, k60).
+1781499099: New connection from 172.19.0.1:44996 on port 9001.
+1781499099: New client connected from 172.19.0.1:44996 as aura_web_020e07 (p4, c1, k60).
+1781499099: New connection from 172.19.0.1:45006 on port 9001.
+1781499099: New client connected from 172.19.0.1:45006 as aura_web_83076a (p4, c1, k60).
+1781499099: New connection from 172.19.0.1:45016 on port 9001.
+1781499099: New connection from 172.19.0.1:45026 on port 9001.
+1781499099: New client connected from 172.19.0.1:45026 as aura_web_ac8bdc (p4, c1, k60).
+1781499099: New client connected from 172.19.0.1:45016 as aura_web_74f809 (p4, c1, k60).
+1781499103: Client aura_web_74f809 [172.19.0.1:45016] disconnected: connection closed by client.
+1781499103: Client aura_web_020e07 [172.19.0.1:44996] disconnected: connection closed by client.
+1781499103: Client aura_web_83076a [172.19.0.1:45006] disconnected: connection closed by client.
+1781499103: Client aura_web_ac8bdc [172.19.0.1:45026] disconnected: connection closed by client.
+1781499104: New connection from 172.19.0.1:49656 on port 9001.
+1781499104: New connection from 172.19.0.1:49668 on port 9001.
+1781499104: New client connected from 172.19.0.1:49656 as aura_web_16ff47 (p4, c1, k60).
+1781499104: New client connected from 172.19.0.1:49668 as aura_web_d7740d (p4, c1, k60).
+1781499104: New connection from 172.19.0.1:49676 on port 9001.
+1781499104: New client connected from 172.19.0.1:49676 as aura_web_0a31ab (p4, c1, k60).
+1781499104: New connection from 172.19.0.1:49688 on port 9001.
+1781499104: New client connected from 172.19.0.1:49688 as aura_web_b83300 (p4, c1, k60).
+1781499464: mosquitto version 2.1.2 terminating
+1781499464: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781499493: mosquitto version 2.1.2 starting
+1781499493: Config loaded from /mosquitto/config/mosquitto.conf.
+1781499493: Bridge support available.
+1781499493: Persistence support available.
+1781499493: TLS support available.
+1781499493: TLS-PSK support available.
+1781499493: Websockets support available.
+1781499493: Opening ipv4 listen socket on port 1883.
+1781499493: Opening ipv6 listen socket on port 1883.
+1781499493: Opening ipv4 listen socket on port 9001.
+1781499493: Opening ipv6 listen socket on port 9001.
+1781499493: mosquitto version 2.1.2 running
+1781499494: New connection from 172.19.0.1:58810 on port 9001.
+1781499494: New client connected from 172.19.0.1:58810 as aura_web_16ff47 (p4, c1, k60).
+1781499494: New connection from 172.19.0.1:58818 on port 9001.
+1781499495: New client connected from 172.19.0.1:58818 as aura_web_0a31ab (p4, c1, k60).
+1781499495: New connection from 172.19.0.1:58830 on port 9001.
+1781499495: New client connected from 172.19.0.1:58830 as aura_web_ad564a (p4, c1, k60).
+1781499496: New connection from 172.19.0.1:36478 on port 9001.
+1781499496: New client connected from 172.19.0.1:36478 as aura_web_b83300 (p4, c1, k60).
+1781499496: New connection from 172.19.0.1:36484 on port 9001.
+1781499496: New client connected from 172.19.0.1:36484 as aura_web_638ecf (p4, c1, k60).
+1781499498: New connection from 172.19.0.1:36494 on port 9001.
+1781499498: New connection from 172.19.0.1:36506 on port 9001.
+1781499498: New client connected from 172.19.0.1:36494 as aura_web_d7740d (p4, c1, k60).
+1781499498: New client connected from 172.19.0.1:36506 as aura_web_6b32a3 (p4, c1, k60).
+1781499499: New connection from 172.19.0.1:36514 on port 9001.
+1781499499: New client connected from 172.19.0.1:36514 as aura_web_c42bcd (p4, c1, k60).
+1781499513: Client aura_web_16ff47 [172.19.0.1:58810] disconnected: connection closed by client.
+1781499513: Client aura_web_0a31ab [172.19.0.1:58818] disconnected: connection closed by client.
+1781499513: Client aura_web_b83300 [172.19.0.1:36478] disconnected: connection closed by client.
+1781499513: Client aura_web_d7740d [172.19.0.1:36494] disconnected: connection closed by client.
+1781499521: New connection from 172.19.0.1:39176 on port 9001.
+1781499522: New connection from 172.19.0.1:39178 on port 9001.
+1781499522: New client connected from 172.19.0.1:39176 as aura_web_d0e4ee (p4, c1, k60).
+1781499522: New client connected from 172.19.0.1:39178 as aura_web_d03a62 (p4, c1, k60).
+1781499522: New connection from 172.19.0.1:39192 on port 9001.
+1781499522: New client connected from 172.19.0.1:39192 as aura_web_c18bce (p4, c1, k60).
+1781499522: New connection from 172.19.0.1:39196 on port 9001.
+1781499522: New client connected from 172.19.0.1:39196 as aura_web_995764 (p4, c1, k60).
+1781499529: New connection from 172.19.0.5:46956 on port 1883.
+1781499529: New client connected from 172.19.0.5:46956 as aura-server-inbound (p4, c1, k60).
+1781499531: New connection from 172.19.0.5:46966 on port 1883.
+1781499532: New client connected from 172.19.0.5:46966 as aura-server-outbound (p4, c1, k60).
+1781499540: Client aura_web_ad564a [172.19.0.1:58830] disconnected: connection closed by client.
+1781499540: Client aura_web_6b32a3 [172.19.0.1:36506] disconnected: connection closed by client.
+1781499540: Client aura_web_c42bcd [172.19.0.1:36514] disconnected: connection closed by client.
+1781499540: Client aura_web_638ecf [172.19.0.1:36484] disconnected: connection closed by client.
+1781499542: New connection from 172.19.0.1:33156 on port 9001.
+1781499542: New connection from 172.19.0.1:33172 on port 9001.
+1781499543: New client connected from 172.19.0.1:33156 as aura_web_bbf2f9 (p4, c1, k60).
+1781499543: New client connected from 172.19.0.1:33172 as aura_web_2eb762 (p4, c1, k60).
+1781499543: New connection from 172.19.0.1:33184 on port 9001.
+1781499543: New connection from 172.19.0.1:33188 on port 9001.
+1781499543: New client connected from 172.19.0.1:33184 as aura_web_4928d7 (p4, c1, k60).
+1781499543: New client connected from 172.19.0.1:33188 as aura_web_ba1c30 (p4, c1, k60).
+1781499767: Client aura_web_c18bce [172.19.0.1:39192] disconnected: connection closed by client.
+1781499768: Client aura_web_d0e4ee [172.19.0.1:39176] disconnected: connection closed by client.
+1781499768: Client aura_web_d03a62 [172.19.0.1:39178] disconnected: connection closed by client.
+1781499768: Client aura_web_995764 [172.19.0.1:39196] disconnected: connection closed by client.
+1781499769: New connection from 172.19.0.1:49616 on port 9001.
+1781499769: New client connected from 172.19.0.1:49616 as aura_web_50b2a0 (p4, c1, k60).
+1781499769: New connection from 172.19.0.1:49618 on port 9001.
+1781499769: New client connected from 172.19.0.1:49618 as aura_web_40b3df (p4, c1, k60).
+1781499769: New connection from 172.19.0.1:49624 on port 9001.
+1781499769: New client connected from 172.19.0.1:49624 as aura_web_2190c7 (p4, c1, k60).
+1781499769: New connection from 172.19.0.1:49628 on port 9001.
+1781499769: New client connected from 172.19.0.1:49628 as aura_web_2fdcfd (p4, c1, k60).
+1781500212: mosquitto version 2.1.2 starting
+1781500212: Config loaded from /mosquitto/config/mosquitto.conf.
+1781500212: Bridge support available.
+1781500212: Persistence support available.
+1781500212: TLS support available.
+1781500212: TLS-PSK support available.
+1781500212: Websockets support available.
+1781500212: Opening ipv4 listen socket on port 1883.
+1781500212: Opening ipv6 listen socket on port 1883.
+1781500212: Opening ipv4 listen socket on port 9001.
+1781500212: Opening ipv6 listen socket on port 9001.
+1781500212: mosquitto version 2.1.2 running
+1781500214: New connection from 172.19.0.1:54076 on port 9001.
+1781500214: New client connected from 172.19.0.1:54076 as aura_web_ba1c30 (p4, c1, k60).
+1781500214: New connection from 172.19.0.1:54080 on port 9001.
+1781500214: New client connected from 172.19.0.1:54080 as aura_web_2eb762 (p4, c1, k60).
+1781500216: New connection from 172.19.0.1:54088 on port 9001.
+1781500216: New client connected from 172.19.0.1:54088 as aura_web_bbf2f9 (p4, c1, k60).
+1781500217: New connection from 172.19.0.1:54092 on port 9001.
+1781500217: New client connected from 172.19.0.1:54092 as aura_web_4928d7 (p4, c1, k60).
+1781500227: New connection from 172.19.0.1:37032 on port 9001.
+1781500228: New client connected from 172.19.0.1:37032 as aura_web_2190c7 (p4, c1, k60).
+1781500232: New connection from 172.19.0.1:49644 on port 9001.
+1781500232: New client connected from 172.19.0.1:49644 as aura_web_40b3df (p4, c1, k60).
+1781500233: New connection from 172.19.0.1:49652 on port 9001.
+1781500233: New client connected from 172.19.0.1:49652 as aura_web_2fdcfd (p4, c1, k60).
+1781500233: New connection from 172.19.0.1:49664 on port 9001.
+1781500233: Client 172.19.0.1 [172.19.0.1:49664] disconnected: connection closed by client.
+1781500233: New connection from 172.19.0.1:49668 on port 9001.
+1781500233: New client connected from 172.19.0.1:49668 as aura_web_50b2a0 (p4, c1, k60).
+1781500244: Client aura_web_2190c7 [172.19.0.1:37032] disconnected: connection closed by client.
+1781500244: Client aura_web_50b2a0 [172.19.0.1:49668] disconnected: connection closed by client.
+1781500244: Client aura_web_2fdcfd [172.19.0.1:49652] disconnected: connection closed by client.
+1781500244: Client aura_web_40b3df [172.19.0.1:49644] disconnected: connection closed by client.
+1781500248: Client aura_web_4928d7 [172.19.0.1:54092] disconnected: connection closed by client.
+1781500248: Client aura_web_2eb762 [172.19.0.1:54080] disconnected: connection closed by client.
+1781500248: Client aura_web_ba1c30 [172.19.0.1:54076] disconnected: connection closed by client.
+1781500248: Client aura_web_bbf2f9 [172.19.0.1:54088] disconnected: connection closed by client.
+1781500266: New connection from 172.19.0.1:41072 on port 9001.
+1781500267: New connection from 172.19.0.1:41082 on port 9001.
+1781500267: New client connected from 172.19.0.1:41072 as aura_web_eefd4c (p4, c1, k60).
+1781500267: New client connected from 172.19.0.1:41082 as aura_web_ee230a (p4, c1, k60).
+1781500267: New connection from 172.19.0.1:41088 on port 9001.
+1781500267: New client connected from 172.19.0.1:41088 as aura_web_f2a5c0 (p4, c1, k60).
+1781500267: New connection from 172.19.0.1:41092 on port 9001.
+1781500267: New client connected from 172.19.0.1:41092 as aura_web_1fdb1c (p4, c1, k60).
+1781500269: New connection from 172.19.0.1:41108 on port 9001.
+1781500269: New connection from 172.19.0.1:41118 on port 9001.
+1781500269: New client connected from 172.19.0.1:41108 as aura_web_b3e8ee (p4, c1, k60).
+1781500269: New client connected from 172.19.0.1:41118 as aura_web_809174 (p4, c1, k60).
+1781500269: New connection from 172.19.0.1:58236 on port 9001.
+1781500269: New connection from 172.19.0.1:58250 on port 9001.
+1781500269: New client connected from 172.19.0.1:58236 as aura_web_56c88f (p4, c1, k60).
+1781500269: New client connected from 172.19.0.1:58250 as aura_web_45b577 (p4, c1, k60).
+1781500286: New connection from 172.19.0.5:42700 on port 1883.
+1781500286: New client connected from 172.19.0.5:42700 as aura-server-inbound (p4, c1, k60).
+1781500289: New connection from 172.19.0.5:42706 on port 1883.
+1781500289: New client connected from 172.19.0.5:42706 as aura-server-outbound (p4, c1, k60).
+1781500335: Client aura_web_eefd4c [172.19.0.1:41072] disconnected: connection closed by client.
+1781500335: Client aura_web_1fdb1c [172.19.0.1:41092] disconnected: connection closed by client.
+1781500335: Client aura_web_ee230a [172.19.0.1:41082] disconnected: connection closed by client.
+1781500335: Client aura_web_f2a5c0 [172.19.0.1:41088] disconnected: connection closed by client.
+1781500340: New connection from 172.19.0.1:42468 on port 9001.
+1781500340: New client connected from 172.19.0.1:42468 as aura_web_eefd4c (p4, c1, k60).
+1781500340: New connection from 172.19.0.1:42484 on port 9001.
+1781500340: New client connected from 172.19.0.1:42484 as aura_web_ee230a (p4, c1, k60).
+1781500340: New connection from 172.19.0.1:42492 on port 9001.
+1781500340: New client connected from 172.19.0.1:42492 as aura_web_f2a5c0 (p4, c1, k60).
+1781500340: New connection from 172.19.0.1:42498 on port 9001.
+1781500340: New client connected from 172.19.0.1:42498 as aura_web_1fdb1c (p4, c1, k60).
+1781500350: Client aura_web_f2a5c0 [172.19.0.1:42492] disconnected: connection closed by client.
+1781500350: Client aura_web_eefd4c [172.19.0.1:42468] disconnected: connection closed by client.
+1781500350: Client aura_web_1fdb1c [172.19.0.1:42498] disconnected: connection closed by client.
+1781500350: Client aura_web_ee230a [172.19.0.1:42484] disconnected: connection closed by client.
+1781500360: New connection from 172.19.0.1:50314 on port 9001.
+1781500360: New connection from 172.19.0.1:50324 on port 9001.
+1781500360: New connection from 172.19.0.1:50328 on port 9001.
+1781500363: New client connected from 172.19.0.1:50314 as aura_web_000cea (p4, c1, k60).
+1781500363: New client connected from 172.19.0.1:50324 as aura_web_731716 (p4, c1, k60).
+1781500363: New client connected from 172.19.0.1:50328 as aura_web_c0f99c (p4, c1, k60).
+1781500363: New connection from 172.19.0.1:47834 on port 9001.
+1781500364: New client connected from 172.19.0.1:47834 as aura_web_d4a0a7 (p4, c1, k60).
+1781500631: Client aura_web_d4a0a7 [172.19.0.1:47834] disconnected: connection closed by client.
+1781500631: Client aura_web_000cea [172.19.0.1:50314] disconnected: connection closed by client.
+1781500631: Client aura_web_731716 [172.19.0.1:50324] disconnected: connection closed by client.
+1781500631: Client aura_web_c0f99c [172.19.0.1:50328] disconnected: connection closed by client.
+1781500637: New connection from 172.19.0.1:57168 on port 9001.
+1781500637: New client connected from 172.19.0.1:57168 as aura_web_000cea (p4, c1, k60).
+1781500637: New connection from 172.19.0.1:57182 on port 9001.
+1781500637: New client connected from 172.19.0.1:57182 as aura_web_731716 (p4, c1, k60).
+1781500637: New connection from 172.19.0.1:57194 on port 9001.
+1781500637: New client connected from 172.19.0.1:57194 as aura_web_c0f99c (p4, c1, k60).
+1781500637: New connection from 172.19.0.1:57210 on port 9001.
+1781500637: New client connected from 172.19.0.1:57210 as aura_web_d4a0a7 (p4, c1, k60).
+1781500909: Client aura_web_809174 [172.19.0.1:41118] disconnected: exceeded timeout.
+1781500909: Client aura_web_45b577 [172.19.0.1:58250] disconnected: exceeded timeout.
+1781500909: Client aura_web_56c88f [172.19.0.1:58236] disconnected: exceeded timeout.
+1781500909: Client aura_web_b3e8ee [172.19.0.1:41108] disconnected: exceeded timeout.
+1781501138: mosquitto version 2.1.2 terminating
+1781501138: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781501171: mosquitto version 2.1.2 starting
+1781501171: Config loaded from /mosquitto/config/mosquitto.conf.
+1781501171: Bridge support available.
+1781501171: Persistence support available.
+1781501171: TLS support available.
+1781501171: TLS-PSK support available.
+1781501171: Websockets support available.
+1781501171: Opening ipv4 listen socket on port 1883.
+1781501171: Opening ipv6 listen socket on port 1883.
+1781501171: Opening ipv4 listen socket on port 9001.
+1781501171: Opening ipv6 listen socket on port 9001.
+1781501171: mosquitto version 2.1.2 running
+1781501173: New connection from 172.19.0.1:37604 on port 9001.
+1781501173: New client connected from 172.19.0.1:37604 as aura_web_000cea (p4, c1, k60).
+1781501174: New connection from 172.19.0.1:37608 on port 9001.
+1781501174: New client connected from 172.19.0.1:37608 as aura_web_d4a0a7 (p4, c1, k60).
+1781501176: New connection from 172.19.0.1:37610 on port 9001.
+1781501176: New client connected from 172.19.0.1:37610 as aura_web_731716 (p4, c1, k60).
+1781501176: New connection from 172.19.0.1:37622 on port 9001.
+1781501176: New client connected from 172.19.0.1:37622 as aura_web_c0f99c (p4, c1, k60).
+1781501195: New connection from 172.19.0.1:46782 on port 9001.
+1781501195: New connection from 172.19.0.1:46784 on port 9001.
+1781501196: New client connected from 172.19.0.1:46782 as aura_web_ead147 (p4, c1, k60).
+1781501196: New client connected from 172.19.0.1:46784 as aura_web_ae783a (p4, c1, k60).
+1781501196: New connection from 172.19.0.1:46790 on port 9001.
+1781501196: New connection from 172.19.0.1:46804 on port 9001.
+1781501196: New client connected from 172.19.0.1:46790 as aura_web_9f714e (p4, c1, k60).
+1781501196: New client connected from 172.19.0.1:46804 as aura_web_105816 (p4, c1, k60).
+1781501201: Client aura_web_000cea [172.19.0.1:37604] disconnected: connection closed by client.
+1781501201: Client aura_web_d4a0a7 [172.19.0.1:37608] disconnected: connection closed by client.
+1781501201: Client aura_web_c0f99c [172.19.0.1:37622] disconnected: connection closed by client.
+1781501201: Client aura_web_731716 [172.19.0.1:37610] disconnected: connection closed by client.
+1781501208: New connection from 172.19.0.1:50414 on port 9001.
+1781501208: New connection from 172.19.0.1:50422 on port 9001.
+1781501208: New client connected from 172.19.0.1:50414 as aura_web_2827f2 (p4, c1, k60).
+1781501208: New client connected from 172.19.0.1:50422 as aura_web_de415e (p4, c1, k60).
+1781501208: New connection from 172.19.0.1:50438 on port 9001.
+1781501208: New connection from 172.19.0.1:50450 on port 9001.
+1781501208: New client connected from 172.19.0.1:50438 as aura_web_0e5ef1 (p4, c1, k60).
+1781501208: New client connected from 172.19.0.1:50450 as aura_web_65dfea (p4, c1, k60).
+1781501212: New connection from 172.19.0.5:46936 on port 1883.
+1781501212: New client connected from 172.19.0.5:46936 as aura-server-inbound (p4, c1, k60).
+1781501216: New connection from 172.19.0.5:46944 on port 1883.
+1781501216: New client connected from 172.19.0.5:46944 as aura-server-outbound (p4, c1, k60).
+1781501386: Client aura_web_de415e [172.19.0.1:50422] disconnected: connection closed by client.
+1781501386: Client aura_web_2827f2 [172.19.0.1:50414] disconnected: connection closed by client.
+1781501386: Client aura_web_0e5ef1 [172.19.0.1:50438] disconnected: connection closed by client.
+1781501386: Client aura_web_65dfea [172.19.0.1:50450] disconnected: connection closed by client.
+1781501590: Client aura_web_ae783a [172.19.0.1:46784] disconnected: exceeded timeout.
+1781501590: Client aura_web_9f714e [172.19.0.1:46790] disconnected: exceeded timeout.
+1781501590: Client aura_web_ead147 [172.19.0.1:46782] disconnected: exceeded timeout.
+1781501590: Client aura_web_105816 [172.19.0.1:46804] disconnected: exceeded timeout.
+1781501603: New connection from 172.19.0.1:58824 on port 9001.
+1781501603: New client connected from 172.19.0.1:58824 as aura_web_105816 (p4, c1, k60).
+1781501603: New connection from 172.19.0.1:58834 on port 9001.
+1781501603: New client connected from 172.19.0.1:58834 as aura_web_ae783a (p4, c1, k60).
+1781501603: New connection from 172.19.0.1:58838 on port 9001.
+1781501603: New connection from 172.19.0.1:58840 on port 9001.
+1781501603: New client connected from 172.19.0.1:58838 as aura_web_9f714e (p4, c1, k60).
+1781501603: New client connected from 172.19.0.1:58840 as aura_web_ead147 (p4, c1, k60).
+1781501877: Client aura_web_105816 [172.19.0.1:58824] disconnected: exceeded timeout.
+1781501877: Client aura_web_ae783a [172.19.0.1:58834] disconnected: exceeded timeout.
+1781501877: Client aura_web_ead147 [172.19.0.1:58840] disconnected: exceeded timeout.
+1781501877: Client aura_web_9f714e [172.19.0.1:58838] disconnected: exceeded timeout.
+1781502910: mosquitto version 2.1.2 terminating
+1781502910: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781503015: mosquitto version 2.1.2 starting
+1781503015: Config loaded from /mosquitto/config/mosquitto.conf.
+1781503015: Bridge support available.
+1781503015: Persistence support available.
+1781503015: TLS support available.
+1781503015: TLS-PSK support available.
+1781503015: Websockets support available.
+1781503015: Opening ipv4 listen socket on port 1883.
+1781503015: Opening ipv6 listen socket on port 1883.
+1781503015: Opening ipv4 listen socket on port 9001.
+1781503015: Opening ipv6 listen socket on port 9001.
+1781503015: mosquitto version 2.1.2 running
+1781503052: New connection from 172.19.0.1:51246 on port 9001.
+1781503052: New connection from 172.19.0.1:51262 on port 9001.
+1781503052: New client connected from 172.19.0.1:51246 as aura_web_984835 (p4, c1, k60).
+1781503052: New client connected from 172.19.0.1:51262 as aura_web_e5b3e4 (p4, c1, k60).
+1781503052: New connection from 172.19.0.1:51276 on port 9001.
+1781503052: New client connected from 172.19.0.1:51276 as aura_web_b2929c (p4, c1, k60).
+1781503052: New connection from 172.19.0.1:51288 on port 9001.
+1781503052: New client connected from 172.19.0.1:51288 as aura_web_43f325 (p4, c1, k60).
+1781503067: New connection from 172.19.0.5:49080 on port 1883.
+1781503068: New client connected from 172.19.0.5:49080 as aura-server-inbound (p4, c1, k60).
+1781503078: New connection from 172.19.0.1:54076 on port 9001.
+1781503078: New connection from 172.19.0.1:54092 on port 9001.
+1781503078: New connection from 172.19.0.5:56476 on port 1883.
+1781503078: New client connected from 172.19.0.5:56476 as aura-server-outbound (p4, c1, k60).
+1781503078: New client connected from 172.19.0.1:54076 as aura_web_d3dfa4 (p4, c1, k60).
+1781503078: New client connected from 172.19.0.1:54092 as aura_web_bbab22 (p4, c1, k60).
+1781503078: New connection from 172.19.0.1:54106 on port 9001.
+1781503078: New connection from 172.19.0.1:54116 on port 9001.
+1781503078: New client connected from 172.19.0.1:54106 as aura_web_1e1c27 (p4, c1, k60).
+1781503078: New client connected from 172.19.0.1:54116 as aura_web_54b27f (p4, c1, k60).
+1781503157: Client aura_web_54b27f [172.19.0.1:54116] disconnected: connection closed by client.
+1781503157: Client aura_web_bbab22 [172.19.0.1:54092] disconnected: connection closed by client.
+1781503157: Client aura_web_d3dfa4 [172.19.0.1:54076] disconnected: connection closed by client.
+1781503157: Client aura_web_1e1c27 [172.19.0.1:54106] disconnected: connection closed by client.
+1781503190: New connection from 172.19.0.1:43698 on port 9001.
+1781503190: New connection from 172.19.0.1:43702 on port 9001.
+1781503190: New connection from 172.19.0.1:43716 on port 9001.
+1781503190: New connection from 172.19.0.1:43732 on port 9001.
+1781503198: New client connected from 172.19.0.1:43698 as aura_web_221214 (p4, c1, k60).
+1781503198: New client connected from 172.19.0.1:43716 as aura_web_24eedf (p4, c1, k60).
+1781503198: New client connected from 172.19.0.1:43702 as aura_web_8d5742 (p4, c1, k60).
+1781503198: New client connected from 172.19.0.1:43732 as aura_web_5354bb (p4, c1, k60).
+1781503568: Client aura_web_43f325 [172.19.0.1:51288] disconnected: exceeded timeout.
+1781503569: Client aura_web_e5b3e4 [172.19.0.1:51262] disconnected: exceeded timeout.
+1781503569: Client aura_web_b2929c [172.19.0.1:51276] disconnected: exceeded timeout.
+1781503569: Client aura_web_984835 [172.19.0.1:51246] disconnected: exceeded timeout.
+1781504103: Client aura_web_24eedf [172.19.0.1:43716] disconnected: connection closed by client.
+1781504103: Client aura_web_221214 [172.19.0.1:43698] disconnected: connection closed by client.
+1781504103: Client aura_web_8d5742 [172.19.0.1:43702] disconnected: connection closed by client.
+1781504104: Client aura_web_5354bb [172.19.0.1:43732] disconnected: connection closed by client.
+1781528605: mosquitto version 2.1.2 terminating
+1781528605: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781528697: mosquitto version 2.1.2 starting
+1781528697: Config loaded from /mosquitto/config/mosquitto.conf.
+1781528697: Bridge support available.
+1781528697: Persistence support available.
+1781528697: TLS support available.
+1781528697: TLS-PSK support available.
+1781528697: Websockets support available.
+1781528697: Opening ipv4 listen socket on port 1883.
+1781528697: Opening ipv6 listen socket on port 1883.
+1781528697: Opening ipv4 listen socket on port 9001.
+1781528697: Opening ipv6 listen socket on port 9001.
+1781528697: mosquitto version 2.1.2 running
+1781528709: New connection from 172.19.0.1:49730 on port 9001.
+1781528709: New connection from 172.19.0.1:49742 on port 9001.
+1781528709: New client connected from 172.19.0.1:49730 as aura_web_84137a (p4, c1, k60).
+1781528709: New client connected from 172.19.0.1:49742 as aura_web_a42ab6 (p4, c1, k60).
+1781528709: New connection from 172.19.0.1:49756 on port 9001.
+1781528709: New connection from 172.19.0.1:49764 on port 9001.
+1781528709: New client connected from 172.19.0.1:49756 as aura_web_f115f7 (p4, c1, k60).
+1781528709: New client connected from 172.19.0.1:49764 as aura_web_1b157a (p4, c1, k60).
+1781528712: New connection from 172.19.0.1:38014 on port 9001.
+1781528713: New connection from 172.19.0.1:38022 on port 9001.
+1781528713: New client connected from 172.19.0.1:38014 as aura_web_39d751 (p4, c1, k60).
+1781528713: New client connected from 172.19.0.1:38022 as aura_web_163008 (p4, c1, k60).
+1781528714: New connection from 172.19.0.1:38034 on port 9001.
+1781528714: New connection from 172.19.0.1:38042 on port 9001.
+1781528714: New client connected from 172.19.0.1:38034 as aura_web_f28f6b (p4, c1, k60).
+1781528714: New client connected from 172.19.0.1:38042 as aura_web_7a97a6 (p4, c1, k60).
+1781528719: New connection from 172.19.0.5:42272 on port 1883.
+1781528719: New client connected from 172.19.0.5:42272 as aura-server-inbound (p4, c1, k60).
+1781528721: New connection from 172.19.0.5:36418 on port 1883.
+1781528721: New client connected from 172.19.0.5:36418 as aura-server-outbound (p4, c1, k60).
+1781528782: Client aura_web_f28f6b [172.19.0.1:38034] disconnected: connection closed by client.
+1781528782: Client aura_web_163008 [172.19.0.1:38022] disconnected: connection closed by client.
+1781528782: Client aura_web_7a97a6 [172.19.0.1:38042] disconnected: connection closed by client.
+1781528782: Client aura_web_39d751 [172.19.0.1:38014] disconnected: connection closed by client.
+1781528981: Client aura_web_f115f7 [172.19.0.1:49756] disconnected: exceeded timeout.
+1781528981: Client aura_web_84137a [172.19.0.1:49730] disconnected: exceeded timeout.
+1781528981: Client aura_web_1b157a [172.19.0.1:49764] disconnected: exceeded timeout.
+1781528981: Client aura_web_a42ab6 [172.19.0.1:49742] disconnected: exceeded timeout.
+1781529159: Client aura-server-inbound [172.19.0.5:42272] disconnected.
+1781529165: Client aura-server-outbound [172.19.0.5:36418] disconnected.
+1781529196: New connection from 172.19.0.1:41440 on port 9001.
+1781529196: New client connected from 172.19.0.1:41440 as aura_web_5af558 (p4, c1, k60).
+1781529197: New connection from 172.19.0.1:41444 on port 9001.
+1781529197: New client connected from 172.19.0.1:41444 as aura_web_1b157a (p4, c1, k60).
+1781529197: New connection from 172.19.0.1:41448 on port 9001.
+1781529197: New client connected from 172.19.0.1:41448 as aura_web_f115f7 (p4, c1, k60).
+1781529197: New connection from 172.19.0.1:41458 on port 9001.
+1781529197: New client connected from 172.19.0.1:41458 as aura_web_84137a (p4, c1, k60).
+1781529197: New connection from 172.19.0.1:41460 on port 9001.
+1781529197: New client connected from 172.19.0.1:41460 as aura_web_a42ab6 (p4, c1, k60).
+1781529205: Client aura_web_f115f7 [172.19.0.1:41448] disconnected: connection closed by client.
+1781529205: Client aura_web_84137a [172.19.0.1:41458] disconnected: connection closed by client.
+1781529205: Client aura_web_5af558 [172.19.0.1:41440] disconnected: connection closed by client.
+1781529205: Client aura_web_1b157a [172.19.0.1:41444] disconnected: connection closed by client.
+1781529205: Client aura_web_a42ab6 [172.19.0.1:41460] disconnected: connection closed by client.
+1781529208: New connection from 172.19.0.1:45140 on port 9001.
+1781529208: New connection from 172.19.0.1:45142 on port 9001.
+1781529209: New client connected from 172.19.0.1:45140 as aura_web_8dfcb1 (p4, c1, k60).
+1781529209: New client connected from 172.19.0.1:45142 as aura_web_137c31 (p4, c1, k60).
+1781529209: New connection from 172.19.0.1:45144 on port 9001.
+1781529209: New connection from 172.19.0.1:45152 on port 9001.
+1781529209: New client connected from 172.19.0.1:45144 as aura_web_59b531 (p4, c1, k60).
+1781529209: New client connected from 172.19.0.1:45152 as aura_web_72cf5b (p4, c1, k60).
+1781529216: New connection from 172.19.0.1:45156 on port 9001.
+1781529216: New connection from 172.19.0.1:45162 on port 9001.
+1781529217: New client connected from 172.19.0.1:45156 as aura_web_22f7f2 (p4, c1, k60).
+1781529217: New client connected from 172.19.0.1:45162 as aura_web_88da42 (p4, c1, k60).
+1781529217: New connection from 172.19.0.1:45166 on port 9001.
+1781529217: New client connected from 172.19.0.1:45166 as aura_web_3529a0 (p4, c1, k60).
+1781529217: New connection from 172.19.0.1:45176 on port 9001.
+1781529217: New client connected from 172.19.0.1:45176 as aura_web_aa8828 (p4, c1, k60).
+1781529219: New connection from 172.19.0.5:56138 on port 1883.
+1781529220: New client connected from 172.19.0.5:56138 as aura-server-inbound (p4, c1, k60).
+1781529224: New connection from 172.19.0.5:56150 on port 1883.
+1781529224: New client connected from 172.19.0.5:56150 as aura-server-outbound (p4, c1, k60).
+1781529296: Client aura_web_137c31 [172.19.0.1:45142] disconnected: connection closed by client.
+1781529296: Client aura_web_8dfcb1 [172.19.0.1:45140] disconnected: connection closed by client.
+1781529296: Client aura_web_59b531 [172.19.0.1:45144] disconnected: connection closed by client.
+1781529297: Client aura_web_72cf5b [172.19.0.1:45152] disconnected: connection closed by client.
+1781529297: New connection from 172.19.0.1:44730 on port 9001.
+1781529297: New connection from 172.19.0.1:44742 on port 9001.
+1781529297: New client connected from 172.19.0.1:44730 as aura_web_4cce3f (p4, c1, k60).
+1781529297: New client connected from 172.19.0.1:44742 as aura_web_f2c8e9 (p4, c1, k60).
+1781529297: New connection from 172.19.0.1:44756 on port 9001.
+1781529297: New client connected from 172.19.0.1:44756 as aura_web_ec1114 (p4, c1, k60).
+1781529297: New connection from 172.19.0.1:44760 on port 9001.
+1781529297: New client connected from 172.19.0.1:44760 as aura_web_e8aeeb (p4, c1, k60).
+1781529297: New connection from 172.19.0.1:44774 on port 9001.
+1781529298: New client connected from 172.19.0.1:44774 as aura_web_b5d91a (p4, c1, k60).
+1781529306: Client aura_web_4cce3f [172.19.0.1:44730] disconnected: connection closed by client.
+1781529306: Client aura_web_f2c8e9 [172.19.0.1:44742] disconnected: connection closed by client.
+1781529306: Client aura_web_b5d91a [172.19.0.1:44774] disconnected: connection closed by client.
+1781529306: Client aura_web_e8aeeb [172.19.0.1:44760] disconnected: connection closed by client.
+1781529306: Client aura_web_ec1114 [172.19.0.1:44756] disconnected: connection closed by client.
+1781529307: New connection from 172.19.0.1:46702 on port 9001.
+1781529307: New connection from 172.19.0.1:46706 on port 9001.
+1781529307: New client connected from 172.19.0.1:46702 as aura_web_df876f (p4, c1, k60).
+1781529307: New client connected from 172.19.0.1:46706 as aura_web_01b66e (p4, c1, k60).
+1781529307: New connection from 172.19.0.1:46722 on port 9001.
+1781529307: New client connected from 172.19.0.1:46722 as aura_web_68f4b4 (p4, c1, k60).
+1781529307: New connection from 172.19.0.1:46738 on port 9001.
+1781529307: New client connected from 172.19.0.1:46738 as aura_web_949144 (p4, c1, k60).
+1781529318: Client aura_web_df876f [172.19.0.1:46702] disconnected: connection closed by client.
+1781529318: Client aura_web_949144 [172.19.0.1:46738] disconnected: connection closed by client.
+1781529318: Client aura_web_68f4b4 [172.19.0.1:46722] disconnected: connection closed by client.
+1781529318: Client aura_web_01b66e [172.19.0.1:46706] disconnected: connection closed by client.
+1781529319: New connection from 172.19.0.1:46898 on port 9001.
+1781529319: New connection from 172.19.0.1:46900 on port 9001.
+1781529319: New client connected from 172.19.0.1:46898 as aura_web_6509bc (p4, c1, k60).
+1781529319: New client connected from 172.19.0.1:46900 as aura_web_d239fb (p4, c1, k60).
+1781529319: New connection from 172.19.0.1:46914 on port 9001.
+1781529319: New client connected from 172.19.0.1:46914 as aura_web_f4ad68 (p4, c1, k60).
+1781529319: New connection from 172.19.0.1:46920 on port 9001.
+1781529319: New client connected from 172.19.0.1:46920 as aura_web_076c8b (p4, c1, k60).
+1781529342: Client aura_web_6509bc [172.19.0.1:46898] disconnected: connection closed by client.
+1781529342: Client aura_web_d239fb [172.19.0.1:46900] disconnected: connection closed by client.
+1781529342: Client aura_web_f4ad68 [172.19.0.1:46914] disconnected: connection closed by client.
+1781529342: Client aura_web_076c8b [172.19.0.1:46920] disconnected: connection closed by client.
+1781529342: New connection from 172.19.0.1:33224 on port 9001.
+1781529342: New connection from 172.19.0.1:33238 on port 9001.
+1781529342: New client connected from 172.19.0.1:33224 as aura_web_8d56bd (p4, c1, k60).
+1781529342: New client connected from 172.19.0.1:33238 as aura_web_0d3f0d (p4, c1, k60).
+1781529342: New connection from 172.19.0.1:33244 on port 9001.
+1781529342: New client connected from 172.19.0.1:33244 as aura_web_c50142 (p4, c1, k60).
+1781529343: New connection from 172.19.0.1:33250 on port 9001.
+1781529343: New client connected from 172.19.0.1:33250 as aura_web_e116c7 (p4, c1, k60).
+1781529352: Client aura_web_8d56bd [172.19.0.1:33224] disconnected: connection closed by client.
+1781529352: Client aura_web_0d3f0d [172.19.0.1:33238] disconnected: connection closed by client.
+1781529352: Client aura_web_c50142 [172.19.0.1:33244] disconnected: connection closed by client.
+1781529352: Client aura_web_e116c7 [172.19.0.1:33250] disconnected: connection closed by client.
+1781529353: New connection from 172.19.0.1:51714 on port 9001.
+1781529353: New connection from 172.19.0.1:51728 on port 9001.
+1781529353: New client connected from 172.19.0.1:51714 as aura_web_79a672 (p4, c1, k60).
+1781529353: New connection from 172.19.0.1:51738 on port 9001.
+1781529353: New client connected from 172.19.0.1:51728 as aura_web_286772 (p4, c1, k60).
+1781529353: New client connected from 172.19.0.1:51738 as aura_web_27d475 (p4, c1, k60).
+1781529353: New connection from 172.19.0.1:51750 on port 9001.
+1781529353: New client connected from 172.19.0.1:51750 as aura_web_18370a (p4, c1, k60).
+1781529429: Client aura_web_22f7f2 [172.19.0.1:45156] disconnected: exceeded timeout.
+1781529429: Client aura_web_88da42 [172.19.0.1:45162] disconnected: exceeded timeout.
+1781529429: Client aura_web_3529a0 [172.19.0.1:45166] disconnected: exceeded timeout.
+1781529429: Client aura_web_aa8828 [172.19.0.1:45176] disconnected: exceeded timeout.
+1781529686: Client aura_web_79a672 [172.19.0.1:51714] disconnected: exceeded timeout.
+1781529686: Client aura_web_286772 [172.19.0.1:51728] disconnected: exceeded timeout.
+1781529686: Client aura_web_27d475 [172.19.0.1:51738] disconnected: exceeded timeout.
+1781529686: Client aura_web_18370a [172.19.0.1:51750] disconnected: exceeded timeout.
+1781529785: Client aura-server-inbound [172.19.0.5:56138] disconnected.
+1781529791: Client aura-server-outbound [172.19.0.5:56150] disconnected.
+1781529832: New connection from 172.19.0.1:54834 on port 9001.
+1781529833: New client connected from 172.19.0.1:54834 as aura_web_18370a (p4, c1, k60).
+1781529833: New connection from 172.19.0.1:54848 on port 9001.
+1781529833: New client connected from 172.19.0.1:54848 as aura_web_79a672 (p4, c1, k60).
+1781529833: New connection from 172.19.0.1:54862 on port 9001.
+1781529833: New connection from 172.19.0.1:54866 on port 9001.
+1781529833: New client connected from 172.19.0.1:54862 as aura_web_27d475 (p4, c1, k60).
+1781529833: New client connected from 172.19.0.1:54866 as aura_web_286772 (p4, c1, k60).
+1781529836: Client aura_web_18370a [172.19.0.1:54834] disconnected: connection closed by client.
+1781529836: Client aura_web_286772 [172.19.0.1:54866] disconnected: connection closed by client.
+1781529836: Client aura_web_27d475 [172.19.0.1:54862] disconnected: connection closed by client.
+1781529836: Client aura_web_79a672 [172.19.0.1:54848] disconnected: connection closed by client.
+1781529838: New connection from 172.19.0.1:44822 on port 9001.
+1781529838: New connection from 172.19.0.1:44838 on port 9001.
+1781529838: New client connected from 172.19.0.1:44822 as aura_web_e784e1 (p4, c1, k60).
+1781529838: New client connected from 172.19.0.1:44838 as aura_web_aaa295 (p4, c1, k60).
+1781529838: New connection from 172.19.0.1:44848 on port 9001.
+1781529838: New client connected from 172.19.0.1:44848 as aura_web_9c37c7 (p4, c1, k60).
+1781529838: New connection from 172.19.0.1:44850 on port 9001.
+1781529838: New client connected from 172.19.0.1:44850 as aura_web_8c9fc1 (p4, c1, k60).
+1781529850: New connection from 172.19.0.1:60434 on port 9001.
+1781529850: New connection from 172.19.0.1:60444 on port 9001.
+1781529851: New client connected from 172.19.0.1:60434 as aura_web_aa517d (p4, c1, k60).
+1781529851: New client connected from 172.19.0.1:60444 as aura_web_8cfa36 (p4, c1, k60).
+1781529851: New connection from 172.19.0.1:60452 on port 9001.
+1781529851: New client connected from 172.19.0.1:60452 as aura_web_d7274d (p4, c1, k60).
+1781529851: New connection from 172.19.0.1:60456 on port 9001.
+1781529851: New client connected from 172.19.0.1:60456 as aura_web_c6d34b (p4, c1, k60).
+1781529866: New connection from 172.19.0.5:37844 on port 1883.
+1781529866: New client connected from 172.19.0.5:37844 as aura-server-inbound (p4, c1, k60).
+1781529869: New connection from 172.19.0.5:37854 on port 1883.
+1781529870: New client connected from 172.19.0.5:37854 as aura-server-outbound (p4, c1, k60).
+1781529950: Client aura_web_aa517d [172.19.0.1:60434] disconnected: connection closed by client.
+1781529950: Client aura_web_8cfa36 [172.19.0.1:60444] disconnected: connection closed by client.
+1781529950: Client aura_web_d7274d [172.19.0.1:60452] disconnected: connection closed by client.
+1781529950: Client aura_web_c6d34b [172.19.0.1:60456] disconnected: connection closed by client.
+1781529955: New connection from 172.19.0.1:45450 on port 9001.
+1781529955: New connection from 172.19.0.1:45456 on port 9001.
+1781529955: New client connected from 172.19.0.1:45450 as aura_web_aa517d (p4, c1, k60).
+1781529955: New client connected from 172.19.0.1:45456 as aura_web_8cfa36 (p4, c1, k60).
+1781529955: New connection from 172.19.0.1:39414 on port 9001.
+1781529955: New client connected from 172.19.0.1:39414 as aura_web_d7274d (p4, c1, k60).
+1781529955: New connection from 172.19.0.1:39430 on port 9001.
+1781529956: New client connected from 172.19.0.1:39430 as aura_web_c6d34b (p4, c1, k60).
+1781529968: Client aura_web_c6d34b [172.19.0.1:39430] disconnected: connection closed by client.
+1781529968: Client aura_web_aa517d [172.19.0.1:45450] disconnected: connection closed by client.
+1781529968: Client aura_web_8cfa36 [172.19.0.1:45456] disconnected: connection closed by client.
+1781529968: Client aura_web_d7274d [172.19.0.1:39414] disconnected: connection closed by client.
+1781529974: New connection from 172.19.0.1:47434 on port 9001.
+1781529974: New client connected from 172.19.0.1:47434 as aura_web_c6d34b (p4, c1, k60).
+1781529974: New connection from 172.19.0.1:47450 on port 9001.
+1781529974: New client connected from 172.19.0.1:47450 as aura_web_aa517d (p4, c1, k60).
+1781529974: New connection from 172.19.0.1:47460 on port 9001.
+1781529974: New client connected from 172.19.0.1:47460 as aura_web_8cfa36 (p4, c1, k60).
+1781529974: New connection from 172.19.0.1:47472 on port 9001.
+1781529974: New client connected from 172.19.0.1:47472 as aura_web_d7274d (p4, c1, k60).
+1781530318: Client aura-server-inbound [172.19.0.5:37844] disconnected.
+1781530324: Client aura-server-outbound [172.19.0.5:37854] disconnected.
+1781530350: Client aura_web_9c37c7 [172.19.0.1:44848] disconnected: exceeded timeout.
+1781530350: Client aura_web_e784e1 [172.19.0.1:44822] disconnected: exceeded timeout.
+1781530350: Client aura_web_8c9fc1 [172.19.0.1:44850] disconnected: exceeded timeout.
+1781530350: Client aura_web_aaa295 [172.19.0.1:44838] disconnected: exceeded timeout.
+1781530404: mosquitto version 2.1.2 terminating
+1781530404: Saving in-memory database to /mosquitto/data//mosquitto.db.
+1781530436: mosquitto version 2.1.2 starting
+1781530436: Config loaded from /mosquitto/config/mosquitto.conf.
+1781530436: Bridge support available.
+1781530436: Persistence support available.
+1781530436: TLS support available.
+1781530436: TLS-PSK support available.
+1781530436: Websockets support available.
+1781530436: Opening ipv4 listen socket on port 1883.
+1781530436: Opening ipv6 listen socket on port 1883.
+1781530436: Opening ipv4 listen socket on port 9001.
+1781530436: Opening ipv6 listen socket on port 9001.
+1781530436: mosquitto version 2.1.2 running
+1781530438: New connection from 172.19.0.1:47088 on port 9001.
+1781530438: New client connected from 172.19.0.1:47088 as aura_web_aa517d (p4, c1, k60).
+1781530440: New connection from 172.19.0.1:47100 on port 9001.
+1781530440: New client connected from 172.19.0.1:47100 as aura_web_8cfa36 (p4, c1, k60).
+1781530442: New connection from 172.19.0.1:47102 on port 9001.
+1781530442: New client connected from 172.19.0.1:47102 as aura_web_d7274d (p4, c1, k60).
+1781530442: New connection from 172.19.0.1:47112 on port 9001.
+1781530442: New client connected from 172.19.0.1:47112 as aura_web_c6d34b (p4, c1, k60).
+1781530472: New connection from 172.19.0.5:55232 on port 1883.
+1781530472: New client connected from 172.19.0.5:55232 as aura-server-inbound (p4, c1, k60).
+1781530475: New connection from 172.19.0.5:55246 on port 1883.
+1781530475: New client connected from 172.19.0.5:55246 as aura-server-outbound (p4, c1, k60).
+1781530514: New connection from 172.19.0.1:38364 on port 9001.
+1781530514: New connection from 172.19.0.1:38378 on port 9001.
+1781530514: New client connected from 172.19.0.1:38364 as aura_web_16a47b (p4, c1, k60).
+1781530514: New client connected from 172.19.0.1:38378 as aura_web_ac4c1d (p4, c1, k60).
+1781530514: New connection from 172.19.0.1:38392 on port 9001.
+1781530514: New client connected from 172.19.0.1:38392 as aura_web_9dca16 (p4, c1, k60).
+1781530514: New connection from 172.19.0.1:38400 on port 9001.
+1781530514: New client connected from 172.19.0.1:38400 as aura_web_5cbd7a (p4, c1, k60).
+1781530570: Client aura_web_9dca16 [172.19.0.1:38392] disconnected: connection closed by client.
+1781530570: Client aura_web_ac4c1d [172.19.0.1:38378] disconnected: connection closed by client.
+1781530570: Client aura_web_16a47b [172.19.0.1:38364] disconnected: connection closed by client.
+1781530570: Client aura_web_5cbd7a [172.19.0.1:38400] disconnected: connection closed by client.
+1781530573: New connection from 172.19.0.1:38776 on port 9001.
+1781530574: New connection from 172.19.0.1:38792 on port 9001.
+1781530581: New client connected from 172.19.0.1:38792 as aura_web_96535b (p4, c1, k60).
+1781530581: New client connected from 172.19.0.1:38776 as aura_web_f57348 (p4, c1, k60).
+1781530581: New connection from 172.19.0.1:41114 on port 9001.
+1781530581: New connection from 172.19.0.1:41130 on port 9001.
+1781530582: New client connected from 172.19.0.1:41114 as aura_web_4b9013 (p4, c1, k60).
+1781530582: New client connected from 172.19.0.1:41130 as aura_web_9ee7b4 (p4, c1, k60).
+1781530598: Client aura_web_aa517d [172.19.0.1:47088] disconnected: connection closed by client.
+1781530598: Client aura_web_8cfa36 [172.19.0.1:47100] disconnected: connection closed by client.
+1781530598: Client aura_web_c6d34b [172.19.0.1:47112] disconnected: connection closed by client.
+1781530598: Client aura_web_d7274d [172.19.0.1:47102] disconnected: connection closed by client.
+1781530606: New connection from 172.19.0.1:45682 on port 9001.
+1781530606: New connection from 172.19.0.1:45692 on port 9001.
+1781530607: New client connected from 172.19.0.1:45682 as aura_web_dacd43 (p4, c1, k60).
+1781530607: New client connected from 172.19.0.1:45692 as aura_web_b5d950 (p4, c1, k60).
+1781530607: New connection from 172.19.0.1:45708 on port 9001.
+1781530607: New client connected from 172.19.0.1:45708 as aura_web_30bf17 (p4, c1, k60).
+1781530607: New connection from 172.19.0.1:45712 on port 9001.
+1781530607: New client connected from 172.19.0.1:45712 as aura_web_1884a4 (p4, c1, k60).
+1781530772: mosquitto version 2.1.2 terminating
+1781530772: Saving in-memory database to /mosquitto/data//mosquitto.db.

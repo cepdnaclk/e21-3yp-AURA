@@ -46,6 +46,16 @@ public class GlobalExceptionHandler {
         return error(HttpStatus.CONFLICT, ex.getMessage());
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(IllegalArgumentException ex) {
+        return error(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponse> handleConflict(IllegalStateException ex) {
+        return error(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
     // ─── Validation Errors ────────────────────────────────────────────────────
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
