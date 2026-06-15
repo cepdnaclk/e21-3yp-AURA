@@ -73,5 +73,11 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
         @Param("status") String status
     );
 
-    
+    // Kitchen live board — active orders placed today only (prevents stale orders from old sessions)
+    @Query("SELECT o FROM Order o WHERE o.status IN ('PENDING', 'PREPARING', 'READY') AND o.orderTime >= :since ORDER BY o.orderTime ASC")
+    List<Order> findActiveOrders(@Param("since") LocalDateTime since);
+
+    // Payment total — unpaid orders for this table placed today only
+    @Query("SELECT o FROM Order o WHERE o.table.tableId = :tableId AND o.status NOT IN ('PAID', 'CANCELLED') AND o.orderTime >= :since ORDER BY o.orderTime ASC")
+    List<Order> findActiveByTableId(@Param("tableId") Integer tableId, @Param("since") LocalDateTime since);
 }
