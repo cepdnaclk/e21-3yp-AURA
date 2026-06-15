@@ -3,44 +3,22 @@ spring:
     name: aura-restaurant-system
 
   # ── Database ────────────────────────────────────────────────────────────────
-  # Make sure your Postgres container is running before starting the app.
-  # Run: docker-compose up -d postgres
-  #
-  # These values are read from your .env file.
-  # If .env is missing a value, the part after the colon is used as a fallback.
-  # Example: DB_URL not set → falls back to jdbc:postgresql://localhost:5432/aura_db
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/aura_db}
-    username: ${DB_USERNAME:aura_user}
-    password: ${DB_PASSWORD:aura_password}
+    # Docker environment variables හරහා අගයන් නොලැබුණහොත් ක්‍රියාත්මක වන Fallback අගයන්:
+    url: ${DB_URL:jdbc:postgresql://aura-db-instance.c1goeg2quej5.ap-south-1.rds.amazonaws.com:5432/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:'aura-database-pwd#17'}  # මෙහි Quotes යෙදීම අනිවාර්ය වේ
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      # 'validate' means Hibernate will CHECK that the DB tables match your
-      # Entity classes — but it will NOT create or change anything itself.
-      # Flyway is responsible for actually building the tables (see below).
-      # Never use 'update' in a team project — it causes silent schema conflicts.
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        # Makes the SQL printed to console easier to read (indented, not one line)
         format_sql: true
-    # Prints every SQL query to the console — useful for debugging locally.
-    # Set to false if the logs get too noisy.
     show-sql: true
 
   # ── Flyway (Database Migrations) ────────────────────────────────────────────
-  # Flyway runs SQL scripts automatically on startup to create/update tables.
-  # Scripts live in: src/main/resources/db/migration/
-  # Naming rule: V1__description.sql, V2__description.sql (version must go up)
-  #
-  # B1 creates V1 (menu, orders, tables etc.)
-  # B2 creates V2 (users table) ← that's us
-  #
-  # baseline-on-migrate: true means if the DB already has tables from before
-  # Flyway was added, it won't panic — it just starts tracking from here.
   flyway:
     enabled: true
     locations: classpath:db/migration
@@ -49,27 +27,18 @@ spring:
 server:
   port: 8080
 
+  # ── File Upload Limits ──────────────────────────────────────────────────────
+  servlet:
+    multipart:
+      max-file-size: 50MB      # Maximum file size per upload
+      max-request-size: 50MB   # Maximum request size (including multiple files)
+
 # ── JWT (Authentication Tokens) ─────────────────────────────────────────────
-# JWT_SECRET is a long random string used to sign every token we issue.
-# If someone changes the secret, all existing tokens instantly become invalid.
-#
-# IMPORTANT: Never hardcode the secret here. Always use the environment variable.
-# Generate a secure secret with: openssl rand -base64 32
-# Then paste it into your .env file as: JWT_SECRET=<the output>
-#
-# expiry is in milliseconds. 86400000 = 24 hours.
-# After 24 hours the token expires and the user must log in again.
 jwt:
   secret: ${JWT_SECRET}
   expiry: 86400000
 
 # ── Swagger UI (API Documentation) ──────────────────────────────────────────
-# Swagger gives us a visual page where anyone on the team can see and test
-# all API endpoints without needing Postman.
-#
-# Once the app is running, open: http://localhost:8080/swagger-ui.html
-# Share this URL with the frontend developer (Member A) so they can see
-# exactly what endpoints exist and what JSON shapes to send/expect.
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

@@ -17,7 +17,7 @@ import { ChefHat, Clock, Flame, Timer, CheckCircle2, X, ArrowRight, LogOut } fro
 import Footer from '../../components/layout/Footer';
 import { useRestaurant, ORDER_STATUS } from '../../context/RestaurantContext';
 import { useAppContext } from '../../context/AppContext';
-import { getTimeSince } from '../../utils/helpers';
+import { formatPrice, getTimeSince } from '../../utils/helpers';
 import { getMenuImageSrc } from '../../utils/menuImages';
 import { orderMqtt } from '../../api/mqttclient';
 //import { orderWebSocket } from '../../api/webSocket';
@@ -283,7 +283,7 @@ useEffect(() => {
                         ))}
                         <div className="pt-1 flex justify-between text-xs text-gray-600 border-t border-white/5 mt-1">
                           <span>{order.items.reduce((s,i) => s+i.quantity, 0)} items</span>
-                          <span className="text-orange-400 font-medium">${order.total.toFixed(2)}</span>
+                          <span className="text-orange-400 font-medium">{formatPrice(order.total)}</span>
                         </div>
                       </div>
 

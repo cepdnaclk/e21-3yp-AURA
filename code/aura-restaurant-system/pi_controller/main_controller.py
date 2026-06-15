@@ -124,6 +124,36 @@ def _touch_worker(
             print(f"Touch worker error: {e}")
             time.sleep(0.2)
 
+def setup_ai_mqtt_handler(mqtt_bot, voice, audio):
+    """Handles commands coming from the React Tablet UI."""
+    def on_ai_command(payload):
+        action = payload.get("action")
+        menu_context = payload.get("menu")
+        
+        if action == "PROCESS_TEXT":
+            user_text = payload.get("text", "")
+            if user_text:
+                print(f"[UI Command] User typed: {user_text}")
+                reply = voice.get_gemini_response(user_text, menu_context)
+                audio.speak_text(reply)
+                
+        elif action == "START_VOICE_MIC":
+            print("[UI Command] User pressed Mic button. Activating hardware mic...")
+            audio.speak_text("I am listening.") 
+            user_text = voice.listen_and_convert_to_text(timeout=5, phrase_time_limit=8)
+            
+            if user_text:
+                reply = voice.get_gemini_response(user_text, menu_context)
+                audio.speak_text(reply)
+            else:
+                print("No speech detected after UI trigger.")
+    
+    mqtt_bot.set_ai_callback(on_ai_command)
+# ----------------------------------------
+
+def main():
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
+
 def main():
     gemini_api_key = os.getenv("GEMINI_API_KEY")
 
@@ -169,6 +199,9 @@ def main():
 
     print(f"Touch pins active: {touch.sensor_pins}")
     print(f"Touch order: {touch.sequence_order}")
+
+    if voice and audio:
+        setup_ai_mqtt_handler(mqtt_bot, voice, audio)
     
     stop_event = threading.Event()
     

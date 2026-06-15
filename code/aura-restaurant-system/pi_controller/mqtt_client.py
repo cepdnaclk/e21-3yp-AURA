@@ -13,6 +13,7 @@ class RobotMqttClient:
 
         self.menu_response = None
         self.menu_event = threading.Event()
+        self.ai_callback = None
 
     # පියවර 01: Connect වූ පසු Status Topic එකට Subscribe වීම
     def on_connect(self, client, userdata, flags, rc):
@@ -28,6 +29,8 @@ class RobotMqttClient:
             status_topic = f"aura/robot/+/status" 
             self.client.subscribe(status_topic)
             print(f"📡 Subscribed to status updates on: {status_topic}")
+            self.client.subscribe("aura/robot/ai-command")
+            print("📡 Subscribed to UI AI commands on: aura/robot/ai-command")
         else:
             print(f"❌ Connection failed with code {rc}")
 
@@ -51,6 +54,9 @@ class RobotMqttClient:
                     
                     # මෙතැනදී Hardware (OLED/Stepper) ක්‍රියාත්මක කරන function එක කැඳවිය හැක
                     self.handle_hardware_action(table_id)
+            elif "ai-command" in msg.topic:
+                if self.ai_callback:
+                    self.ai_callback(payload)
 
         except Exception as e:
             print(f"❌ Error parsing message: {e}")
@@ -60,6 +66,9 @@ class RobotMqttClient:
         # මෙහිදී main_controller හි hardware objects වෙත පණිවිඩ යැවිය හැක
         # දැනට log එකක් පමණක් පෙන්වයි
         pass
+
+    def set_ai_callback(self, callback):
+        self.ai_callback = callback
 
     def request_menu(self, table_id="1", timeout=5):
         self.menu_event.clear()

@@ -433,7 +433,45 @@ const getHiddenOrderIds = useCallback((tableNumber) => {
       setMenuItems((prev) => [...prev, itemWithId]);
       return itemWithId;
     } catch (error) {
-      console.error('[AURA] Add menu item failed:', error.response?.data || error.message || error);
+      const errorDetails = {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        message: error.response?.data?.message || error.message,
+        data: error.response?.data,
+      };
+      console.error('[AURA] Add menu item failed:', JSON.stringify(errorDetails, null, 2));
+      throw error;
+    }
+  }, []);
+
+  // ── Update Menu Item (Admin only) ───────────────────────────────────────
+  const updateMenuItem = useCallback(async (itemId, updatedItem, imageFile = null) => {
+    console.log('updateMenuItem called with:', itemId, updatedItem, imageFile);
+    const itemPayload = {
+      name: updatedItem.name.trim(),
+      description: (updatedItem.description || '').trim() || 'Freshly prepared signature dish from AURA kitchen.',
+      price: Number(updatedItem.price) || 0,
+      category: updatedItem.category || 'popular',
+      availability: updatedItem.available ?? true,
+      imageUrl: updatedItem.imageFilename && !isKnownMenuImage(updatedItem.imageFilename)
+        ? updatedItem.imageFilename
+        : undefined,
+      prepTimeMinutes: updatedItem.time || "15 min",
+    };
+
+    try {
+      const rawItem = await menuAPI.updateMenuItem(itemId, itemPayload, imageFile);
+      const itemWithId = normalizeMenuItem(rawItem);
+      setMenuItems((prev) => prev.map((item) => (item.id === itemId ? itemWithId : item)));
+      return itemWithId;
+    } catch (error) {
+      const errorDetails = {
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        message: error.response?.data?.message || error.message,
+        data: error.response?.data,
+      };
+      console.error('[AURA] Update menu item failed:', JSON.stringify(errorDetails, null, 2));
       throw error;
     }
   }, []);
@@ -465,7 +503,7 @@ const getHiddenOrderIds = useCallback((tableNumber) => {
     session, loginError,
     login, logout, verifyCredentials,
     theme, toggleTheme,
-    menuItems, addMenuItem, deleteMenuItem, refreshMenu,
+    menuItems, addMenuItem, updateMenuItem, deleteMenuItem, refreshMenu,
     startNewCustomerSession,
     getHiddenOrderIds,
   };
