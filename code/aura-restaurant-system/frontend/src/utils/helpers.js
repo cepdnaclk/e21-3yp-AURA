@@ -7,9 +7,9 @@
  */
 
 export function formatPrice(amount) {
-    return new Intl.NumberFormat('en-LK', {
+    return new Intl.NumberFormat('en-US', {
         style: 'currency',
-        currency: 'LKR',
+        currency: 'USD',
     }).format(amount);
 }
 

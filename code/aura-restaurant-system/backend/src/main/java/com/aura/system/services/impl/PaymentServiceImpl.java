@@ -100,9 +100,16 @@ public class PaymentServiceImpl implements PaymentService {
     // ─── 3. PayHere Initiate — Combined Table Total ────────────────────────
 
     @Override
-    public PayHereInitResponse initiatePayHereForTable(Integer tableId) {
-        LocalDateTime startOfToday = LocalDateTime.now().toLocalDate().atStartOfDay();
-        List<Order> activeOrders = orderRepository.findActiveByTableId(tableId, startOfToday);
+    public PayHereInitResponse initiatePayHereForTable(Integer tableId, List<Integer> orderIds) {
+        List<Order> activeOrders;
+        if (orderIds != null && !orderIds.isEmpty()) {
+            activeOrders = orderRepository.findAllById(orderIds).stream()
+                    .filter(o -> !"PAID".equals(o.getStatus()) && !"CANCELLED".equals(o.getStatus()))
+                    .collect(Collectors.toList());
+        } else {
+            LocalDateTime startOfToday = LocalDateTime.now().toLocalDate().atStartOfDay();
+            activeOrders = orderRepository.findActiveByTableId(tableId, startOfToday);
+        }
         if (activeOrders.isEmpty()) {
             throw new IllegalArgumentException("No active orders for table: " + tableId);
         }
@@ -176,13 +183,21 @@ public class PaymentServiceImpl implements PaymentService {
         paymentRepository.save(payment);
 
         if ("PAID".equals(status)) {
-            // Mark ALL today's active orders for this table as PAID (covers combined table payment)
-            LocalDateTime startOfToday = LocalDateTime.now().toLocalDate().atStartOfDay();
-            List<Order> tableOrders = orderRepository.findActiveByTableId(order.getTable().getTableId(), startOfToday);
-            tableOrders.forEach(o -> o.setStatus("PAID"));
-            orderRepository.saveAll(tableOrders);
-            log.info("PayHere payment SUCCESS | tableId={} ordersMarkedPaid={} txnId={}",
-                    order.getTable().getTableId(), tableOrders.size(), cb.payment_id());
+            // Mark only the orders belonging to the same walk-in session as PAID.
+            // Falls back to marking just this single order if the session is unknown.
+            Long sessionId = order.getWalkInSessionId();
+            List<Order> toPay;
+            if (sessionId != null) {
+                toPay = orderRepository.findByWalkInSessionId(sessionId).stream()
+                        .filter(o -> !"PAID".equals(o.getStatus()) && !"CANCELLED".equals(o.getStatus()))
+                        .collect(Collectors.toList());
+            } else {
+                toPay = List.of(order);
+            }
+            toPay.forEach(o -> o.setStatus("PAID"));
+            orderRepository.saveAll(toPay);
+            log.info("PayHere payment SUCCESS | sessionId={} ordersMarkedPaid={} txnId={}",
+                    sessionId, toPay.size(), cb.payment_id());
         } else {
             log.warn("PayHere payment {} | orderId={}", status, orderId);
         }
