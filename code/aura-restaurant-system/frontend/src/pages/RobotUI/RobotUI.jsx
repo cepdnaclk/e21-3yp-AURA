@@ -3,7 +3,7 @@ import {
   ChefHat, Flame, Leaf, IceCreamCone, Coffee, UtensilsCrossed,
   Plus, Minus, LogOut, Sun, Moon, Lock, X,
   ShoppingCart, CreditCard, Trash2, CheckCircle2,
-  Clock, Bike, PartyPopper,Settings, Mic, Bot, Send // <-- Added Mic, Bot, Send
+  Clock, Bike, PartyPopper,Settings, Mic, Bot, Send, Wine // <-- Added Mic, Bot, Send, Wine
 } from 'lucide-react';
 import { useAppContext }             from '../../context/AppContext';
 import { useRestaurant, ORDER_STATUS } from '../../context/RestaurantContext';
@@ -22,10 +22,11 @@ const CATS = [
   { id: 'Koththu',    label: 'Koththu',    icon: Flame           },
   { id: 'Noodle',     label: 'Noodle',     icon: UtensilsCrossed },
   { id: 'desserts',   label: 'Desserts',   icon: Leaf            },
+  { id: 'Beverages',  label: 'Beverages',  icon: Wine            },
   { id: 'Other',      label: 'Other',      icon: Coffee          },
 ];
 
-const CATEGORY_ORDER = ['Appetizers', 'Rice', 'Koththu', 'Noodle', 'desserts', 'Other'];
+const CATEGORY_ORDER = ['Appetizers', 'Rice', 'Koththu', 'Noodle', 'desserts', 'Beverages', 'Other'];
 
 
 const STATUS_CFG = {

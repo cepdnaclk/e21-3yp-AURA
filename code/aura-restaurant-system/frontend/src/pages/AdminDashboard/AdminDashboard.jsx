@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import {
   LayoutDashboard, UtensilsCrossed, DollarSign, ShoppingBag,
   Bot, ArrowUpRight, ArrowDownRight, Plus,
-  Trash2, Activity, LogOut, Save,
+  Trash2, Activity, LogOut, Save, Pencil,
 } from 'lucide-react';
 import Card from '../../components/common/Card';
 import StatusBadge from '../../components/common/StatusBadge';
@@ -44,13 +44,14 @@ const MENU_CATEGORIES = [
   { value: 'Koththu',    label: 'Koththu' },
   { value: 'Noodle',  label: 'Noodle'  },
   { value: 'desserts', label: 'Desserts' },
+  { value: 'Beverages', label: 'Beverages' },
   { value: 'Appetizers',   label: 'Appetizers' },
   { value: 'Other',   label: 'Other' },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
 export default function AdminDashboard() {
-  const { session, logout, menuItems, addMenuItem, deleteMenuItem, refreshMenu } = useAppContext();
+  const { session, logout, menuItems, addMenuItem, updateMenuItem, deleteMenuItem, refreshMenu } = useAppContext();
   const {
     activeOrders,
     orderHistory,
@@ -152,6 +153,7 @@ export default function AdminDashboard() {
   });
   const [formError, setFormError]   = useState('');
   const [formSuccess, setFormSuccess] = useState('');
+  const [editingItemId, setEditingItemId] = useState(null);
 
   // ── Stats for overview (Updated in real-time via MQTT) ───────────────────
   // [MQTT TOPICS]: aura/admin/stats, aura/admin/robots
@@ -188,10 +190,9 @@ export default function AdminDashboard() {
   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
   .slice(0, 6);
 
-  // [API ENDPOINT]: POST /api/v1/menu
-  // [DATA SYNC]: Adds menu entries into shared context so Robot and Admin views render the same catalog immediately.
-  const handleAddItem = async (e) => {
+const handleAddItem = async (e) => {
     e.preventDefault();
+    console.log('handleAddItem called, editingItemId:', editingItemId, 'form:', form);
     setFormError('');
     setFormSuccess('');
 
@@ -200,32 +201,36 @@ export default function AdminDashboard() {
     if (!form.description.trim()) return setFormError('Please add a short food description.');
     const price = parseFloat(form.price);
     if (isNaN(price) || price <= 0) return setFormError('Enter a valid price greater than 0.');
-    
-    // Validate image: either preset image or uploaded file
+
     if (imageMode === 'preset') {
       if (!form.imageFilename || !isKnownMenuImage(form.imageFilename)) {
         return setFormError('Select a valid menu image from assets/food_images.');
       }
     } else if (imageMode === 'upload') {
-      if (!form.imageFile) {
+      if (!form.imageFile && !editingItemId) {
         return setFormError('Please upload an image file.');
       }
     }
 
     try {
-      // Pass either uploaded file or preset image filename
       const itemData = {
         ...form,
         name: form.name.trim(),
         description: form.description.trim(),
         price,
       };
-      
-      // If uploading a new image, pass the file; otherwise pass null for file
+
       const imageFile = imageMode === 'upload' ? form.imageFile : null;
-      
-      await addMenuItem(itemData, imageFile);
-      setFormSuccess(`"${form.name}" added to the menu! It's now visible on RobotUI.`);
+
+      if (editingItemId) {
+        await updateMenuItem(editingItemId, itemData, imageFile);
+        setFormSuccess(`"${form.name}" updated successfully!`);
+        setEditingItemId(null);
+      } else {
+        await addMenuItem(itemData, imageFile);
+        setFormSuccess(`"${form.name}" added to the menu! It's now visible on RobotUI.`);
+      }
+
       setForm({
         name: '',
         description: '',
@@ -235,11 +240,47 @@ export default function AdminDashboard() {
         imageFile: null,
         time: '15 min',
       });
-      setImageMode('preset'); // Reset to preset mode
+      setImageMode('preset');
       setTimeout(() => setFormSuccess(''), 4000);
     } catch (error) {
       setFormError(error.response?.data?.message || error.response?.data || 'Failed to add menu item. Try again.');
     }
+  };
+
+  // [API ENDPOINT]: PUT /api/menu/:id
+  const handleStartEdit = (item) => {
+    setEditingItemId(item.id);
+    setFormError('');
+    setFormSuccess('');
+    setForm({
+      name: item.name,
+      description: item.description,
+      price: String(item.price),
+      category: item.category,
+      imageFilename: isKnownMenuImage(item.imageFilename) ? item.imageFilename : (AVAILABLE_MENU_IMAGES[0] || ''),
+      imageFile: null,
+      time: item.time,
+      available: item.available,
+    });
+    setImageMode(isKnownMenuImage(item.imageFilename) ? 'preset' : 'preset');
+    setActiveTab('menu');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingItemId(null);
+    setFormError('');
+    setFormSuccess('');
+    setForm({
+      name: '',
+      description: '',
+      price: '',
+      category: 'Rice',
+      imageFilename: AVAILABLE_MENU_IMAGES[0] || '',
+      imageFile: null,
+      time: '15 min',
+    });
+    setImageMode('preset');
   };
 
   // [API ENDPOINT]: DELETE /api/v1/menu/:id
@@ -518,10 +559,10 @@ export default function AdminDashboard() {
               <div className="glass rounded-2xl p-6 sticky top-24">
                 <h2 className="font-display text-xl font-bold text-white mb-1 flex items-center gap-2">
                   <Plus size={20} className="text-aura-400" />
-                  Add Menu Item
+                  {editingItemId ? 'Edit Menu Item' : 'Add Menu Item'}
                 </h2>
                 <p className="text-dark-400 text-xs mb-6">
-                  New items appear on the Robot UI immediately.
+                  {editingItemId ? 'Update item details below.' : 'New items appear on the Robot UI immediately.'}
                 </p>
 
                 {!isAdmin && (
@@ -737,19 +778,32 @@ export default function AdminDashboard() {
                   )}
 
                   {/* Submit */}
-                  <button
-                    id="menu-form-submit"
-                    type="submit"
-                    disabled={!isAdmin}
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-aura-600 to-aura-500
-                               hover:from-aura-500 hover:to-aura-400 text-white font-bold text-sm
-                               shadow-lg shadow-aura-600/20 active:scale-95 transition-all
-                               disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100
-                               flex items-center justify-center gap-2"
-                  >
-                    <Save size={16} />
-                    Add to Menu
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      id="menu-form-submit"
+                      type="submit"
+                      disabled={!isAdmin}
+                      className="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-aura-600 to-aura-500
+                                 hover:from-aura-500 hover:to-aura-400 text-white font-bold text-sm
+                                 shadow-lg shadow-aura-600/20 active:scale-95 transition-all
+                                 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100
+                                 flex items-center justify-center gap-2"
+                    >
+                      <Save size={16} />
+                      {editingItemId ? 'Save Changes' : 'Add to Menu'}
+                    </button>
+                    {editingItemId && (
+                      <button
+                        type="button"
+                        onClick={handleCancelEdit}
+                        className="px-5 py-3.5 rounded-2xl bg-white/5 hover:bg-white/10
+                                   text-dark-300 hover:text-white font-semibold text-sm
+                                   transition-all active:scale-95"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                  </div>
                 </form>
               </div>
             </div>
@@ -796,6 +850,17 @@ export default function AdminDashboard() {
                           <span className="text-base font-bold text-aura-400 flex-shrink-0">
                             {formatPrice(item.price)}
                           </span>
+                          <button
+                            id={`edit-item-${item.id}`}
+                            disabled={!isAdmin}
+                            onClick={() => handleStartEdit(item)}
+                            className={`${isAdmin ? 'opacity-0 group-hover:opacity-100' : 'opacity-40 cursor-not-allowed'} w-8 h-8 rounded-lg
+                                       hover:bg-aura-500/20 text-dark-500 hover:text-aura-400
+                                       transition-all flex items-center justify-center flex-shrink-0`}
+                            title="Edit item"
+                          >
+                            <Pencil size={15} />
+                          </button>
                           <button
                             id={`delete-item-${item.id}`}
                             disabled={!isAdmin}
