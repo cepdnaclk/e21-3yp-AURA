@@ -1,25 +1,35 @@
 services:
-  # ── Backend Service (Spring Boot) ───────────────────────────────────────────
+  # ── PostgreSQL (LOCAL DEV පමණයි — prod වල RDS පාවිච්චි වෙනවා) ──
+  postgres:
+    image: postgres:16-alpine
+    container_name: aura_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: aura_db
+      POSTGRES_USER: aura_user
+      POSTGRES_PASSWORD: aura_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # ── Backend (Spring Boot) ──
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: aura_backend
     restart: on-failure
+    # default .env | prod: BACKEND_ENV_FILE=.env.production විදිහට override කරන්න
+    env_file:
+      - ${BACKEND_ENV_FILE:-.env}
     ports:
       - "8080:8080"
-    environment:
-      # AWS RDS Cloud Database Settings (Linked from .env)
-      - DB_URL=${DB_URL}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - JWT_SECRET=${JWT_SECRET}
-      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
-      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
-      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    depends_on:
+      - postgres
+      - mosquitto
 
-  # ── Frontend Service (React/Vite) ───────────────────────────────────────────
+  # ── Frontend (React/Vite) ──
   frontend:
     image: node:20-alpine
     container_name: aura_frontend
@@ -30,18 +40,21 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - CHOKIDAR_USEPOLLING=true 
+      - CHOKIDAR_USEPOLLING=true
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
-  
-  # ── MQTT Broker (Mosquitto) ─────────────────────────────────────────────────
+
+  # ── MQTT Broker (Mosquitto) ──
   mosquitto:
     image: eclipse-mosquitto
     container_name: aura_mosquitto
     restart: always
     ports:
-      - "1883:1883" 
-      - "9001:9001" 
+      - "1883:1883"
+      - "9001:9001"
     volumes:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
+
+volumes:
+  postgres_data:

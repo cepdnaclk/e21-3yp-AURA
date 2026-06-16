@@ -34,13 +34,13 @@ class KitchenMqttService {
       console.log('✅ MQTT connected via WebSocket');
       this.connected = true;
 
-      // Subscribe to kitchen topic — FIXED: must match backend topic exactly
-      this.client.subscribe('aura/kitchen/update-order');  // ← Backend publishes here
+      this.client.subscribe('aura/kitchen/update-order');
       this.client.subscribe('aura/table/+/order/response');
       this.client.subscribe('aura/menu/updated');
-      // Subscribe to dashboard real-time stats
       this.client.subscribe('aura/admin/stats');
       this.client.subscribe('aura/admin/robots');
+      // Must be inside connect handler so it re-subscribes after reconnection
+      this.client.subscribe('aura/table/+/call-waiter');
     });
 
     this.client.on('message', (topic, message) => {
@@ -82,8 +82,6 @@ class KitchenMqttService {
       console.warn('⚠️ MQTT offline');
       this.connected = false;
     });
-
-    this.client.subscribe('aura/table/+/call-waiter');
   }
 
   onNewOrder(callback) {

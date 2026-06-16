@@ -105,9 +105,6 @@ export const menuAPI = {
       formData.append('file', file);
     }
 
-    console.log('📤 Sending menu item:', menuItem);
-    console.log('📄 Sending file:', file?.name, 'Size:', file?.size);
-
     const response = await axiosInstance.post('/menu', formData, {
       headers: {
         'Content-Type': undefined, // ← delete the global default
@@ -115,23 +112,16 @@ export const menuAPI = {
     });
     return response.data;
   } catch (error) {
-    const errorDetails = {
-      status: error.response?.status,
-      message: error.response?.statusText,
-      data: error.response?.data,
-      fullError: error.message,
-    };
-    console.error('❌ Failed to create menu item:', JSON.stringify(errorDetails, null, 2));
+    console.error('Failed to create menu item:', error.response?.data || error.message);
     throw error;
   }
 },
-/**
-   * Update existing menu item (admin only)
-   * Sends multipart/form-data to match @ModelAttribute + @RequestParam("file")
-   * on the Spring controller. Do NOT set Content-Type header manually.
+  /**
+   * Update menu item (admin only)
+   * Same multipart approach as create.
    *
    * @param {number} id       - Menu item ID
-   * @param {Object} menuItem - Updated fields (must match MenuItem entity field names exactly)
+   * @param {Object} menuItem - Updated fields
    * @param {File|null} file  - Optional new image file
    */
   updateMenuItem: async (id, menuItem, file = null) => {
@@ -151,9 +141,9 @@ export const menuAPI = {
 
       const response = await axiosInstance.put(`/menu/${id}`, formData, {
         headers: {
-          'Content-Type': undefined,
+            'Content-Type': undefined,
         },
-      });
+        });
       return response.data;
     } catch (error) {
       console.error(`Failed to update menu item ${id}:`, error.response?.data || error.message);

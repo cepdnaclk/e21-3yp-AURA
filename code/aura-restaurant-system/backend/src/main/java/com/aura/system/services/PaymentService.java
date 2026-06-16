@@ -10,7 +10,7 @@ import java.util.List;
 public interface PaymentService {
     PaymentResponse recordPayment(CreatePaymentRequest request);          // Cash
     PayHereInitResponse initiatePayHere(Integer orderId);                 // Card/QR — single order
-    PayHereInitResponse initiatePayHereForTable(Integer tableId);         // Card/QR — combined table total
+    PayHereInitResponse initiatePayHereForTable(Integer tableId, List<Integer> orderIds); // Card/QR — combined table total
     void handlePayHereCallback(PayHereCallbackRequest callback);          // Gateway callback
     List<BillResponse> getAllPendingBills();
     BillResponse getBillByTableId(Integer tableId);
