@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import {
   ChefHat, Flame, Leaf, IceCreamCone, Coffee, UtensilsCrossed,
-  Plus, Minus, LogOut, Sun, Moon, Lock, X,
+  Plus, Minus, LogOut, Sun, Moon, X,
   ShoppingCart, CreditCard, Trash2, CheckCircle2,
-  Clock, Bike, PartyPopper,Settings, Mic, Bot, Send, Wine // <-- Added Mic, Bot, Send, Wine
+  Clock, Bike, PartyPopper,Settings,
 } from 'lucide-react';
 import { useAppContext }             from '../../context/AppContext';
 import { useRestaurant, ORDER_STATUS } from '../../context/RestaurantContext';
-import { formatPrice }               from '../../utils/helpers';
 import { getMenuImageSrc }           from '../../utils/menuImages';
 import { orderMqtt }                 from '../../api/mqttclient';
 import { useNavigate }               from 'react-router-dom';
@@ -23,11 +22,10 @@ const CATS = [
   { id: 'Koththu',    label: 'Koththu',    icon: Flame           },
   { id: 'Noodle',     label: 'Noodle',     icon: UtensilsCrossed },
   { id: 'desserts',   label: 'Desserts',   icon: Leaf            },
-  { id: 'Beverages',  label: 'Beverages',  icon: Wine            },
   { id: 'Other',      label: 'Other',      icon: Coffee          },
 ];
 
-const CATEGORY_ORDER = ['Appetizers', 'Rice', 'Koththu', 'Noodle', 'desserts', 'Beverages', 'Other'];
+const CATEGORY_ORDER = ['Appetizers', 'Rice', 'Koththu', 'Noodle', 'desserts', 'Other'];
 
 
 const STATUS_CFG = {
@@ -51,11 +49,7 @@ export default function RobotUI() {
   const [waiterError, setWaiterError] = useState(false); 
   const [showSettings, setShowSettings] = useState(false);
   const [modalMode, setModalMode] = useState('logout');
-
-  // -- New AI Chat States --
-  const [isListening, setIsListening] = useState(false);
-
-  const { placeOrder, getUnpaidOrders } = useRestaurant();
+  const { placeOrder, getUnpaidOrders, refreshOrders } = useRestaurant();
   const navigate = useNavigate();
 
   // ── MQTT ──
@@ -74,7 +68,6 @@ export default function RobotUI() {
   const confirmed       = allUnpaidOrders.filter(order => !hiddenIds.has(order.id));
   const latest          = confirmed.length > 0 ? confirmed[confirmed.length - 1] : null;
   const status          = latest?.status || null;
-  const delivered       = status === ORDER_STATUS.DELIVERED;
 
   // ── UI state ──
   const [cat, setCat]                   = useState('all');
@@ -198,34 +191,12 @@ const confirmStaffAction = async () => {
     if (success) {
       setShowLogout(false);
       setCart([]);
+      await refreshOrders();
     } else {
       setLErr('Failed to create new session. Try again.');
     }
   }
 };
-
-// --- AI FUNCTIONS  ---
-  const getMenuContext = () => {
-    const simplifiedMenu = menuItems.map(item => ({
-      name: item.name,
-      price: item.price,
-      description: item.description
-    }));
-    return JSON.stringify(simplifiedMenu);
-  };
-
-  const triggerVoiceMic = () => {
-    setIsListening(true);
-    
-    orderMqtt.publish('aura/robot/ai-command', {
-      action: "START_VOICE_MIC",
-      menu: getMenuContext(),
-      tableNumber: session?.tableNumber || 'T1'
-    });
-    
-    // 10 second timeout gives AURA enough time to listen and think
-    setTimeout(() => setIsListening(false), 10000); 
-  };
 
   // ── Theme colour map ──
   const tc = {
@@ -364,7 +335,7 @@ const confirmStaffAction = async () => {
                       </div>
                       <div>
                         <div className="flex items-center justify-between mb-2 sm:mb-3 mt-1">
-                          <span className="text-sm sm:text-lg font-bold text-orange-500">{formatPrice(item.price)}</span>
+                          <span className="text-sm sm:text-lg font-bold text-orange-500">${item.price.toFixed(2)}</span>
                           <span className={`text-[9px] sm:text-xs ${tc.mc}`}>⏱ {item.time}</span>
                         </div>
 
@@ -478,15 +449,6 @@ const confirmStaffAction = async () => {
             <span className="text-[9px] font-medium text-indigo-400">Games</span>
           </button>
 
-          {/* --- VOICE MIC BUTTON --- */}
-          <button
-            onClick={triggerVoiceMic}
-            className={`w-10 h-10 rounded-xl flex flex-col items-center justify-center gap-0.5 transition-all active:scale-90 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 hover:border-sky-500/40`}
-          >
-            <Mic size={18} className="text-sky-500"/>
-            <span className="text-[9px] font-medium text-sky-500">Voice</span>
-          </button>
-
           {/* Theme toggle */}
           <button onClick={toggleTheme}
             className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center transition-all active:scale-90 ${D ? 'bg-white/5 hover:bg-white/15 text-yellow-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-600'}`}>
@@ -586,6 +548,8 @@ const confirmStaffAction = async () => {
         <PaymentModal
           tableId={numericTableId}
           tableNumber={table}
+          orders={confirmed}
+          sessionId={session?.walkInSessionId}
           onClose={() => setShowPayment(false)}
           theme={theme}
           onCashWaiterCalled={() => {
@@ -642,8 +606,8 @@ const confirmStaffAction = async () => {
 
                     <div className="flex-1 min-w-0">
                       <p className={`font-semibold text-sm truncate ${tc.tt}`}>{item.name}</p>
-                      <p className="text-orange-500 text-sm font-bold">{formatPrice(item.price * item.quantity)}</p>
-                      <p className={`text-xs ${tc.st}`}>{formatPrice(item.price)} each</p>
+                      <p className="text-orange-500 text-sm font-bold">${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className={`text-xs ${tc.st}`}>${item.price.toFixed(2)} each</p>
                     </div>
 
                     <div className="flex items-center gap-2 flex-shrink-0">
@@ -673,7 +637,7 @@ const confirmStaffAction = async () => {
               <div className={`flex-shrink-0 px-6 py-4 border-t ${tc.divider} space-y-3`}>
                 <div className="flex items-center justify-between">
                   <span className={`text-sm font-medium ${tc.st}`}>Total</span>
-                  <span className="text-2xl font-bold text-orange-500">{formatPrice(cartTotal)}</span>
+                  <span className="text-2xl font-bold text-orange-500">${cartTotal.toFixed(2)}</span>
                 </div>
                 <div className={`flex items-center justify-between text-xs ${tc.st}`}>
                   <span>Table</span>
@@ -683,7 +647,7 @@ const confirmStaffAction = async () => {
                   className="w-full h-12 rounded-2xl bg-orange-500 hover:bg-orange-400 disabled:opacity-60 text-white font-bold text-base transition-all active:scale-95 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30">
                   {orderLoading
                     ? <><div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"/> Sending to Kitchen...</>
-                    : <><CreditCard size={18}/> Confirm Order — {formatPrice(cartTotal)}</>
+                    : <><CreditCard size={18}/> Confirm Order — ${cartTotal.toFixed(2)}</>
                   }
                 </button>
                 <button onClick={() => setCart([])}
@@ -837,33 +801,6 @@ const confirmStaffAction = async () => {
       </div>
     )}
 
-    {/* --- REPLACE THE TYPING MODAL WITH THIS OVERLAY --- */}
-      {isListening && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 transition-all">
-          <div className="flex flex-col items-center gap-6">
-            
-            {/* Glowing Pulsing Mic */}
-            <div className="w-28 h-28 rounded-full bg-sky-500/20 flex items-center justify-center animate-pulse border-4 border-sky-500/50 shadow-[0_0_60px_rgba(14,165,233,0.5)]">
-              <Mic size={56} className="text-sky-400 animate-bounce" />
-            </div>
-            
-            {/* Text Prompts */}
-            <div className="text-center space-y-2">
-              <h3 className="text-3xl font-bold text-white tracking-wide">AURA is Listening...</h3>
-              <p className="text-sky-200 text-lg">Speak your question clearly into the robot</p>
-            </div>
-
-            {/* Cancel Button */}
-            <button
-              onClick={() => setIsListening(false)}
-              className="mt-8 px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium transition-all active:scale-95 border border-white/20"
-            >
-              Cancel
-            </button>
-            
-          </div>
-        </div>
-      )}
     </div>
   );
 }
