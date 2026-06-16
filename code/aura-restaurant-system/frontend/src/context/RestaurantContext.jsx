@@ -107,18 +107,7 @@ function loadInitialState() {
   return INITIAL_STATE;
 }
 
-// Read the current walk-in sessionId that was stored on login.
-function getSessionId() {
-  try {
-    const stored = localStorage.getItem('authUser');
-    return stored ? (JSON.parse(stored)?.walkInSessionId ?? null) : null;
-  } catch {
-    return null;
-  }
-}
-
 function normalizeBackendOrder(raw) {
-  const paid = raw.status === 'PAID';
   return {
     id: raw.orderId,
     tableNumber: raw.tableId != null ? `T${raw.tableId}` : 'T?',
@@ -133,11 +122,11 @@ function normalizeBackendOrder(raw) {
     })),
     status: raw.status,
     total: raw.totalAmount || 0,
-    isPaid: paid,
+    isPaid: false,
     isAddon: false,
     createdAt: raw.orderTime ? new Date(raw.orderTime) : new Date(),
     deliveredAt: raw.deliveredAt ? new Date(raw.deliveredAt) : null,
-    paidAt: paid ? new Date() : null,
+    paidAt: null,
   };
 }
 
@@ -259,14 +248,11 @@ useEffect(() => {
 }, []); // ← empty deps — once only, never re-registers
 
 
-  // ── Load orders for the current walk-in session only ─────────────────────
+  // ── Load all active orders from backend on mount ──────────────────────────
   useEffect(() => {
     const loadOrders = async () => {
       try {
-        const sessionId = getSessionId();
-        const backendOrders = sessionId
-          ? await orderAPI.getOrdersBySession(sessionId)
-          : await orderAPI.getAllOrders();
+        const backendOrders = await orderAPI.getAllOrders();
         const normalized = backendOrders.map(normalizeBackendOrder);
         dispatch({ type: 'SET_ORDERS', payload: { orderHistory: normalized } });
       } catch (error) {
@@ -343,9 +329,7 @@ useEffect(() => {
   /**
    * All in-flight orders across tables — displayed on KDS.
    */
-  const activeOrders = state.orderHistory.filter(
-    (o) => o.status !== ORDER_STATUS.DELIVERED && o.status !== ORDER_STATUS.PAID && !o.isPaid
-  );
+  const activeOrders = state.orderHistory.filter((o) => o.status !== ORDER_STATUS.DELIVERED);
 
   // ── Mutators ──────────────────────────────────────────────────────────────
   
@@ -434,22 +418,19 @@ const placeOrder = useCallback(async (tableNumber, items, walkInSessionId = null
   //   }
   // }, [state.orderHistory]);
   const refreshOrders = useCallback(async () => {
-    try {
-      const sessionId = getSessionId();
-      const backendOrders = sessionId
-        ? await orderAPI.getOrdersBySession(sessionId)
-        : await orderAPI.getAllOrders();
-      const normalized = backendOrders.map(normalizeBackendOrder);
-      const existing = state.orderHistory;
-      const merged = normalized.map((incoming) => {
-        const old = existing.find(o => o.id === incoming.id);
-        return old?.isPaid ? { ...incoming, isPaid: true, paidAt: old.paidAt } : incoming;
-      });
-      dispatch({ type: 'SET_ORDERS', payload: { orderHistory: merged } });
-    } catch (error) {
-      console.warn('[AURA] Failed to refresh orders:', error.message);
-    }
-  }, [state.orderHistory]);
+  try {
+    const backendOrders = await orderAPI.getAllOrders();
+    const normalized = backendOrders.map(normalizeBackendOrder);
+    const existing = state.orderHistory;
+    const merged = normalized.map((incoming) => {
+      const old = existing.find(o => o.id === incoming.id);
+      return old?.isPaid ? { ...incoming, isPaid: true, paidAt: old.paidAt } : incoming;
+    });
+    dispatch({ type: 'SET_ORDERS', payload: { orderHistory: merged } });
+  } catch (error) {
+    console.warn('[AURA] Failed to refresh orders:', error.message);
+  }
+}, [state.orderHistory]);
 
   const markTablePaid = useCallback(async (tableNumber) => {
     try {

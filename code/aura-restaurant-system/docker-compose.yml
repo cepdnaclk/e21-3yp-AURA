@@ -6,11 +6,18 @@ services:
       dockerfile: Dockerfile
     container_name: aura_backend
     restart: on-failure
-    env_file:
-      - .env
     ports:
       - "8080:8080"
-    # All config comes from .env via application.yml — nothing hardcoded here.
+    environment:
+      # AWS RDS Cloud Database Settings (Linked from .env)
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - JWT_SECRET=${JWT_SECRET}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
 
   # ── Frontend Service (React/Vite) ───────────────────────────────────────────
   frontend:
@@ -23,17 +30,17 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - CHOKIDAR_USEPOLLING=true
+      - CHOKIDAR_USEPOLLING=true 
     command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
-
+  
   # ── MQTT Broker (Mosquitto) ─────────────────────────────────────────────────
   mosquitto:
     image: eclipse-mosquitto
     container_name: aura_mosquitto
     restart: always
     ports:
-      - "1883:1883"
-      - "9001:9001"
+      - "1883:1883" 
+      - "9001:9001" 
     volumes:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data

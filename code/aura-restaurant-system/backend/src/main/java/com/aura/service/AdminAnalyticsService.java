@@ -2,7 +2,8 @@ package com.aura.service;
 
 import com.aura.dto.admin.AdminStatsResponse;
 import com.aura.dto.admin.RevenueResponse;
-
+import com.aura.dto.admin.StaffResponse;
+import java.util.List;
 public interface AdminAnalyticsService {
 
     /**
@@ -19,4 +20,5 @@ public interface AdminAnalyticsService {
      * @param status  payment status string (e.g. "paid", "pending")
      */
     RevenueResponse getRevenue(String status);
+    List<StaffResponse> getStaffList();
 }
