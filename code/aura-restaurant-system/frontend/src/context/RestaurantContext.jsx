@@ -329,9 +329,7 @@ useEffect(() => {
   /**
    * All in-flight orders across tables — displayed on KDS.
    */
-  const activeOrders = state.orderHistory.filter(
-    (o) => o.status !== ORDER_STATUS.DELIVERED && o.status !== ORDER_STATUS.PAID && !o.isPaid
-  );
+  const activeOrders = state.orderHistory.filter((o) => o.status !== ORDER_STATUS.DELIVERED);
 
   // ── Mutators ──────────────────────────────────────────────────────────────
   

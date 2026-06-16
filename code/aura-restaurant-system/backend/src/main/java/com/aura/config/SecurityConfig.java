@@ -47,7 +47,6 @@ public class SecurityConfig {
             "/api/ratings/**",
             "/api/walk-in-sessions/**",
             "/api/waiter/**",
-            "/api/payments/**",   // payment flows — cash, initiate, bill, callback
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/v3/api-docs/**",
@@ -68,7 +67,6 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                 .requestMatchers("/api/images/**").permitAll()
-                // Note: /api/payments/callback is now covered by /api/payments/** above
                 // Kitchen role — update order status only
                 //.requestMatchers("/api/orders/*/status").hasAnyRole("KITCHEN", "ADMIN","TABLE")
                 // Staff role — payments and table management

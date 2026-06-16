@@ -162,8 +162,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderResponse> getAllOrders() {
-        LocalDateTime startOfToday = LocalDateTime.now().toLocalDate().atStartOfDay();
-        return orderRepository.findActiveOrders(startOfToday).stream()
+        return orderRepository.findAll().stream()
                 .map(order -> buildResponse(order, orderItemRepository.findByOrderOrderId(order.getOrderId())))
                 .collect(Collectors.toList());
     }
