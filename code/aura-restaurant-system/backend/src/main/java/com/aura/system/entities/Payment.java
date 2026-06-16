@@ -33,4 +33,7 @@ public class Payment {
 
     @Column(name = "payment_time")
     private LocalDateTime paymentTime;
+
+    @Column(name = "transaction_id")
+    private String transactionId;
 }

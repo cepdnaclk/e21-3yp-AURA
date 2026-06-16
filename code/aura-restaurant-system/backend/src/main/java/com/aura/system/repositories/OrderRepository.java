@@ -73,5 +73,11 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
         @Param("status") String status
     );
 
-    
+     @Query("SELECT o FROM Order o WHERE o.table.tableId = :tableId " +
+           "AND o.orderTime >= :startOfDay " +
+           "AND o.status <> 'PAID' AND o.status <> 'CANCELLED'")
+    List<Order> findActiveByTableId(
+        @Param("tableId") Integer tableId,
+        @Param("startOfDay") LocalDateTime startOfDay
+    );
 }
