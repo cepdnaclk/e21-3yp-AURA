@@ -20,6 +20,19 @@
 		<lombok.version>1.18.42</lombok.version>
 	</properties>
 
+	<!-- ✅ NEW: spring-dotenv BOM — version එක එක තැනකින් manage කරනවා -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>me.paulschwarz</groupId>
+				<artifactId>spring-dotenv-bom</artifactId>
+				<version>5.1.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 
 		<!-- Dev tools — auto restart on code change (only active in dev) -->
@@ -27,6 +40,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- ✅ NEW: .env file එක automatically read කරනවා (Spring Boot 4 සඳහා) -->
+		<dependency>
+			<groupId>me.paulschwarz</groupId>
+			<artifactId>springboot4-dotenv</artifactId>
 			<optional>true</optional>
 		</dependency>
 
@@ -85,8 +105,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- Lombok — reduces boilerplate (@Getter, @Builder etc.)
-		     Only one declaration kept — duplicate removed -->
+		<!-- Lombok — reduces boilerplate (@Getter, @Builder etc.) -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -123,28 +142,21 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- MQTT Paho Client (duplicate අයින් කරලා — එක declaration විතරයි) -->
 		<dependency>
 			<groupId>org.eclipse.paho</groupId>
 			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
 			<version>1.2.5</version>
 		</dependency>
-
-		<!-- MQTT Paho Client -->
 		<dependency>
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-mqtt</artifactId>
 		</dependency>
-		
+
 		<!-- WebSocket -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.eclipse.paho</groupId>
-			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-			<version>1.2.5</version>
 		</dependency>
 
 	</dependencies>
