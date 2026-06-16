@@ -17,6 +17,7 @@ public class Payment {
     @Column(name = "payment_id")
     private Integer paymentId;
 
+    // FK → orders.order_id  (relationship: ORDER generates PAYMENT)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
@@ -24,14 +25,11 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private Float amount;
 
-    @Column(name = "payment_method", nullable = false, length = 20)
+    @Column(name = "payment_method")
     private String paymentMethod;
 
-    @Column(name = "payment_status", nullable = false, length = 20)
+    @Column(name = "payment_status")
     private String paymentStatus;
-
-    @Column(name = "transaction_id", length = 100)
-    private String transactionId;
 
     @Column(name = "payment_time")
     private LocalDateTime paymentTime;
