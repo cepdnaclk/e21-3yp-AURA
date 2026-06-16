@@ -30,12 +30,10 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.initiatePayHere(orderId));
     }
 
-    // PayHere initiate — specific orders for a table (orderIds from frontend session filter)
+    // PayHere initiate — all unpaid orders for a table combined
     @PostMapping("/initiate/table/{tableId}")
-    public ResponseEntity<PayHereInitResponse> initiatePayHereForTable(
-            @PathVariable Integer tableId,
-            @RequestBody(required = false) List<Integer> orderIds) {
-        return ResponseEntity.ok(paymentService.initiatePayHereForTable(tableId, orderIds));
+    public ResponseEntity<PayHereInitResponse> initiatePayHereForTable(@PathVariable Integer tableId) {
+        return ResponseEntity.ok(paymentService.initiatePayHereForTable(tableId));
     }
 
     // PayHere callback — PayHere gateway calls this automatically after payment

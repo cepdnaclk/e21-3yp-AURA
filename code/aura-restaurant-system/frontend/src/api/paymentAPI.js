@@ -8,12 +8,9 @@ const paymentAPI = {
     return response.data;
   },
 
-  // PayHere initiate — only the specific orders passed from the frontend session
-  initiatePayHereForTable: async (tableId, orderIds) => {
-    const response = await axiosInstance.post(
-      `/payments/initiate/table/${tableId}`,
-      orderIds ?? null
-    );
+  // PayHere initiate — combined total of all unpaid orders for a table
+  initiatePayHereForTable: async (tableId) => {
+    const response = await axiosInstance.post(`/payments/initiate/table/${tableId}`);
     return response.data;
   },
 

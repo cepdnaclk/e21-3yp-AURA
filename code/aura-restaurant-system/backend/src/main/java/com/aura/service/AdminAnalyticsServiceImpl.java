@@ -7,7 +7,11 @@ import com.aura.system.repositories.PaymentRepository;
 //import com.aura.service.AdminAnalyticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.aura.dto.admin.StaffResponse;
+import com.aura.system.repositories.StaffRepository;
+import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class AdminAnalyticsServiceImpl implements AdminAnalyticsService {
@@ -16,6 +20,7 @@ public class AdminAnalyticsServiceImpl implements AdminAnalyticsService {
 
     private final OrderRepository   orderRepository;
     private final PaymentRepository paymentRepository;
+    private final StaffRepository   staffRepository;
 
     @Override
     public AdminStatsResponse getStats() {
@@ -71,5 +76,27 @@ public class AdminAnalyticsServiceImpl implements AdminAnalyticsService {
     /** Rounds to 2 decimal places for clean JSON output. */
     private double round(double value) {
         return Math.round(value * 100.0) / 100.0;
+    }
+
+    // Add @Transactional to fix LazyInitializationException
+    @Override
+    @Transactional(readOnly = true)
+    public List<StaffResponse> getStaffList() {
+        return staffRepository.findAll().stream()
+                .map(staff -> {
+                    var account = staff.getAccount();
+                    // If account is null, we safely return defaults instead of crashing
+                    return StaffResponse.builder()
+                            .id(staff.getId())
+                            .username(account != null ? account.getUsername() : "No Username")
+                            .firstName(staff.getFirstName() != null ? staff.getFirstName() : "")
+                            .lastName(staff.getLastName() != null ? staff.getLastName() : "")
+                            .email(staff.getEmail() != null ? staff.getEmail() : "")
+                            .phone(staff.getPhone() != null ? staff.getPhone() : "")
+                            .role(account != null && account.getRole() != null ? account.getRole().name() : "NONE")
+                            .active(account != null && account.isActive())
+                            .build();
+                })
+                .toList();
     }
 }

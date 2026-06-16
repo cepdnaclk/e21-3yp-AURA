@@ -20,16 +20,13 @@ import org.springframework.integration.channel.PublishSubscribeChannel;
 
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
-@EnableIntegration
+@EnableIntegration   //  ADDED — activates Spring Integration channels
 @IntegrationComponentScan
 public class MqttConfig {
 
-    @Value("${mqtt.broker-url:tcp://mosquitto:1883}")
-    private String brokerUrl;
-
+    private static final String BROKER_URL = "tcp://mosquitto:1883";
     private static final String CLIENT_ID_IN  = "aura-server-inbound";
     private static final String CLIENT_ID_OUT = "aura-server-outbound";
 
@@ -44,7 +41,7 @@ public class MqttConfig {
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
         MqttConnectOptions options = new MqttConnectOptions();
-        options.setServerURIs(new String[]{brokerUrl});
+        options.setServerURIs(new String[]{BROKER_URL});
         options.setCleanSession(true);
         options.setAutomaticReconnect(true);
         factory.setConnectionOptions(options);

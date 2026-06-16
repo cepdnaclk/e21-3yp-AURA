@@ -3,22 +3,18 @@ spring:
     name: aura-restaurant-system
 
   # ── Database ────────────────────────────────────────────────────────────────
-  # DB_URL / DB_USERNAME / DB_PASSWORD come from the .env file.
-  # Local fallback → localhost postgres; Docker/AWS → value from .env.
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/aura_db}
-    username: ${DB_USERNAME:aura_user}
-    password: ${DB_PASSWORD:aura_password}
+    # Docker environment variables හරහා අගයන් නොලැබුණහොත් ක්‍රියාත්මක වන Fallback අගයන්:
+    url: ${DB_URL:jdbc:postgresql://aura-db-instance.c1goeg2quej5.ap-south-1.rds.amazonaws.com:5432/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:'aura-database-pwd#17'}  # මෙහි Quotes යෙදීම අනිවාර්ය වේ
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      # 'update' lets Hibernate keep the schema in sync without failing on
-      # minor drifts. Flyway handles all structured migrations on top of this.
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
 
@@ -27,49 +23,22 @@ spring:
     enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true
-    # Skip strict checksum validation so missing intermediate versions
-    # (V1, V2, V4-V7) in flyway_schema_history don't crash startup.
-    validate-on-migrate: false
-
-  # ── File Upload Limits ───────────────────────────────────────────────────────
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
 
 server:
   port: 8080
 
-# ── JWT ──────────────────────────────────────────────────────────────────────
-# Production: set JWT_SECRET in .env (Docker) or system environment.
-# The fallback below is for local development only — never use it in production.
+  # ── File Upload Limits ──────────────────────────────────────────────────────
+  servlet:
+    multipart:
+      max-file-size: 50MB      # Maximum file size per upload
+      max-request-size: 50MB   # Maximum request size (including multiple files)
+
+# ── JWT (Authentication Tokens) ─────────────────────────────────────────────
 jwt:
-  secret: ${JWT_SECRET:rDLOOomL/bx2YuyK+FaNQvhAA1bpG59DyHe414pHh/I=}
+  secret: ${JWT_SECRET}
   expiry: 86400000
 
-# ── Cloudinary (Image Storage) ───────────────────────────────────────────────
-cloudinary:
-  cloud-name: ${CLOUDINARY_CLOUD_NAME}
-  api-key: ${CLOUDINARY_API_KEY}
-  api-secret: ${CLOUDINARY_API_SECRET}
-
-# ── PayHere (Payment Gateway) ────────────────────────────────────────────────
-# sandbox: true  → test mode (no real money)
-# sandbox: false → live mode (real payments)
-payhere:
-  merchant:
-    id: ${PAYHERE_MERCHANT_ID:1236299}
-    secret: ${PAYHERE_MERCHANT_SECRET:MzI0NDA5MjcxOTMzNzcwNDU3MzYyOTY5MzU4ODk0NDA0MjQ1MzI2NA==}
-  sandbox: ${PAYHERE_SANDBOX:true}
-
-# ── MQTT Broker ───────────────────────────────────────────────────────────────
-# Inside Docker  → tcp://mosquitto:1883  (Docker service name)
-# Local dev      → tcp://localhost:1883
-# Override via MQTT_BROKER_URL in .env
-mqtt:
-  broker-url: ${MQTT_BROKER_URL:tcp://mosquitto:1883}
-
-# ── Swagger UI ───────────────────────────────────────────────────────────────
+# ── Swagger UI (API Documentation) ──────────────────────────────────────────
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
