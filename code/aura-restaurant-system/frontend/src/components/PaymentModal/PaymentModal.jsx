@@ -1,28 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { X, CreditCard, Banknote, CheckCircle2, Loader2 } from 'lucide-react';
 import paymentAPI from '../../api/paymentAPI';
 import waiterAPI from '../../api/waiterAPI';
-import { useRestaurant } from '../../context/RestaurantContext';
 
-export default function PaymentModal({ tableId, tableNumber, onClose, theme, onCashWaiterCalled }) {
+export default function PaymentModal({ tableId, tableNumber, onClose, theme, onCashWaiterCalled, orders }) {
   const D = theme === 'dark';
-  const { getUnpaidOrders, getUnpaidTotal, markTablePaid } = useRestaurant();
 
-  const unpaidOrders  = getUnpaidOrders(tableNumber);
-  const totalAmount   = getUnpaidTotal(tableNumber);
+  const unpaidOrders = orders ?? [];
+  const totalAmount  = unpaidOrders.reduce((s, o) => s + (o.total || 0), 0);
 
-  const [loading, setLoading]       = useState(false);
-  const [success, setSuccess]       = useState(false);
+  const [loading, setLoading]           = useState(false);
+  const [success]                       = useState(false);
   const [cashRequested, setCashRequested] = useState(false);
-  const [error, setError]           = useState('');
-  const [bill, setBill]             = useState(null);
-
-  // Bill load
-  useEffect(() => {
-    paymentAPI.getBillByTable(tableId)
-      .then(setBill)
-      .catch(() => {}); // bill না থাকলে skip
-  }, [tableId]);
+  const [error, setError]               = useState('');
 
   // ── Colour helpers (matches RobotUI tc pattern) ──
   const tc = {
@@ -117,7 +107,8 @@ export default function PaymentModal({ tableId, tableNumber, onClose, theme, onC
     setLoading(true);
     setError('');
     try {
-      const data = await paymentAPI.initiatePayHereForTable(tableId);
+      const orderIds = unpaidOrders.map(o => o.id);
+      const data = await paymentAPI.initiatePayHereForTable(tableId, orderIds);
 
       const checkoutUrl = data.sandbox
         ? 'https://sandbox.payhere.lk/pay/checkout'
