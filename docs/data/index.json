@@ -22,9 +22,13 @@
         }],
     "supervisors": [
         {
-            "name": "Ms. Yasodha Vimukthi",
+            "name": "Mr. Thilina Gunarathne",
             "email": "yasodhav@eng.pdn.ac.lk"
+        },
+        {
+	    "name": "Ms. Yasodha Vimukthi",
+            "email": "thilinag@eng.pdn.ac.lk"
         }
     ],
-    "tags": ["Web", "Embedded Systems","java","reactjs","robot"]
+    "tags": ["Web", "Embedded Systems","java","reactjs","robot","AI","Security"]
 }
