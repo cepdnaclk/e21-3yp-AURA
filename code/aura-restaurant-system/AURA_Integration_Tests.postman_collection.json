@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "a4d334e3-3e12-421c-92b1-123456789abc",
+		"name": "AURA Full Integration Flow (10 Tests)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Register Customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 201 Created or 409 Already Exists\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 400, 409]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser_integration\",\n    \"password\": \"password123\",\n    \"firstName\": \"Test\",\n    \"lastName\": \"User\",\n    \"email\": \"test@aurarestaurant.tech\",\n    \"phone\": \"0771234567\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/register",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			}
+		},
+		{
+			"name": "2. Login Customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Save Token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('token');",
+							"    pm.environment.set(\"jwt_token\", jsonData.token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser_integration\",\n    \"password\": \"password123\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/auth/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			}
+		},
+		{
+			"name": "3. Get Menu",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Menu has items\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"    pm.environment.set(\"first_menu_item_id\", jsonData[0].menuItemId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/menu",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"menu"
+					]
+				}
+			}
+		},
+		{
+			"name": "4. Place Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Order successfully placed (201)\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Save Order ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('orderId');",
+							"    pm.environment.set(\"order_id\", jsonData.orderId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tableId\": 1,\n    \"items\": [\n        {\n            \"menuItemId\": {{first_menu_item_id}},\n            \"quantity\": 2,\n            \"customization\": \"Less spicy\"\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/orders",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			}
+		},
+		{
+			"name": "5. Verify Placed Order By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Order matches created ID and is PENDING\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.orderId).to.eql(pm.environment.get(\"order_id\"));",
+							"    pm.expect(jsonData.status).to.eql(\"PENDING\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+				],
+				"url": {
+					"raw": "{{base_url}}/orders/{{order_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders",
+						"{{order_id}}"
+					]
+				}
+			}
+		},
+		{
+			"name": "6. Kitchen Updates Order Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status updated to PREPARING (200 OK)\", function () {",
+							"    pm.response.to.have.status(200);",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"PREPARING\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"PREPARING\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/orders/{{order_id}}/status",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"orders",
+						"{{order_id}}",
+						"status"
+					]
+				}
+			}
+		},
+		{
+			"name": "7. Call Waiter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tableId\": 1,\n    \"tableNumber\": \"Table 1\",\n    \"message\": \"Need more napkins please\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/waiter/call",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"waiter",
+						"call"
+					]
+				}
+			}
+		},
+		{
+			"name": "8. Submit Order Feedback",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Feedback created (201 Created)\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{ "key": "Content-Type", "value": "application/json" },
+					{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderId\": {{order_id}},\n    \"rating\": 5\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/feedback",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"feedback"
+					]
+				}
+			}
+		},
+		{
+			"name": "9. Get Feedback Summary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Summary has ratings\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('averageRating');",
+							"    pm.expect(jsonData).to.have.property('totalCount');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/feedback/summary",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"feedback",
+						"summary"
+					]
+				}
+			}
+		},
+		{
+			"name": "10. Check Available Table Reservations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200 OK\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/reservations/available?date=2026-09-20&partySize=2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"reservations",
+						"available"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2026-09-20"
+						},
+						{
+							"key": "partySize",
+							"value": "2"
+						}
+					]
+				}
+			}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://www.aurarestaurant.tech/api",
+			"type": "string"
+		}
+	]
+}
