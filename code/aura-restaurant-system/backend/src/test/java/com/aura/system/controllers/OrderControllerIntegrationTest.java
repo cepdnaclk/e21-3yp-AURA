@@ -143,7 +143,6 @@ class OrderControllerIntegrationTest {
         OrderResponse o1 = OrderResponse.builder().orderId(1).tableId(2).status("PENDING").build();
         OrderResponse o2 = OrderResponse.builder().orderId(2).tableId(2).status("PREPARING").build();
 
-        when(orderService.getActiveOrdersByTable(2)).thenReturn(List.of(o1, o2));
         when(orderService.getOrdersByTable(2)).thenReturn(List.of(o1, o2));
 
         mockMvc.perform(get("/api/orders/table/2"))
@@ -152,7 +151,6 @@ class OrderControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].orderId").value(1))
                 .andExpect(jsonPath("$[1].orderId").value(2));
 
-        verify(orderService).getActiveOrdersByTable(2);
         verify(orderService).getOrdersByTable(2);
     }
 }
